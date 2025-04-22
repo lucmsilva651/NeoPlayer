@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut } from "electron";
+import { app, BrowserWindow, globalShortcut, ipcMain, dialog } from "electron";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -10,10 +10,12 @@ app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 app.whenReady().then(() => {
   const win = new BrowserWindow({
     width: 600,
-    height: 480,
+    height: 345,
     resizable: false,
     maximizable: false,
+    icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     webPreferences: {
+      preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
@@ -24,7 +26,7 @@ app.whenReady().then(() => {
       titleBarOverlay: {
         color: '#131313',
         symbolColor: '#ffffff',
-        height: 35
+        height: 40
       },
     } : {}),
   });
@@ -47,5 +49,13 @@ app.whenReady().then(() => {
 
   app.on("window-all-closed", () => {
     if (process.platform !== "darwin") app.quit();
+  });
+});
+
+ipcMain.handle('moduleMsgDialog', async (event, moduleMsg) => {
+  await dialog.showMessageBox({
+    type: 'info',
+    title: 'Module text/instruments',
+    message: moduleMsg
   });
 });

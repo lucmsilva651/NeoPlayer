@@ -1,13 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&family=Boldonse");
+@import url("https://fonts.googleapis.com/css2?family=Boldonse");
+@import url("https://cdn.jsdelivr.net/npm/office-ui-fabric-core@11.1.0/dist/css/fabric.min.css");
+@import url("https://cdn.jsdelivr.net/npm/segoe-fonts@1.0.1/segoe-fonts.min.css");
 
 * {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
   background-color: #0d0d0d;
   color: #ffffff;
   margin: 0;
+  overflow: hidden;
 }
 
 .logo {
@@ -16,32 +19,35 @@ body {
 }
 
 .titlebar {
-  justify-content: space-between;
-  padding: 0 15px;
   background-color: #131313;
-  color: #ffffff;
-  height: 35px;
+  padding: 0 1px;
+  height: 40px;
   display: flex;
   position: relative;
-  user-select: none;
   align-items: center;
-  app-region: drag;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  border-bottom: 1px solid #ffffff;
 }
 
 .titlebar i {
-  font-size: 24px;
-  user-select: initial;
-  app-region: no-drag;
-}
-
-.toolbar-item div:hover {
-  background-color: #323232;
-}
-
-.toolbar-item {
+  width: 44px;
+  height: 39px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 15px;
+  justify-content: center;
+  transition: 150ms;
+  font-size: 12.6px;
+  user-select: initial;
+  -webkit-user-select: initial;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar i:hover {
+  transition: 150ms;
+  background-color: #323232;
 }
 
 .toolbar-center {
@@ -51,12 +57,21 @@ body {
   white-space: nowrap;
 }
 
-.titlebar-separator {
-  width: 100vw;
-  background-color: #6565ff;
-  height: 1px;
+main, footer {
+  padding: 5px 20px;
 }
 
-main {
-  padding: 1em 2em;
+footer {
+  background-color: #131313;
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  line-height: .35;
+  font-size: 12px;
+  border-top: 1px solid #ffffff;
+}
+
+footer a {
+  text-decoration: none;
+  color: #ffffff;
 }

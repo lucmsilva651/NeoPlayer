@@ -4,36 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="app.css">
-  <title>NeoPlayer</title>
+  <title>NeoPlayer Alpha</title>
 </head>
 <body>
   <div class="titlebar">
-    <span class="logo toolbar-center">
-      NeoPlayer <span id="appVersion"></span>
-    </span>
-    <div class="toolbar-item">
-      <div id="ppToggle" class="toolbar-item">
-        <i class="material-symbols-outlined">play_pause</i>
-      </div>
-      <div id="stopBtn" class="toolbar-item">
-        <i class="material-symbols-outlined">stop</i>
-      </div>
-    </div>
-  </div>
-  <div class="titlebar-separator">
-    <span></span>
+    <i id="ppToggle" class="ms-Icon ms-Icon--Play" aria-hidden="true" title="Play/Pause"></i>
+    <i id="stopBtn" class="ms-Icon ms-Icon--Stop" aria-hidden="true" title="Stop"></i>
+    <span class="logo toolbar-center">NeoPlayer Alpha</span>
   </div>
   <main>
     <div class="content">
+      <p>Insert url to resource below or drag and drop module to window </p>
+      <input autocomplete="off" type="url" id="url" required placeholder="https://" />
+      <button id="play">Play</button>
       <ul>
         <li>Now playing: <span id="modTitle"></span></li>
         <li>Duration: <span id="modDur"></span></li>
         <li>Type: <span id="modType"></span></li>
         <li>Tracker: <span id="modTracker"></span></li>
-        <li></li>
       </ul>
+      <button id="moduleMsgBtn">Show module text/instruments</button>
     </div>
   </main>
+  <footer>
+    <p>NeoPlayer Alpha is &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://github.com/lucmsilva651">Lucas Gabriel (lucmsilva).</a></p>
+    <p>Using Office UI Fabric Core Icons and Segoe UI - &copy; <a href="https://microsoft.com/">Microsoft</a>.</p>
+  </footer>
   <script type="module" src="app.js"></script>
 </body>
 </html>

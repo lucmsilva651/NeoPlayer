@@ -1,6 +1,7 @@
 {
   "name": "neoplayer",
-  "version": "1.0.0",
+  "packageName": "NeoPlayer",
+  "version": "0.0.1",
   "author": "Lucas Gabriel (lucmsilva)",
   "main": "main.js",
   "module": "main.js",
@@ -8,31 +9,14 @@
   "description": "Module player built on Electron",
   "license": "BSD-3-Clause",
   "scripts": {
-    "start": "nodemon --watch . --ignore node_modules --exec \"electron .\"",
-    "build": "electron-builder"
+    "start": "nodemon --watch . --ignore node_modules --exec \"electron .\""
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "electron-builder": "^26.0.12",
     "electron": "^35.2.0",
     "nodemon": "^3.1.9"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  },
-  "build": {
-    "appId": "br.lucmsilva.neoplayer",
-    "productName": "NeoPlayer",
-    "files": [
-      "app/**/*",
-      "main.js",
-      "preload.js",
-      "package.json",
-      "!jsconfig.json"
-    ],
-    "win": {
-      "target": "nsis",
-      "icon": "assets/icon.ico"
-    }
   }
 }
