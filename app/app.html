@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <title>NeoPlayer</title>
+</head>
+<body>
+  <div class="titlebar">
+    <span class="logo">
+      NeoPlayer <span id="appVersion"></span>
+    </span>
+    <div class="toolbar-item">
+      <div id="ppToggle" class="toolbar-item">
+        <i class="material-symbols-outlined">play_pause</i>
+      </div>
+      <div id="stopBtn" class="toolbar-item">
+        <i class="material-symbols-outlined">stop</i>
+      </div>
+    </div>
+  </div>
+  <div class="titlebar-separator">
+    <span></span>
+  </div>
+  <main>
+    <div class="content">
+      <ul>
+        <li>Now playing: <span id="modTitle"></span></li>
+        <li>Duration: <span id="modDur"></span></li>
+        <li>Type: <span id="modType"></span></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </main>
+  <script>
+    window.ipcRenderer.getVersion((event, data) => {
+      document.getElementById('appVersion').innerText = data;
+    });
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

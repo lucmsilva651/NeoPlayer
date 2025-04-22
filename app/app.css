@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&family=Boldonse");
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #ffffff;
+  margin: 0;
+}
+
+.logo {
+  font-family: "Boldonse", sans-serif;
+  font-size: small;
+}
+
+.titlebar {
+  justify-content: space-between;
+  padding: 0 100px 0 10px;
+  background-color: #131313;
+  color: #ffffff;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  position: relative;
+  user-select: none;
+  align-items: center;
+  app-region: drag;
+}
+
+.titlebar i {
+  font-size: 24px;
+  user-select: initial;
+  app-region: no-drag;
+}
+
+.toolbar-item div:hover {
+  background-color: #323232;
+}
+
+.toolbar-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.titlebar-separator {
+  width: 100vw;
+  background-color: #6565ff;
+  height: 1px;
+}
+
+main {
+  padding: 1em 2em;
+}
