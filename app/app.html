@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <title>NeoPlayer</title>
 </head>
 <body>
   <div class="titlebar">
-    <span class="logo">
+    <span class="logo toolbar-center">
       NeoPlayer <span id="appVersion"></span>
     </span>
     <div class="toolbar-item">
@@ -30,16 +29,11 @@
         <li>Now playing: <span id="modTitle"></span></li>
         <li>Duration: <span id="modDur"></span></li>
         <li>Type: <span id="modType"></span></li>
-        <li></li>
+        <li>Tracker: <span id="modTracker"></span></li>
         <li></li>
       </ul>
     </div>
   </main>
-  <script>
-    window.ipcRenderer.getVersion((event, data) => {
-      document.getElementById('appVersion').innerText = data;
-    });
-  </script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

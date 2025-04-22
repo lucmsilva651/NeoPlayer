@@ -7,7 +7,6 @@ const stopBtn = document.getElementById("stopBtn");
 const modTitle = document.getElementById("modTitle");
 const modDur = document.getElementById("modDur");
 const modType = document.getElementById("modType");
-const toolbarCenter = document.getElementById("toolbarCenter");
 const modTracker = document.getElementById("modTracker");
 
 function fmtMSS(seconds) {
@@ -50,7 +49,6 @@ chiplib.onMetadata(async (meta) => {
   modTitle.innerText = meta.title || "Untitled";
   modType.innerText = modTypeStr;
   modDur.innerText = modDurStr
-  modProgress.width = `${Number(meta.dur.round())}vw`;
   modTracker.innerText = meta.tracker || "Unknown";
 });
 

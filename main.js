@@ -24,7 +24,7 @@ app.whenReady().then(() => {
       titleBarOverlay: {
         color: '#131313',
         symbolColor: '#ffffff',
-        height: 30
+        height: 35
       },
     } : {}),
   });
