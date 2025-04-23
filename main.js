@@ -10,7 +10,7 @@ app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 app.whenReady().then(() => {
   const win = new BrowserWindow({
     width: 600,
-    height: 335,
+    height: 410,
     resizable: false,
     maximizable: false,
     center: true,
@@ -31,6 +31,16 @@ app.whenReady().then(() => {
       // devTools: false,
     }
   });
+  
+  win.loadFile(join(__dirname, 'app/app.html'));
+
+  win.on('maximize', () => {
+    win.webContents.send('window-maximized', true);
+  });
+  
+  win.on('unmaximize', () => {
+    win.webContents.send('window-maximized', false);
+  });
 
   app.on('browser-window-focus', function () {
     globalShortcut.register("CommandOrControl+R", () => { return false });
@@ -42,8 +52,6 @@ app.whenReady().then(() => {
     globalShortcut.unregister('F5');
   });
 
-  win.loadFile(join(__dirname, 'app/app.html'));
-
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
@@ -54,6 +62,15 @@ app.whenReady().then(() => {
 
   ipcMain.on('minimize', () => win.minimize());
   ipcMain.on('close', () => win.close());
+  ipcMain.handle('toggle-maximize', () => {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (!focusedWindow) return;
+    if (focusedWindow.isMaximized()) {
+      focusedWindow.unmaximize();
+    } else {
+      focusedWindow.maximize();
+    }
+  });  
 });
 
 ipcMain.handle('moduleMsgDialog', async (event, moduleMsg) => {

@@ -20,7 +20,7 @@ body {
 
 .titlebar {
   background-color: #131313;
-  height: 48px;
+  height: 36px;
   display: flex;
   position: relative;
   align-items: center;
@@ -32,7 +32,7 @@ body {
 
 .titlebar i {
   width: 45px;
-  height: 48px;
+  height: 35px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -60,8 +60,8 @@ body {
   white-space: nowrap;
 }
 
-.icn-10px {
-  font-size: 10px !important;
+.icn-11px {
+  font-size: 11px !important;
 }
 
 .mod-details {

@@ -15,6 +15,7 @@ const loopToggle = document.getElementById("loopToggle");
 const modDetails = document.getElementById("modDetails");
 const closeBtn = document.getElementById("closeBtn");
 const minimizeBtn = document.getElementById("minimizeBtn");
+const maximizeBtn = document.getElementById("maximizeBtn");
 
 let modMeta = "";
 
@@ -25,6 +26,16 @@ const apiDownload = "https://api.modarchive.org/downloads.php?moduleid="
 
 function moduleMsg(msg) {
   window.api.openDialog(msg);
+}
+
+function updateMaximizeIcon(isMaximized) {
+  if (isMaximized) {
+    maximizeBtn.classList.remove("ms-Icon--SquareShape");
+    maximizeBtn.classList.add("ms-Icon--ChromeRestore");
+  } else {
+    maximizeBtn.classList.remove("ms-Icon--ChromeRestore");
+    maximizeBtn.classList.add("ms-Icon--SquareShape");
+  }
 }
 
 function fmtMSS(seconds) {
@@ -50,6 +61,10 @@ function showElements() {
   modDetails.style.display = "initial";
   moduleMsgBtn.style.display = "initial";
 }
+
+window.api.onWindowMaximized((isMaximized) => {
+  updateMaximizeIcon(isMaximized);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   hideElements();
@@ -127,11 +142,7 @@ document.body.onkeyup = function (btn) {
 };
 
 playBtn.addEventListener("click", () => {
-  chiplib.unpause();
-});
-
-pauseBtn.addEventListener("click", () => {
-  chiplib.pause();
+  chiplib.togglePause()
 });
 
 loopToggle.addEventListener("click", () => {
@@ -145,6 +156,10 @@ moduleMsgBtn.addEventListener("click", () => {
 
 minimizeBtn.addEventListener('click', () => {
   window.api.minimize();
+});
+
+maximizeBtn.addEventListener('click', () => {
+  window.api.maximizeToggle();
 });
 
 closeBtn.addEventListener('click', () => {
