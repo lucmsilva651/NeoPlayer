@@ -50,8 +50,6 @@ body {
 .logo {
   font-family: var(--font-family-logo);
   font-size: var(--font-size-small);
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
 }
 
 .titlebar {
