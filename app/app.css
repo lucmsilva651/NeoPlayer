@@ -152,17 +152,25 @@ button:active {
 
 footer {
   background-color: #131313;
-  width: 100vw;
+  width: 100%;
   position: absolute;
   bottom: 0;
-  line-height: 0.35;
   font-size: 12px;
-  padding: 2px 15px;
+  padding: 4px 15px;
   border-top: 1px solid #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+footer p {
+  margin: 0;
+  white-space: nowrap;
 }
 
 footer a {
-  text-decoration: none;
   color: #ffffff;
 }
 
