@@ -19,7 +19,6 @@ body {
 
 .titlebar {
   background-color: #131313;
-  padding: 0 90px 0 1px;
   height: 48px;
   display: flex;
   position: relative;
@@ -31,14 +30,14 @@ body {
 }
 
 .titlebar i {
-  width: 44px;
-  height: 47px;
+  width: 45px;
+  height: 48px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   transition: 150ms;
-  font-size: 12.6px;
+  font-size: 13px;
   user-select: initial;
   -webkit-user-select: initial;
   -webkit-app-region: no-drag;
@@ -60,8 +59,16 @@ body {
   white-space: nowrap;
 }
 
+.icn-10px {
+  font-size: 10px !important;
+}
+
 .mod-details {
   line-height: .5;
+}
+
+#closeBtn:hover{
+  background-color: #be0000;
 }
 
 main {

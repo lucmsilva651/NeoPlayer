@@ -13,6 +13,8 @@ const modTracker = document.getElementById("modTracker");
 const moduleMsgBtn = document.getElementById("moduleMsgBtn");
 const loopToggle = document.getElementById("loopToggle");
 const modDetails = document.getElementById("modDetails");
+const closeBtn = document.getElementById("closeBtn");
+const minimizeBtn = document.getElementById("minimizeBtn");
 
 let modMeta = "";
 
@@ -139,6 +141,14 @@ loopToggle.addEventListener("click", () => {
 
 moduleMsgBtn.addEventListener("click", () => {
   moduleMsg(modMeta);
+});
+
+minimizeBtn.addEventListener('click', () => {
+  window.api.minimize();
+});
+
+closeBtn.addEventListener('click', () => {
+  window.api.close();
 });
 
 stopBtn.addEventListener("click", () => {

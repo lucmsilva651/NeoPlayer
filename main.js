@@ -13,6 +13,15 @@ app.whenReady().then(() => {
     height: 335,
     resizable: false,
     maximizable: false,
+    center: true,
+    frame: false,
+    darkTheme: true,
+    thickFrame: false,
+    fullscreenable: false,
+    fullscreen: false,
+    hasShadow: false,
+    backgroundColor: '#0d0d0d',
+    titleBarStyle: 'hidden',
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
@@ -20,15 +29,7 @@ app.whenReady().then(() => {
       contextIsolation: true,
       sandbox: true,
       // devTools: false,
-    },
-    ...(process.platform !== 'darwin' ? {
-      titleBarStyle: 'hidden',
-      titleBarOverlay: {
-        color: '#131313',
-        symbolColor: '#ffffff',
-        height: 48
-      },
-    } : {}),
+    }
   });
 
   app.on('browser-window-focus', function () {
@@ -50,6 +51,9 @@ app.whenReady().then(() => {
   app.on("window-all-closed", () => {
     if (process.platform !== "darwin") app.quit();
   });
+
+  ipcMain.on('minimize', () => win.minimize());
+  ipcMain.on('close', () => win.close());
 });
 
 ipcMain.handle('moduleMsgDialog', async (event, moduleMsg) => {
