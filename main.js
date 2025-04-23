@@ -11,6 +11,8 @@ app.whenReady().then(() => {
   const win = new BrowserWindow({
     width: 600,
     height: 410,
+    minWidth: 380,
+    minHeight: 410,
     center: true,
     frame: false,
     darkTheme: true,
