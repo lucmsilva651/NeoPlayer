@@ -10,7 +10,7 @@ app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 app.whenReady().then(() => {
   const win = new BrowserWindow({
     width: 600,
-    height: 345,
+    height: 335,
     resizable: false,
     maximizable: false,
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
@@ -26,7 +26,7 @@ app.whenReady().then(() => {
       titleBarOverlay: {
         color: '#131313',
         symbolColor: '#ffffff',
-        height: 40
+        height: 48
       },
     } : {}),
   });

@@ -3,13 +3,18 @@ import { dnd } from "https://DrSnuggles.github.io/chiptune/dnd.js";
 
 const play = document.getElementById("play");
 const url = document.getElementById("url");
-const ppToggle = document.getElementById("ppToggle");
+const playBtn = document.getElementById("playBtn");
+const pauseBtn = document.getElementById("pauseBtn");
 const stopBtn = document.getElementById("stopBtn");
 const modTitle = document.getElementById("modTitle");
 const modDur = document.getElementById("modDur");
 const modType = document.getElementById("modType");
 const modTracker = document.getElementById("modTracker");
 const moduleMsgBtn = document.getElementById("moduleMsgBtn");
+const loopToggle = document.getElementById("loopToggle");
+const modDetails = document.getElementById("modDetails");
+
+let modMeta = "";
 
 const modulePage1 = "modarchive.org/index.php?request=view_by_moduleid"
 const modulePage2 = "modarchive.org/index.php?request=view_player"
@@ -30,9 +35,23 @@ Number.prototype.round = function () {
 
 function alertError(error) {
   alert(`Error: ${error}`);
-  firstSteps();
+  hideElements();
   return;
 }
+
+function hideElements() {
+  modDetails.style.display = "none";
+  moduleMsgBtn.style.display = "none";
+}
+
+function showElements() {
+  modDetails.style.display = "initial";
+  moduleMsgBtn.style.display = "initial";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  hideElements();
+});
 
 window.chiplib = new chiptune3();
 
@@ -55,7 +74,7 @@ chiplib.onError((err) => {
 });
 
 chiplib.onProgress((pos) => {
-
+  showElements();
 })
 
 let actualDur = 0;
@@ -68,9 +87,7 @@ chiplib.onMetadata(async (meta) => {
   modDur.innerText = modDurStr
   modTracker.innerText = meta.tracker || "Unknown";
   document.title = `NeoPlayer - ${modTitle.innerText} - ${meta.type.toUpperCase()} - ${modDurStr}`;
-  moduleMsgBtn.addEventListener("click", () => {
-    moduleMsg(meta.message || "No message for this module.");
-  });
+  modMeta = meta.message || "No text/instruments found.";
 });
 
 async function loadModule(url) {
@@ -92,7 +109,6 @@ async function loadModule(url) {
   };
 };
 
-
 play.addEventListener("click", () => {
   if (url.value === "") {
     alertError("Please enter a URL!");
@@ -108,10 +124,24 @@ document.body.onkeyup = function (btn) {
   };
 };
 
-ppToggle.addEventListener("click", () => {
-  chiplib.togglePause();
+playBtn.addEventListener("click", () => {
+  chiplib.unpause();
+});
+
+pauseBtn.addEventListener("click", () => {
+  chiplib.pause();
+});
+
+loopToggle.addEventListener("click", () => {
+  value = value === 0 ? -1 : 0;
+  chiplib.setRepeatCount(value);
+});
+
+moduleMsgBtn.addEventListener("click", () => {
+  moduleMsg(modMeta);
 });
 
 stopBtn.addEventListener("click", () => {
+  hideElements();
   chiplib.stop();
 });

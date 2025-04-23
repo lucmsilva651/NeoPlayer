@@ -3,28 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="electron" content="app">
   <link rel="stylesheet" href="app.css">
   <title>NeoPlayer Alpha</title>
 </head>
 <body>
   <div class="titlebar">
-    <i id="ppToggle" class="ms-Icon ms-Icon--Play" aria-hidden="true" title="Play/Pause"></i>
-    <i id="stopBtn" class="ms-Icon ms-Icon--Stop" aria-hidden="true" title="Stop"></i>
+    <i id="playBtn" class="ms-Icon ms-Icon--Play" aria-hidden="true" title="Play"></i>
+    <i id="pauseBtn" class="ms-Icon ms-Icon--Pause" aria-hidden="true" title="Pause"></i>
+    <i id="stopBtn" class="ms-Icon ms-Icon--Stop icon-spacing-right" aria-hidden="true" title="Stop"></i>
+    <i id="loopToggle" class="ms-Icon ms-Icon--RepeatAll" aria-hidden="true" title="Repeat"></i>
     <span class="logo toolbar-center">NeoPlayer Alpha</span>
   </div>
   <main>
-    <div class="content">
-      <p>Insert url to resource below or drag and drop module to window </p>
-      <input autocomplete="off" type="url" id="url" required placeholder="https://" />
-      <button id="play">Play</button>
-      <ul>
-        <li>Now playing: <span id="modTitle"></span></li>
-        <li>Duration: <span id="modDur"></span></li>
-        <li>Type: <span id="modType"></span></li>
-        <li>Tracker: <span id="modTracker"></span></li>
-      </ul>
-      <button id="moduleMsgBtn">Show module text/instruments</button>
+    <p>Insert url to resource below or drag and drop module to window </p>
+    <input autocomplete="off" type="url" id="url" required placeholder="https://" />
+    <button id="play">Play</button>
+    <div class="mod-details" id="modDetails">
+      <p>Now playing: <span id="modTitle"></span></p>
+      <p>Duration: <span id="modDur"></span></p>
+      <p>Type: <span id="modType"></span></p>
+      <p>Tracker: <span id="modTracker"></span></p>
     </div>
+    <button id="moduleMsgBtn">Show module text/instruments</button>
   </main>
   <footer>
     <p>NeoPlayer Alpha is &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://github.com/lucmsilva651">Lucas Gabriel (lucmsilva).</a></p>

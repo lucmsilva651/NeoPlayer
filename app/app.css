@@ -1,9 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Boldonse");
+@import url("https://fonts.googleapis.com/css2?family=Boldonse&family=Roboto");
 @import url("https://cdn.jsdelivr.net/npm/office-ui-fabric-core@11.1.0/dist/css/fabric.min.css");
-@import url("https://cdn.jsdelivr.net/npm/segoe-fonts@1.0.1/segoe-fonts.min.css");
 
 * {
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -20,8 +19,8 @@ body {
 
 .titlebar {
   background-color: #131313;
-  padding: 0 1px;
-  height: 40px;
+  padding: 0 90px 0 1px;
+  height: 48px;
   display: flex;
   position: relative;
   align-items: center;
@@ -33,7 +32,7 @@ body {
 
 .titlebar i {
   width: 44px;
-  height: 39px;
+  height: 47px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -50,6 +49,10 @@ body {
   background-color: #323232;
 }
 
+.icon-spacing-right {
+  margin-right: auto;
+}
+
 .toolbar-center {
   position: absolute;
   left: 50%;
@@ -57,7 +60,11 @@ body {
   white-space: nowrap;
 }
 
-main, footer {
+.mod-details {
+  line-height: .5;
+}
+
+main {
   padding: 5px 20px;
 }
 
@@ -68,6 +75,7 @@ footer {
   bottom: 0;
   line-height: .35;
   font-size: 12px;
+  padding: 2px 15px;
   border-top: 1px solid #ffffff;
 }
 
