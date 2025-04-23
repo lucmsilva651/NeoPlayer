@@ -217,7 +217,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--spacing-xs);
+  gap: 0;
 }
 
 footer p {

@@ -11,7 +11,7 @@ app.whenReady().then(() => {
   const win = new BrowserWindow({
     width: 600,
     height: 410,
-    resizable: false,
+    resizable: true,
     maximizable: false,
     center: true,
     frame: false,
