@@ -87,7 +87,7 @@ chiplib.onMetadata(async (meta) => {
   modDur.innerText = modDurStr
   modTracker.innerText = meta.tracker || "Unknown";
   document.title = `NeoPlayer - ${modTitle.innerText} - ${meta.type.toUpperCase()} - ${modDurStr}`;
-  modMeta = meta.message || "No text/instruments found.";
+  modMeta = `Module text/instruments:\n\n${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
 });
 
 async function loadModule(url) {
