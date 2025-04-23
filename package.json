@@ -1,22 +1,79 @@
 {
   "name": "neoplayer",
-  "packageName": "NeoPlayer",
   "version": "0.0.1",
-  "author": "Lucas Gabriel (lucmsilva)",
+  "author": {
+    "name": "Lucas Gabriel (lucmsilva)",
+    "email": "lucmsilva651@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucmsilva651/neoplayer.git"
+  },
   "main": "main.js",
   "module": "main.js",
-  "type": "module",
-  "description": "Module player built on Electron",
-  "license": "BSD-3-Clause",
-  "scripts": {
-    "start": "nodemon --watch . --ignore node_modules --exec \"electron .\""
-  },
   "devDependencies": {
     "@types/bun": "latest",
+    "cross-env": "^7.0.3",
     "electron": "^35.2.0",
+    "electron-builder": "^24.13.1",
     "nodemon": "^3.1.9"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "build": {
+    "appId": "com.lucmsilva.neoplayer",
+    "productName": "NeoPlayer",
+    "asar": true,
+    "files": [
+      "main.js",
+      "preload.js",
+      {
+        "from": "app/",
+        "to": "app",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "directories": {
+      "buildResources": "app/icons"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "win": {
+      "icon": "app/icons/win/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "icon": "app/icons/png",
+      "category": "AudioVideo",
+      "target": [
+        "deb",
+        "rpm"
+      ]
+    },
+    "mac": {
+      "icon": "app/icons/mac/icon.icns",
+      "category": "public.app-category.audio-video",
+      "target": [
+        "dmg"
+      ]
+    }
+  },
+  "description": "Module player built on Electron",
+  "license": "BSD-3-Clause",
+  "packageName": "NeoPlayer",
+  "scripts": {
+    "start": "nodemon --watch . --ignore node_modules --exec \"electron .\"",
+    "dist": "cross-env GENERATE_SOURCEMAP=false GENERATE_BLOCKMAP=false electron-builder"
+  },
+  "type": "module"
 }
