@@ -15,7 +15,7 @@
     "@types/bun": "latest",
     "cross-env": "^7.0.3",
     "electron": "^35.2.0",
-    "electron-builder": "^24.13.1",
+    "electron-builder": "^26.0.12",
     "nodemon": "^3.1.9"
   },
   "peerDependencies": {
