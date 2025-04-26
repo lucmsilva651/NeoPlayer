@@ -23,10 +23,6 @@ const modulePage2 = "modarchive.org/index.php?request=view_player";
 const modulePage3 = "modarchive.org/module.php";
 const apiDownload = "https://api.modarchive.org/downloads.php?moduleid=";
 
-function moduleMsg(msg) {
-  window.api.openDialog(msg);
-}
-
 function updateMaximizeIcon(isMaximized) {
   maximizeBtn.classList.toggle("ms-Icon--SquareShape", !isMaximized);
   maximizeBtn.classList.toggle("ms-Icon--ChromeRestore", isMaximized);
@@ -137,7 +133,7 @@ loopToggle.addEventListener("click", () => {
 });
 
 moduleMsgBtn.addEventListener("click", () => {
-  moduleMsg(modMeta);
+  alert(modMeta);
 });
 
 minimizeBtn.addEventListener('click', () => {

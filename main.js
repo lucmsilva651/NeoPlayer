@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, globalShortcut, ipcMain } from "electron";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -67,12 +67,4 @@ app.whenReady().then(() => {
       focusedWindow.maximize();
     }
   });  
-});
-
-ipcMain.handle('moduleMsgDialog', async (event, moduleMsg) => {
-  await dialog.showMessageBox({
-    type: 'info',
-    title: 'Module text/instruments',
-    message: moduleMsg
-  });
 });
