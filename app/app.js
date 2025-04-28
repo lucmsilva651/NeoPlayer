@@ -11,9 +11,7 @@ const modDur = document.getElementById("modDur");
 const modType = document.getElementById("modType");
 const modTracker = document.getElementById("modTracker");
 const moduleMsgBtn = document.getElementById("moduleMsgBtn");
-const closeBtn = document.getElementById("closeBtn");
-const minimizeBtn = document.getElementById("minimizeBtn");
-const maximizeBtn = document.getElementById("maximizeBtn");
+const modDetails = document.getElementById("modDetails");
 
 let modMeta = "";
 let loopState = -1;  // 0 for off, -1 for loop
@@ -22,11 +20,6 @@ const modulePage1 = "modarchive.org/index.php?request=view_by_moduleid";
 const modulePage2 = "modarchive.org/index.php?request=view_player";
 const modulePage3 = "modarchive.org/module.php";
 const apiDownload = "https://api.modarchive.org/downloads.php?moduleid=";
-
-function updateMaximizeIcon(isMaximized) {
-  maximizeBtn.classList.toggle("ms-Icon--SquareShape", !isMaximized);
-  maximizeBtn.classList.toggle("ms-Icon--ChromeRestore", isMaximized);
-}
 
 function fmtMSS(seconds) {
   return (seconds - (seconds %= 60)) / 60 + (9 < seconds ? ":" : ":0") + seconds;
@@ -50,10 +43,6 @@ function showElements() {
   modDetails.classList.add("show");
   moduleMsgBtn.classList.add("show");
 }
-
-window.api.onWindowMaximized((isMaximized) => {
-  updateMaximizeIcon(isMaximized);
-});
 
 document.addEventListener("DOMContentLoaded", () => {
   hideElements();
@@ -134,18 +123,6 @@ loopToggle.addEventListener("click", () => {
 
 moduleMsgBtn.addEventListener("click", () => {
   alert(modMeta);
-});
-
-minimizeBtn.addEventListener('click', () => {
-  window.api.minimize();
-});
-
-maximizeBtn.addEventListener('click', () => {
-  window.api.maximizeToggle();
-});
-
-closeBtn.addEventListener('click', () => {
-  window.api.close();
 });
 
 stopBtn.addEventListener("click", () => {
