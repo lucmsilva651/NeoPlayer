@@ -12,7 +12,7 @@ app.whenReady().then(() => {
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     width: 600,
     height: 410,
-    minWidth: 380,
+    minWidth: 600,
     minHeight: 410,
     center: true,
     darkTheme: true,
