@@ -1,5 +1,5 @@
-import { ChiptuneJsPlayer as chiptune3 } from 'https://DrSnuggles.github.io/chiptune/chiptune3.js';
-import { dnd } from "https://DrSnuggles.github.io/chiptune/dnd.js";
+import { ChiptuneJsPlayer as chiptune3 } from './lib-chiptune3/chiptune3.js';
+import { dnd } from "./lib-chiptune3/dnd.js";
 
 const play = document.getElementById("play");
 const url = document.getElementById("url");
