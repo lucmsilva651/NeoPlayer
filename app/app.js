@@ -14,7 +14,7 @@ const moduleMsgBtn = document.getElementById("moduleMsgBtn");
 const modDetails = document.getElementById("modDetails");
 
 let modMeta = "";
-let loopState = -1;  // 0 for off, -1 for loop
+let loopState = 0; // 0 for off, -1 for loop
 
 const modulePage1 = "modarchive.org/index.php?request=view_by_moduleid";
 const modulePage2 = "modarchive.org/index.php?request=view_player";
@@ -46,6 +46,13 @@ function showElements() {
 
 document.addEventListener("DOMContentLoaded", () => {
   hideElements();
+  if (loopState === 0) {
+    loopToggle.classList.remove("codicon-sync");
+    loopToggle.classList.add("codicon-sync-ignored");
+  } else {
+    loopToggle.classList.remove("codicon-sync-ignored");
+    loopToggle.classList.add("codicon-sync");
+  }
 });
 
 window.chiplib = new chiptune3();
@@ -64,6 +71,10 @@ chiplib.onError((err) => {
     alertError(err.type);
   }
   chiplib.stop();
+});
+
+chiplib.onEnded(() => {
+  hideElements();
 });
 
 chiplib.onProgress((pos) => {
@@ -119,6 +130,13 @@ playBtn.addEventListener("click", () => {
 loopToggle.addEventListener("click", () => {
   loopState = loopState === 0 ? -1 : 0;
   chiplib.setRepeatCount(loopState);
+  if (loopState === 0) {
+    loopToggle.classList.remove("codicon-sync");
+    loopToggle.classList.add("codicon-sync-ignored");
+  } else {
+    loopToggle.classList.remove("codicon-sync-ignored");
+    loopToggle.classList.add("codicon-sync");
+  }
 });
 
 moduleMsgBtn.addEventListener("click", () => {
