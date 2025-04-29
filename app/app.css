@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Boldonse&family=Roboto");
-@import url("https://cdn.jsdelivr.net/npm/office-ui-fabric-core@11.1.0/dist/css/fabric.min.css");
+@import url("https://cdn.jsdelivr.net/npm/vscode-codicons@0.0.17/dist/codicon.min.css");
 
 :root {
   --font-size-base: 1rem; /* 16px */
@@ -64,14 +64,14 @@ body {
   border-bottom: 1px solid var(--color-text);
 }
 
-.titlebar i {
+.titlebar .codicon {
   width: 2.8125rem;
   height: 2.1875rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 150ms;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   user-select: initial;
   -webkit-user-select: initial;
   -webkit-app-region: no-drag;
@@ -81,19 +81,11 @@ body {
   background-color: var(--color-hover-bg);
 }
 
-.icon-spacing-right {
-  margin-right: auto;
-}
-
 .toolbar-center {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-}
-
-.icn-11px {
-  font-size: 0.6875rem !important;
 }
 
 .mod-details {

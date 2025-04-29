@@ -13,19 +13,6 @@ body {
   }
 }
 
-.titlebar i {
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-
-.titlebar i:hover {
-  background-color: #323232;
-  transform: scale(1.05);
-}
-
-#closeBtn:hover {
-  background-color: #be0000;
-}
-
 input[type="url"] {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
