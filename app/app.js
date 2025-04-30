@@ -15,6 +15,7 @@ const modDetails = document.getElementById("modDetails");
 
 let modMeta = "";
 let loopState = 0; // 0 for off, -1 for loop
+let actualDur = 0;
 
 const modulePage1 = "modarchive.org/index.php?request=view_by_moduleid";
 const modulePage2 = "modarchive.org/index.php?request=view_player";
@@ -81,16 +82,16 @@ chiplib.onProgress((pos) => {
   showElements();
 });
 
-let actualDur = 0;
 chiplib.onMetadata(async (meta) => {
+  const modTypeShortStr = meta.type.toUpperCase() || "Unknown";
   const modDurStr = fmtMSS(meta.dur.round()) || "0:00";
   const modTypeStr = meta.type_long || "Unknown";
   actualDur = meta.dur.round();
+  modTracker.innerText = meta.tracker || "Unknown";
   modTitle.innerText = meta.title || "Untitled";
   modType.innerText = modTypeStr;
   modDur.innerText = modDurStr;
-  modTracker.innerText = meta.tracker || "Unknown";
-  document.title = `NeoPlayer - ${modTitle.innerText} - ${meta.type.toUpperCase()} - ${modDurStr}`;
+  document.title = `NeoPlayer - ${modTitle.innerText} - ${modTypeShortStr} - ${modDurStr}`;
   modMeta = `Module text/instruments:\n\n${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
 });
 
