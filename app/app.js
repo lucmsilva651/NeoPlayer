@@ -7,9 +7,9 @@ const playBtn = document.getElementById("playBtn");
 const stopBtn = document.getElementById("stopBtn");
 const loopToggle = document.getElementById("loopToggle");
 const modTitle = document.getElementById("modTitle");
-const modDur = document.getElementById("modDur");
 const modType = document.getElementById("modType");
 const modTracker = document.getElementById("modTracker");
+const modLength = document.getElementById("modLength");
 const moduleMsgBtn = document.getElementById("moduleMsgBtn");
 const modDetails = document.getElementById("modDetails");
 
@@ -90,7 +90,7 @@ chiplib.onMetadata(async (meta) => {
   modTracker.innerText = meta.tracker || "Unknown";
   modTitle.innerText = meta.title || "Untitled";
   modType.innerText = modTypeStr;
-  modDur.innerText = modDurStr;
+  modLength.innerText = modDurStr;
   document.title = `NeoPlayer - ${modTitle.innerText} - ${modTypeShortStr} - ${modDurStr}`;
   modMeta = `Module text/instruments:\n\n${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
 });
