@@ -75,5 +75,8 @@
     "start": "nodemon --watch . --ignore node_modules --exec \"electron .\"",
     "dist": "cross-env GENERATE_SOURCEMAP=false GENERATE_BLOCKMAP=false electron-builder"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@electron-toolkit/utils": "^4.0.0"
+  }
 }

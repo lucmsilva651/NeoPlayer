@@ -1,6 +1,15 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
+import { is } from "@electron-toolkit/utils";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+
+const template = [{
+  label: ''
+}];
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,11 +36,15 @@ app.whenReady().then(() => {
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
-      // devTools: false,
+      ...(is.dev ? {} : { devTools: false }),
     }
   });
 
   win.loadFile(join(__dirname, 'app', 'app.html'));
+
+  if (is.dev) {
+    win.webContents.openDevTools();
+  }
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
