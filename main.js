@@ -3,6 +3,9 @@ import { is } from "@electron-toolkit/utils";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const template = [{
   label: ''
 }];
@@ -10,13 +13,11 @@ const template = [{
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
 
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
-
 app.whenReady().then(() => {
+  const isWindows = process.platform === 'win32';
+  let needsFocusFix = false;
+  let triggeringProgrammaticBlur = false;
   const win = new BrowserWindow({
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     width: 600,
@@ -40,11 +41,31 @@ app.whenReady().then(() => {
     }
   });
 
+  win.on('blur', (event) => {
+    if (!triggeringProgrammaticBlur) {
+      needsFocusFix = true;
+    };
+  });
+
+  win.on('focus', (event) => {
+    if (isWindows && needsFocusFix) {
+      needsFocusFix = false;
+      triggeringProgrammaticBlur = true;
+      setTimeout(function () {
+        win.blur();
+        win.focus();
+        setTimeout(function () {
+          triggeringProgrammaticBlur = false;
+        }, 100);
+      }, 100);
+    };
+  });
+
   win.loadFile(join(__dirname, 'app', 'app.html'));
 
   if (is.dev) {
     win.webContents.openDevTools();
-  }
+  };
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
