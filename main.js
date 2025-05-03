@@ -24,6 +24,7 @@ app.whenReady().then(() => {
     height: 365,
     minWidth: 600,
     minHeight: 365,
+    resizable: false,
     center: true,
     darkTheme: true,
     backgroundColor: '#0d0d0d',

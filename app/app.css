@@ -172,25 +172,9 @@ input[type="url"]:focus {
   box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.3);
 }
 
-#play {
-  flex: 0 1 auto;
-}
-
-@media (min-width: 650px) {
-  .mod-details {
-    font-size: var(--font-size-small);
-  }
-}
-
 @media (min-width: 800px) {
   .mod-details {
     font-size: var(--font-size-base);
-  }
-}
-
-@media (max-width: 420px) {
-  #play {
-    flex: 1 1 100%;
   }
 }
 
