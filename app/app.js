@@ -89,7 +89,7 @@ chiplib.onMetadata(async (meta) => {
   actualDur = meta.dur.round();
   modTracker.innerText = meta.tracker || "Unknown";
   modTitle.innerText = meta.title || "Untitled";
-  modType.innerText = modTypeStr;
+  modType.innerText = modTypeStr + ` (${modTypeShortStr})` || "Unknown";
   modLength.innerText = modDurStr;
   document.title = `NeoPlayer - ${modTitle.innerText} - ${modTypeShortStr} - ${modDurStr}`;
   modMeta = `Module text/instruments:\n\n${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
