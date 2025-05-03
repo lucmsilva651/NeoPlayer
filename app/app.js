@@ -89,7 +89,6 @@ chiplib.onProgress((pos) => {
 });
 
 chiplib.onMetadata(async (meta) => {
-  console.log(meta);
   const modTypeShortStr = meta.type.toUpperCase() || "Unknown";
   const modDurStr = fmtMSS(meta.dur.round()) || "0:00";
   const modTypeStr = meta.type_long || "Unknown";
