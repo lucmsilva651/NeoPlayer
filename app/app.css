@@ -3,6 +3,7 @@
 
 :root {
   --font-size-base: 1rem; /* 16px */
+  --font-size-usm: 0.75rem; /* 12px */
   --font-size-small: 0.9rem; /* 14px */
   --font-size-lg: 1.125rem; /* 18px */
   --font-size-xl: 1.25rem; /* 20px */
@@ -89,8 +90,15 @@ body {
   white-space: nowrap;
 }
 
+.mod-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-gap: 10px;
+}
+
 .mod-details {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-usm);
   color: #dddddd;
   background-color: #161616;
   padding: var(--spacing-sm) var(--spacing-md);
@@ -109,12 +117,15 @@ body {
 }
 
 .mod-details p {
-  margin: 0.25rem 0;
+  margin: 0;
   font-weight: 400;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: var(--color-placeholder);
 }
 
-.mod-details > p > span {
+.mod-details > .mod-details-grid > .grid-item > p > span {
   color: var(--color-text);
 }
 
@@ -123,7 +134,7 @@ body {
 }
 
 main {
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
@@ -163,6 +174,18 @@ input[type="url"]:focus {
 
 #play {
   flex: 0 1 auto;
+}
+
+@media (min-width: 650px) {
+  .mod-details {
+    font-size: var(--font-size-small);
+  }
+}
+
+@media (min-width: 800px) {
+  .mod-details {
+    font-size: var(--font-size-base);
+  }
 }
 
 @media (max-width: 420px) {
@@ -230,6 +253,7 @@ footer a:hover {
   color: #cccccc;
   font-size: var(--font-size-base);
   font-weight: 500;
+  padding: 0;
   margin: 0;
 }
 

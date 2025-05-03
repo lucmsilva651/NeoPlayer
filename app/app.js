@@ -10,6 +10,12 @@ const modTitle = document.getElementById("modTitle");
 const modType = document.getElementById("modType");
 const modTracker = document.getElementById("modTracker");
 const modLength = document.getElementById("modLength");
+const modInstruments = document.getElementById("modInstruments");
+const modSamples = document.getElementById("modSamples");
+const modChannels = document.getElementById("modChannels");
+const modPatterns = document.getElementById("modPatterns");
+const modArtist = document.getElementById("modArtist");
+const modDate = document.getElementById("modDate");
 const moduleMsgBtn = document.getElementById("moduleMsgBtn");
 const modDetails = document.getElementById("modDetails");
 
@@ -83,6 +89,7 @@ chiplib.onProgress((pos) => {
 });
 
 chiplib.onMetadata(async (meta) => {
+  console.log(meta);
   const modTypeShortStr = meta.type.toUpperCase() || "Unknown";
   const modDurStr = fmtMSS(meta.dur.round()) || "0:00";
   const modTypeStr = meta.type_long || "Unknown";
@@ -91,6 +98,12 @@ chiplib.onMetadata(async (meta) => {
   modTitle.innerText = meta.title || "Untitled";
   modType.innerText = modTypeStr + ` (${modTypeShortStr})` || "Unknown";
   modLength.innerText = modDurStr;
+  modArtist.innerText = meta.artist || "Unknown";
+  modDate.innerText = meta.date || "Unknown";
+  modInstruments.innerText = meta.song.instruments["length"] || "0";
+  modSamples.innerText = meta.song.samples["length"] || "0";
+  modChannels.innerText = meta.song.channels["length"] || "0";
+  modPatterns.innerText = meta.song.patterns["length"] || "0";
   document.title = `NeoPlayer - ${modTitle.innerText} - ${modTypeShortStr} - ${modDurStr}`;
   modMeta = `Module text/instruments:\n\n${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
 });
