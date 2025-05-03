@@ -21,9 +21,9 @@ app.whenReady().then(() => {
   const win = new BrowserWindow({
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     width: 600,
-    height: 345,
+    height: 365,
     minWidth: 600,
-    minHeight: 345,
+    minHeight: 365,
     center: true,
     darkTheme: true,
     backgroundColor: '#0d0d0d',
