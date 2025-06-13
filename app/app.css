@@ -27,7 +27,7 @@ body {
 
 .titlebar {
   background-color: #131313;
-  height: 2rem;
+  height: 2.25rem;
   padding: 1px 0 0 15px;
   display: flex;
   align-items: center;
