@@ -24,6 +24,7 @@
   "build": {
     "appId": "com.lucmsilva.neoplayer",
     "productName": "NeoPlayer",
+    "compression": "store",
     "asar": true,
     "files": [
       "main.js",
