@@ -1,0 +1,75 @@
+name: NeoPlayer CI (release)
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    continue-on-error: true
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: windows-build
+          - os: ubuntu-latest
+            artifact_name: linux-build
+          - os: macos-latest
+            artifact_name: macos-build
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - run: npm install
+      - run: npm run dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: dist/
+
+  release-github:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-build
+          path: ./windows-build
+
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-build
+          path: ./linux-build
+
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-build
+          path: ./macos-build
+
+      - name: Upload all builds to GitHub Releases
+        uses: svenstaro/upload-release-action@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          make_latest: true
+          file: |
+            ./windows-build/**
+            ./linux-build/**
+            ./macos-build/**
+          promote: true
