@@ -33,7 +33,7 @@ Number.prototype.round = function () {
 };
 
 function alertError(error) {
-  alert(`Error: ${error}`);
+  window.api.openDialog("error", "Error", error);
   hideElements();
 }
 
