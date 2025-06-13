@@ -1,23 +1,7 @@
 import { ChiptuneJsPlayer as chiptune3 } from './lib-chiptune3/chiptune3.js';
 import { dnd } from "./lib-chiptune3/dnd.js";
 
-const play = document.getElementById("play");
-const url = document.getElementById("url");
-const playBtn = document.getElementById("playBtn");
-const stopBtn = document.getElementById("stopBtn");
-const loopToggle = document.getElementById("loopToggle");
-const modTitle = document.getElementById("modTitle");
-const modType = document.getElementById("modType");
-const modTracker = document.getElementById("modTracker");
-const modLength = document.getElementById("modLength");
-const modInstruments = document.getElementById("modInstruments");
-const modSamples = document.getElementById("modSamples");
-const modChannels = document.getElementById("modChannels");
-const modPatterns = document.getElementById("modPatterns");
-const modArtist = document.getElementById("modArtist");
-const modDate = document.getElementById("modDate");
-const moduleMsgBtn = document.getElementById("moduleMsgBtn");
-const modDetails = document.getElementById("modDetails");
+const element = (e) => document.getElementById(e);
 
 let modMeta = "";
 let loopState = 0; // 0 for off, -1 for loop
@@ -55,23 +39,23 @@ function alertError(error) {
 }
 
 function hideElements() {
-  modDetails.classList.remove("show");
-  moduleMsgBtn.classList.remove("show");
+  element("modDetails").classList.remove("show");
+  element("moduleMsgBtn").classList.remove("show");
 }
 
 function showElements() {
-  modDetails.classList.add("show");
-  moduleMsgBtn.classList.add("show");
+  element("modDetails").classList.add("show");
+  element("moduleMsgBtn").classList.add("show");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   hideElements();
   if (loopState === 0) {
-    loopToggle.classList.remove("codicon-sync");
-    loopToggle.classList.add("codicon-sync-ignored");
+    element("loopToggle").classList.remove("codicon-sync");
+    element("loopToggle").classList.add("codicon-sync-ignored");
   } else {
-    loopToggle.classList.remove("codicon-sync-ignored");
-    loopToggle.classList.add("codicon-sync");
+    element("loopToggle").classList.remove("codicon-sync-ignored");
+    element("loopToggle").classList.add("codicon-sync");
   }
 });
 
@@ -106,17 +90,17 @@ chiplib.onMetadata(async (meta) => {
   const modDurStr = fmtMSS(meta.dur.round()) || "0:00";
   const modTypeStr = meta.type_long || "Unknown";
   actualDur = meta.dur.round();
-  modTracker.innerText = meta.tracker || "Unknown";
-  modTitle.innerText = meta.title || "Untitled";
-  modType.innerText = modTypeStr + ` (${modTypeShortStr})` || "Unknown";
-  modLength.innerText = modDurStr;
-  modArtist.innerText = meta.artist || "Unknown";
-  modDate.innerText = isoFormat(meta.date) || "Unknown";
-  modInstruments.innerText = meta.song.instruments["length"] || "0";
-  modSamples.innerText = meta.song.samples["length"] || "0";
-  modChannels.innerText = meta.song.channels["length"] || "0";
-  modPatterns.innerText = meta.song.patterns["length"] || "0";
-  document.title = `NeoPlayer - ${modTitle.innerText} - ${modTypeShortStr} - ${modDurStr}`;
+  element("modTracker").innerText = meta.tracker || "Unknown";
+  element("modTitle").innerText = meta.title || "Untitled";
+  element("modType").innerText = modTypeStr + ` (${modTypeShortStr})` || "Unknown";
+  element("modLength").innerText = modDurStr;
+  element("modArtist").innerText = meta.artist || "Unknown";
+  element("modDate").innerText = isoFormat(meta.date) || "Unknown";
+  element("modInstruments").innerText = meta.song.instruments["length"] || "0";
+  element("modSamples").innerText = meta.song.samples["length"] || "0";
+  element("modChannels").innerText = meta.song.channels["length"] || "0";
+  element("modPatterns").innerText = meta.song.patterns["length"] || "0";
+  document.title = `NeoPlayer - ${element("modTitle").innerText} - ${modTypeShortStr} - ${modDurStr}`;
   modMeta = `${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
 });
 
@@ -134,12 +118,12 @@ async function loadModule(url) {
   }
 }
 
-play.addEventListener("click", () => {
-  if (url.value === "") {
+element("play").addEventListener("click", () => {
+  if (element("url").value === "") {
     alertError("Please enter a URL!");
     return;
   } else {
-    loadModule(url.value);
+    loadModule(element("url").value);
   }
 });
 
@@ -149,34 +133,33 @@ document.body.onkeyup = function (btn) {
   }
 };
 
-playBtn.addEventListener("click", () => {
+element("playBtn").addEventListener("click", () => {
   chiplib.togglePause();
 });
 
-loopToggle.addEventListener("click", () => {
+element("loopToggle").addEventListener("click", () => {
   loopState = loopState === 0 ? -1 : 0;
   chiplib.setRepeatCount(loopState);
   if (loopState === 0) {
-    loopToggle.classList.remove("codicon-sync");
-    loopToggle.classList.add("codicon-sync-ignored");
+    element("loopToggle").classList.remove("codicon-sync");
+    element("loopToggle").classList.add("codicon-sync-ignored");
   } else {
-    loopToggle.classList.remove("codicon-sync-ignored");
-    loopToggle.classList.add("codicon-sync");
+    element("loopToggle").classList.remove("codicon-sync-ignored");
+    element("loopToggle").classList.add("codicon-sync");
   }
 });
 
-moduleMsgBtn.addEventListener("click", () => {
+element("moduleMsgBtn").addEventListener("click", () => {
   window.api.openDialog("info", "Module text/instruments", modMeta);
 });
 
-stopBtn.addEventListener("click", () => {
+element("stopBtn").addEventListener("click", () => {
   hideElements();
   chiplib.stop();
 });
 
-// play when user hits enter in input
-url.addEventListener("keydown", (event) => {
+element("url").addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    play.click();
+    element("play").click();
   }
 });
