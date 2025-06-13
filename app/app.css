@@ -199,7 +199,10 @@ footer a:hover {
 }
 
 #instruct {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
   color: #cccccc;
   font-size: 1rem;
   font-weight: 500;
