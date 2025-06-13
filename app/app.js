@@ -3,7 +3,7 @@ import { dnd } from "./lib-chiptune3/dnd.js";
 
 const element = (e) => document.getElementById(e);
 
-let modMeta = "";
+let modMeta;
 let loopState = 0; // 0 for off, -1 for loop
 
 const modulePage1 = "modarchive.org/index.php?request=view_by_moduleid";
