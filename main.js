@@ -29,7 +29,7 @@ app.whenReady().then(() => {
     titleBarOverlay: {
       color: '#131313',
       symbolColor: '#ffffff',
-      height: 35
+      height: 31
     },
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
