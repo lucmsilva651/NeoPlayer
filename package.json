@@ -54,7 +54,7 @@
     },
     "linux": {
       "icon": "app/icons/png",
-      "category": "AudioVideo",
+      "category": "Audio",
       "target": [
         "deb",
         "rpm"
@@ -62,7 +62,7 @@
     },
     "mac": {
       "icon": "app/icons/mac/icon.icns",
-      "category": "public.app-category.audio-video",
+      "category": "public.app-category.music",
       "target": [
         "dmg"
       ]
