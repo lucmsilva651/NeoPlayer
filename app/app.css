@@ -38,30 +38,6 @@ body {
   border-bottom: 1px solid #ffffff;
 }
 
-.titlebar .codicon {
-  width: 2.8125rem;
-  height: 2.1875rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 150ms;
-  font-size: 0.875rem;
-  user-select: initial;
-  -webkit-user-select: initial;
-  -webkit-app-region: no-drag;
-}
-
-.titlebar i:hover {
-  background-color: #323232;
-}
-
-.toolbar-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
-
 .mod-details-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -175,13 +151,31 @@ footer {
   position: absolute;
   bottom: 0;
   font-size: 0.8125rem;
-  padding: 0.5rem 1rem;
   border-top: 1px solid #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 0;
+}
+
+footer .left {
+  display: flex;
+  flex-direction: row;
+}
+
+footer .left .codicon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8125rem;
+  height: 2.1875rem;
+  transition: 150ms;
+  font-size: 0.875rem;
+}
+
+footer .left .codicon:hover {
+  background-color: #323232;
 }
 
 footer p {
