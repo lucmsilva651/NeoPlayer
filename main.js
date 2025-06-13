@@ -10,11 +10,14 @@ const template = [{
   label: ''
 }];
 
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
 
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+
 app.whenReady().then(() => {
+  const isMac = process.platform === 'darwin';
+
   const win = new BrowserWindow({
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     width: 600,
@@ -25,12 +28,13 @@ app.whenReady().then(() => {
     center: true,
     darkTheme: true,
     backgroundColor: '#0d0d0d',
-    titleBarStyle: 'hidden',
-    titleBarOverlay: {
+    ...(isMac ? { titleBarStyle: "default" } : {
+      titleBarStyle: "hidden",
+      titleBarOverlay: {
       color: '#131313',
       symbolColor: '#ffffff',
       height: 35
-    },
+    }}),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
