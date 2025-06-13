@@ -25,6 +25,7 @@
     "appId": "com.lucmsilva.neoplayer",
     "productName": "NeoPlayer",
     "compression": "store",
+    "electronLanguages": "en",
     "asar": true,
     "files": [
       "main.js",
@@ -64,6 +65,7 @@
     "mac": {
       "icon": "app/icons/mac/icon.icns",
       "category": "public.app-category.music",
+      "darkModeSupport": true,
       "target": [
         "dmg"
       ]
