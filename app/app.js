@@ -153,7 +153,7 @@ loopToggle.addEventListener("click", () => {
 });
 
 moduleMsgBtn.addEventListener("click", () => {
-  alert(modMeta);
+  window.api.openDialog(modMeta);
 });
 
 stopBtn.addEventListener("click", () => {

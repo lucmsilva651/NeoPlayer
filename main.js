@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, Menu, dialog, ipcMain } from "electron";
 import { is } from "@electron-toolkit/utils";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -15,9 +15,6 @@ Menu.setApplicationMenu(menu)
 
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 app.whenReady().then(() => {
-  const isWindows = process.platform === 'win32';
-  let needsFocusFix = false;
-  let triggeringProgrammaticBlur = false;
   const win = new BrowserWindow({
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     width: 600,
@@ -35,6 +32,7 @@ app.whenReady().then(() => {
       height: 35
     },
     webPreferences: {
+      preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
@@ -42,24 +40,12 @@ app.whenReady().then(() => {
     }
   });
 
-  win.on('blur', (event) => {
-    if (!triggeringProgrammaticBlur) {
-      needsFocusFix = true;
-    };
-  });
-
-  win.on('focus', (event) => {
-    if (isWindows && needsFocusFix) {
-      needsFocusFix = false;
-      triggeringProgrammaticBlur = true;
-      setTimeout(function () {
-        win.blur();
-        win.focus();
-        setTimeout(function () {
-          triggeringProgrammaticBlur = false;
-        }, 100);
-      }, 100);
-    };
+  ipcMain.handle('moduleMsgDialog', async (event, moduleMsg) => {
+    await dialog.showMessageBox({
+      type: 'info',
+      title: 'Module text/instruments',
+      message: moduleMsg
+    });
   });
 
   win.loadFile(join(__dirname, 'app', 'app.html'));
