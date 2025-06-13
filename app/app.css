@@ -145,7 +145,7 @@ button:active {
   background-color: #333;
 }
 
-footer {
+.bottom-bar {
   background-color: #131313;
   width: 100%;
   position: absolute;
@@ -159,12 +159,12 @@ footer {
   gap: 0;
 }
 
-footer .left {
+.bottom-bar .left {
   display: flex;
   flex-direction: row;
 }
 
-footer .left .codicon {
+.bottom-bar .left .codicon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,21 +174,21 @@ footer .left .codicon {
   font-size: 0.875rem;
 }
 
-footer .left .codicon:hover {
+.bottom-bar .left .codicon:hover {
   background-color: #323232;
 }
 
-footer p {
+.bottom-bar p {
   margin: 0;
   color: #aaaaaa;
 }
 
-footer a {
+.bottom-bar a {
   color: #66ccff;
   text-decoration: none;
 }
 
-footer a:hover {
+.bottom-bar a:hover {
   text-decoration: underline;
 }
 

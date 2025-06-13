@@ -52,11 +52,11 @@ button:active {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-footer {
+.bottom-bar {
   transition: background-color 0.3s ease;
 }
 
-footer p {
+.bottom-bar p {
   animation: slideUp 0.4s ease forwards;
 }
 
