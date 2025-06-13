@@ -40,11 +40,11 @@ app.whenReady().then(() => {
     }
   });
 
-  ipcMain.handle('moduleMsgDialog', async (event, moduleMsg) => {
+  ipcMain.handle('dialog', async (event, type, title, msg) => {
     await dialog.showMessageBox({
-      type: 'info',
-      title: 'Module text/instruments',
-      message: moduleMsg
+      type: type,
+      title: title,
+      message: msg
     });
   });
 

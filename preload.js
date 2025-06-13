@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("api", {
-  openDialog: (msg) => ipcRenderer.invoke("moduleMsgDialog", msg)
+  openDialog: (type, title, msg) => ipcRenderer.invoke("dialog", type, title, msg)
 });

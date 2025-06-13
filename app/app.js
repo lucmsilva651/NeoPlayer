@@ -104,7 +104,7 @@ chiplib.onMetadata(async (meta) => {
   modChannels.innerText = meta.song.channels["length"] || "0";
   modPatterns.innerText = meta.song.patterns["length"] || "0";
   document.title = `NeoPlayer - ${modTitle.innerText} - ${modTypeShortStr} - ${modDurStr}`;
-  modMeta = `Module text/instruments:\n\n${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
+  modMeta = `${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
 });
 
 async function loadModule(url) {
@@ -153,7 +153,7 @@ loopToggle.addEventListener("click", () => {
 });
 
 moduleMsgBtn.addEventListener("click", () => {
-  window.api.openDialog(modMeta);
+  window.api.openDialog("info", "Module text/instruments", modMeta);
 });
 
 stopBtn.addEventListener("click", () => {
