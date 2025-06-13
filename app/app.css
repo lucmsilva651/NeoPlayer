@@ -38,6 +38,13 @@ body {
   border-bottom: 1px solid #ffffff;
 }
 
+#aboutBtn {
+  user-select: auto;
+  -webkit-user-select: auto;
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
 .mod-details-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
