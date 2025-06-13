@@ -1,56 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Boldonse");
 @import url("https://cdn.jsdelivr.net/npm/vscode-codicons@0.0.17/dist/codicon.min.css");
 
-:root {
-  --font-size-base: 1rem; /* 16px */
-  --font-size-usm: 0.75rem; /* 12px */
-  --font-size-small: 0.9rem; /* 14px */
-  --font-size-lg: 1.125rem; /* 18px */
-  --font-size-xl: 1.25rem; /* 20px */
-
-  --line-height: 1.6;
-  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --font-family-logo: "Boldonse", sans-serif;
-
-  --color-background: #0d0d0d;
-  --color-text: #ffffff;
-  --color-placeholder: #aaaaaa;
-  --color-border: #333;
-  --color-highlight: #4da6ff;
-  --color-hover-bg: #323232;
-  --color-footer-bg: #131313;
-
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 0.75rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.25rem;
-
-  --border-radius: 0.5rem;
-  --box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
-}
-
 * {
-  font-family: var(--font-family-base);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   box-sizing: border-box;
 }
 
 ::selection {
-  background: var(--color-highlight);
-  color: var(--color-text);
+  background: #4da6ff;
+  color: #ffffff;
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: #0d0d0d;
+  color: #ffffff;
   margin: 0;
   overflow: hidden;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .logo {
-  font-family: var(--font-family-logo);
-  font-size: var(--font-size-small);
+  font-family: "Boldonse", sans-serif;
+  font-size: 0.9rem;
 }
 
 .titlebar {
@@ -63,7 +35,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
   -webkit-app-region: drag;
-  border-bottom: 1px solid var(--color-text);
+  border-bottom: 1px solid #ffffff;
 }
 
 .titlebar .codicon {
@@ -80,7 +52,7 @@ body {
 }
 
 .titlebar i:hover {
-  background-color: var(--color-hover-bg);
+  background-color: #323232;
 }
 
 .toolbar-center {
@@ -98,11 +70,11 @@ body {
 }
 
 .mod-details {
-  font-size: var(--font-size-usm);
+  font-size: 0.75rem;
   color: #dddddd;
   background-color: #161616;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
   border: 1px solid #2a2a2a;
   transition: all 0.3s ease;
   opacity: 0;
@@ -122,11 +94,11 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: var(--color-placeholder);
+  color: #aaaaaa;
 }
 
 .mod-details > .mod-details-grid > .grid-item > p > span {
-  color: var(--color-text);
+  color: #ffffff;
 }
 
 #closeBtn:hover {
@@ -134,15 +106,15 @@ body {
 }
 
 main {
-  padding: var(--spacing-sm) var(--spacing-lg);
+  padding: 0.75rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 0.75rem;
 }
 
 .input-play-row {
   display: flex;
-  gap: var(--spacing-xs);
+  gap: 0.5rem;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -150,51 +122,45 @@ main {
 input[type="url"] {
   flex: 1 1 250px;
   min-width: 0;
-  padding: var(--spacing-xs) var(--spacing-md);
-  font-size: var(--font-size-small);
-  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #ffffff;
   background-color: #1a1a1a;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  border: 1px solid #333;
+  border-radius: 0.5rem;
   outline: none;
   transition: 0.2s ease-in-out;
-  box-shadow: var(--box-shadow);
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 input[type="url"]::placeholder {
-  color: var(--color-placeholder);
+  color: #aaaaaa;
   opacity: 0.8;
 }
 
 input[type="url"]:focus {
-  border-color: var(--color-highlight);
+  border-color: #4da6ff;
   background-color: #222;
   box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.3);
 }
 
-@media (min-width: 800px) {
-  .mod-details {
-    font-size: var(--font-size-base);
-  }
-}
-
 button {
-  padding: var(--spacing-xs) var(--spacing-md);
-  font-size: var(--font-size-small);
-  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #ffffff;
   background-color: #1a1a1a;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  border: 1px solid #333;
+  border-radius: 0.5rem;
   outline: none;
   cursor: pointer;
   transition: 0.2s ease-in-out;
-  box-shadow: var(--box-shadow);
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
   white-space: nowrap;
 }
 
 button:hover {
   background-color: #222;
-  border-color: var(--color-highlight);
+  border-color: #4da6ff;
   box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.3);
 }
 
@@ -204,13 +170,13 @@ button:active {
 }
 
 footer {
-  background-color: var(--color-footer-bg);
+  background-color: #131313;
   width: 100%;
   position: absolute;
   bottom: 0;
   font-size: 0.8125rem;
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-top: 1px solid var(--color-text);
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -220,7 +186,7 @@ footer {
 
 footer p {
   margin: 0;
-  color: var(--color-placeholder);
+  color: #aaaaaa;
 }
 
 footer a {
@@ -235,7 +201,7 @@ footer a:hover {
 #instruct {
   text-align: center;
   color: #cccccc;
-  font-size: var(--font-size-base);
+  font-size: 1rem;
   font-weight: 500;
   padding: 0;
   margin: 0;
@@ -253,4 +219,10 @@ footer a:hover {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+@media (min-width: 800px) {
+  .mod-details {
+    font-size: 1rem;
+  }
 }
