@@ -28,6 +28,19 @@ const modulePage2 = "modarchive.org/index.php?request=view_player";
 const modulePage3 = "modarchive.org/module.php";
 const apiDownload = "https://api.modarchive.org/downloads.php?moduleid=";
 
+function isoFormat(time) {
+  const date = new Date(time);
+  const year = date.getFullYear() || 1999;
+  const day = String(date.getDate() || 1).padStart(2, '0');
+  const month = String(date.getMonth() + 1 || 1).padStart(2, '0');
+  const hour = String(date.getHours() || 0).padStart(2, '0');
+  const minute = String(date.getMinutes() || 0).padStart(2, '0');
+  const seconds = String(date.getSeconds() || 0).padStart(2, '0');
+
+  if (time == "") return time;
+  return `${day}/${month}/${year} - ${hour}:${minute}:${seconds}`;
+};
+
 function fmtMSS(seconds) {
   return (seconds - (seconds %= 60)) / 60 + (9 < seconds ? ":" : ":0") + seconds;
 }
@@ -98,7 +111,7 @@ chiplib.onMetadata(async (meta) => {
   modType.innerText = modTypeStr + ` (${modTypeShortStr})` || "Unknown";
   modLength.innerText = modDurStr;
   modArtist.innerText = meta.artist || "Unknown";
-  modDate.innerText = meta.date || "Unknown";
+  modDate.innerText = isoFormat(meta.date) || "Unknown";
   modInstruments.innerText = meta.song.instruments["length"] || "0";
   modSamples.innerText = meta.song.samples["length"] || "0";
   modChannels.innerText = meta.song.channels["length"] || "0";
