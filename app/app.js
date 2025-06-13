@@ -24,6 +24,17 @@ function isoFormat(time) {
   return `${day}/${month}/${year} - ${hour}:${minute}:${seconds}`;
 };
 
+function secToMin(sec) {
+  const minutes = Math.floor(sec / 60);
+  const remSecs = sec % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(remSecs).padStart(2, '0')}`;
+}
+
+function addPadding(time) {
+  const [min, sec] = time.split(':');
+  return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+}
+
 function fmtMSS(seconds) {
   return (seconds - (seconds %= 60)) / 60 + (9 < seconds ? ":" : ":0") + seconds;
 }
@@ -80,7 +91,15 @@ chiplib.onEnded(() => {
   hideElements();
 });
 
+let lastUpdate = 0;
+let actualPos = 0;
 chiplib.onProgress((pos) => {
+  actualPos = pos.pos.round();
+  const now = Date.now();
+  if (now - lastUpdate > 1000) {
+    element("modDurAct").textContent = secToMin(actualPos);
+    lastUpdate = now;
+  };
   showElements();
 });
 
@@ -91,7 +110,6 @@ chiplib.onMetadata(async (meta) => {
   element("modTracker").innerText = meta.tracker || "Unknown";
   element("modTitle").innerText = meta.title || "Untitled";
   element("modType").innerText = modTypeStr + ` (${modTypeShortStr})` || "Unknown";
-  element("modLength").innerText = modDurStr;
   element("modArtist").innerText = meta.artist || "Unknown";
   element("modDate").innerText = isoFormat(meta.date) || "Unknown";
   element("modInstruments").innerText = meta.song.instruments["length"] || "0";
@@ -100,6 +118,10 @@ chiplib.onMetadata(async (meta) => {
   element("modPatterns").innerText = meta.song.patterns["length"] || "0";
   document.title = `NeoPlayer - ${element("modTitle").innerText} - ${modTypeShortStr} - ${modDurStr}`;
   modMeta = `${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
+  const modDur = document.getElementsByClassName("mod-duration")
+  Array.from(modDur).forEach(element => {
+    element.textContent = addPadding(modDurStr);
+  });
 });
 
 async function loadModule(url) {

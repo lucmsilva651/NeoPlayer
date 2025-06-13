@@ -26,7 +26,7 @@
         <div class="grid-item">
           <p>Now playing: <span id="modTitle"></span></p>
           <p>Artist: <span id="modArtist"></span></p>
-          <p>Duration: <span id="modLength"></span></p>
+          <p>Duration: <span class="mod-duration"></span></p>
           <p>Type: <span id="modType"></span></p>
           <p>Tracker: <span id="modTracker"></span></p>
         </div>
@@ -46,6 +46,9 @@
       <i id="playBtn" class="codicon codicon-play" aria-hidden="true" title="Play/Pause"></i>
       <i id="stopBtn" class="codicon codicon-debug-stop" aria-hidden="true" title="Stop"></i>
       <i id="loopToggle" class="codicon codicon-sync" aria-hidden="true" title="Repeat"></i>
+    </div>
+    <div class="right">
+      <span><span id="modDurAct">00:00</span>/<span class="mod-duration">00:00</span></span>
     </div>
   </div>
   <script type="module" src="app.js"></script>

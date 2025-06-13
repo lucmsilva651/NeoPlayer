@@ -150,6 +150,7 @@ button:active {
   width: 100%;
   position: absolute;
   bottom: 0;
+  padding-right: 15px;
   font-size: 0.8125rem;
   border-top: 1px solid #ffffff;
   display: flex;
