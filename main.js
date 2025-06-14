@@ -1,23 +1,17 @@
 import { app, BrowserWindow, Menu, dialog, ipcMain } from "electron";
-import { is } from "@electron-toolkit/utils";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const template = [{
-  label: ''
-}];
-
+const template = [{ label: '' }];
 const menu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(menu);
 
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 
 app.whenReady().then(() => {
-  const isMac = process.platform === 'darwin';
-
   const win = new BrowserWindow({
     icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
     width: 600,
@@ -28,20 +22,28 @@ app.whenReady().then(() => {
     center: true,
     darkTheme: true,
     backgroundColor: '#0d0d0d',
-    ...(isMac ? { titleBarStyle: "default" } : {
-      titleBarStyle: "hidden",
-      titleBarOverlay: {
+    titleBarStyle: "hidden",
+    titleBarOverlay: {
       color: '#131313',
       symbolColor: '#ffffff',
       height: 35
-    }}),
+    },
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
-      sandbox: true,
-      ...(is.dev ? {} : { devTools: false }),
+      sandbox: true
     }
+  });
+
+  win.loadFile(join(__dirname, 'app', 'app.html'));
+
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+
+  app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") app.quit();
   });
 
   ipcMain.handle('dialog', async (event, type, title, msg) => {
@@ -50,19 +52,5 @@ app.whenReady().then(() => {
       title: title,
       message: msg
     });
-  });
-
-  win.loadFile(join(__dirname, 'app', 'app.html'));
-
-  if (is.dev) {
-    win.webContents.openDevTools();
-  };
-
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-
-  app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") app.quit();
   });
 });
