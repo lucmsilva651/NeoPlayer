@@ -55,7 +55,14 @@ app.whenReady().then(() => {
     if (process.platform !== "darwin") app.quit();
   });
 
+  let isDialogOpen = false;
   ipcMain.handle('dialog', async (event, options) => {
-    await dialog.showMessageBox(options);
+    if (isDialogOpen) return;
+    isDialogOpen = true;
+    try {
+      return await dialog.showMessageBox(options);
+    } finally {
+      isDialogOpen = false;
+    };
   });
 });
