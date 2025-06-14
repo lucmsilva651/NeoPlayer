@@ -19,6 +19,7 @@ app.whenReady().then(() => {
     minWidth: 600,
     minHeight: 365,
     resizable: false,
+    visible: false,
     center: true,
     darkTheme: true,
     backgroundColor: '#0d0d0d',
@@ -37,6 +38,14 @@ app.whenReady().then(() => {
   });
 
   win.loadFile(join(__dirname, 'app', 'app.html'));
+
+  win.on('show', () => {
+    setTimeout(() => {
+      win.focus();
+    }, 200);
+  });
+
+  win.show();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
