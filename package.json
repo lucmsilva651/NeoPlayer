@@ -75,7 +75,7 @@
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
   "scripts": {
-    "start": "nodemon --watch . --ignore node_modules --exec \"electron .\"",
+    "start": "nodemon",
     "dist": "cross-env GENERATE_SOURCEMAP=false GENERATE_BLOCKMAP=false electron-builder"
   },
   "type": "module"

@@ -1,0 +1,6 @@
+{
+  "watch": ["app", "."],
+  "ext": "css, html, js",
+  "ignore": ["node_modules", "dist"],
+  "exec": "electron ."
+}
