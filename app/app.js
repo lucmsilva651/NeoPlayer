@@ -138,7 +138,7 @@ async function loadModule(url) {
   }
 }
 
-element("play").addEventListener("click", () => {
+element("inputPlayBtn").addEventListener("click", () => {
   if (element("url").value === "") {
     alertError("Please enter a URL!");
     return;
@@ -185,6 +185,6 @@ element("stopBtn").addEventListener("click", () => {
 
 element("url").addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    element("play").click();
+    element("inputPlayBtn").click();
   }
 });
