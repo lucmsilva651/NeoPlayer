@@ -55,11 +55,7 @@ app.whenReady().then(() => {
     if (process.platform !== "darwin") app.quit();
   });
 
-  ipcMain.handle('dialog', async (event, type, title, msg) => {
-    await dialog.showMessageBox({
-      type: type,
-      title: title,
-      message: msg
-    });
+  ipcMain.handle('dialog', async (event, options) => {
+    await dialog.showMessageBox(options);
   });
 });
