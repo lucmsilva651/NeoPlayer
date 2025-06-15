@@ -6,6 +6,11 @@ To install dependencies:
 bun install
 ```
 
+To install submodules:
+```bash
+git submodule init && git submodule update
+```
+
 To run:
 
 ```bash
