@@ -203,3 +203,20 @@ element("url").addEventListener("keydown", (event) => {
     element("inputPlayBtn").click();
   }
 });
+
+element("openFile").addEventListener("click", () => {
+  element("fileInput").click();
+});
+
+element("fileInput").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  element("url").value = file.name;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    chiplib.play(reader.result);
+  };
+  reader.readAsArrayBuffer(file);
+});

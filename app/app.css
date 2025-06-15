@@ -153,6 +153,10 @@ button:active {
   background-color: #333;
 }
 
+button.codicon {
+  font-size: 18px !important;
+}
+
 .bottom-bar {
   background-color: #131313;
   width: 100%;
