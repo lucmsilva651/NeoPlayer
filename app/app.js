@@ -179,15 +179,15 @@ element("loopToggle").addEventListener("click", () => {
   }
 });
 
-element("aboutBtn").addEventListener("click", () => {
-  const aboutStr = "NeoPlayer is © 2025 Lucas Gabriel (lucmsilva). All rights reserved.\n\nSource code:\nhttps://github.com/lucmsilva651/NeoPlayer\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons";
-  window.api.openDialog({
-    type: 'info',
-    buttons: ['Ok'],
-    title: 'About NeoPlayer',
-    message: aboutStr,
-  });
-})
+// element("aboutBtn").addEventListener("click", () => {
+//   const aboutStr = "NeoPlayer is © 2025 Lucas Gabriel (lucmsilva). All rights reserved.\n\nSource code:\nhttps://github.com/lucmsilva651/NeoPlayer\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons";
+//   window.api.openDialog({
+//     type: 'info',
+//     buttons: ['Ok'],
+//     title: 'About NeoPlayer',
+//     message: aboutStr,
+//   });
+// })
 
 element("moduleMsgBtn").addEventListener("click", () => {
   window.api.openDialog({
