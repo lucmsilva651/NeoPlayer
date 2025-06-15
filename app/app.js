@@ -126,8 +126,8 @@ chiplib.onMetadata(async (meta) => {
   element("modChannels").textContent = meta.song.channels["length"] || "0";
   element("modPatterns").textContent = meta.song.patterns["length"] || "0";
   element("modSource").textContent = modSource;
-  element("modDurTot").textContent = modDurStr;
-  document.title = `NeoPlayer - ${element("modTitle").textContent} - ${modTypeShortStr} - ${modDurStr}`;
+  element("modDurTot").textContent = addPadding(modDurStr);
+  document.title = `NeoPlayer - ${element("modTitle").textContent} - ${modTypeShortStr} - ${addPadding(modDurStr)}`;
   modMeta = `${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
 });
 
