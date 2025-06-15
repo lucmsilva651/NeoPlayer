@@ -27,19 +27,6 @@ body {
   font-size: 0.8rem;
 }
 
-.titlebar {
-  background-color: #131313;
-  height: 2.25rem;
-  padding: 0.0625rem 0 0 0.9375rem;
-  display: flex;
-  align-items: center;
-  position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
-  border-bottom: 0.0625rem solid #ffffff;
-}
-
 #aboutBtn {
   user-select: auto;
   -webkit-user-select: auto;

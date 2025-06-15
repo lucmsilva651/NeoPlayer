@@ -5,10 +5,6 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const template = [{ label: '' }];
-const menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu);
-
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 
 app.whenReady().then(() => {
@@ -21,15 +17,8 @@ app.whenReady().then(() => {
     minHeight: 365,
     visible: false,
     darkTheme: true,
-    resizable: false,
     spellcheck: false,
-    titleBarStyle: "hidden",
     backgroundColor: '#0d0d0d',
-    titleBarOverlay: {
-      color: '#131313',
-      symbolColor: '#ffffff',
-      height: 35
-    },
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -38,6 +27,7 @@ app.whenReady().then(() => {
     }
   });
 
+  win.removeMenu();
   win.loadFile(join(__dirname, 'app', 'app.html'));
 
   win.on('show', () => {
