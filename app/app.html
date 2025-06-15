@@ -15,7 +15,7 @@
   <main>
     <p id="instruct">
       <i class="codicon codicon-info" aria-hidden="true"></i>
-      Insert a URL of a module below or drag and drop to the window
+      Insert a URL or an ID of a module below (drag & drop supported)
     </p>
     <div class="input-play-row">
       <input autocomplete="off" type="url" id="url" required placeholder="https://" />
@@ -28,12 +28,12 @@
         <div class="grid-item">
           <p>Now playing: <span id="modTitle"></span></p>
           <p>Artist: <span id="modArtist"></span></p>
-          <p>Duration: <span class="mod-duration"></span></p>
+          <p>Prod. date: <span id="modDate"></span></p>
           <p>Type: <span id="modType"></span></p>
           <p>Tracker: <span id="modTracker"></span></p>
         </div>
         <div class="grid-item">
-          <p>Prod. date: <span id="modDate"></span></p>
+          <p>File source: <span id="modSource"></span></p>
           <p>Channels: <span id="modChannels"></span></p>
           <p>Instruments: <span id="modInstruments"></span></p>
           <p>Samples: <span id="modSamples"></span></p>
@@ -50,7 +50,7 @@
       <i id="loopToggle" class="codicon codicon-sync" aria-hidden="true" title="Repeat"></i>
     </div>
     <div class="right">
-      <span><span id="modDurAct">00:00</span>/<span class="mod-duration">00:00</span></span>
+      <span><span id="modDurAct">00:00</span>/<span id="modDurTot">00:00</span></span>
     </div>
   </div>
   <script type="module" src="app.js"></script>

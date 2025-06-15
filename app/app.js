@@ -4,6 +4,7 @@ import { dnd } from "./lib-chiptune3/dnd.js";
 const element = (e) => document.getElementById(e);
 
 let modMeta;
+let modSource;
 let loopState = 0; // 0 for off, -1 for loop
 
 const modulePage1 = "modarchive.org/index.php?request=view_by_moduleid";
@@ -78,7 +79,10 @@ window.chiplib = new chiptune3();
 
 chiplib.onInitialized(() => {
   chiplib.setRepeatCount(loopState);
-  dnd(window, (file) => chiplib.play(file));
+  dnd(window, (file) => {
+    chiplib.play(file);
+    modSource = "Drag & Drop";
+  });
 });
 
 chiplib.onError((err) => {
@@ -121,24 +125,25 @@ chiplib.onMetadata(async (meta) => {
   element("modSamples").textContent = meta.song.samples["length"] || "0";
   element("modChannels").textContent = meta.song.channels["length"] || "0";
   element("modPatterns").textContent = meta.song.patterns["length"] || "0";
+  element("modSource").textContent = modSource;
+  element("modDurTot").textContent = modDurStr;
   document.title = `NeoPlayer - ${element("modTitle").textContent} - ${modTypeShortStr} - ${modDurStr}`;
   modMeta = `${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
-  const modDur = document.getElementsByClassName("mod-duration")
-  Array.from(modDur).forEach(element => {
-    element.textContent = addPadding(modDurStr);
-  });
 });
 
 async function loadModule(url) {
   if (url.includes(modulePage1 || modulePage2 || modulePage3)) {
     const id = url.match(/(\d+)$/);
     await chiplib.load(`${apiDownload}${id[0]}`);
+    modSource = "The Mod Archive";
     return;
   } else if (isNaN(url)) {
     await chiplib.load(url);
+    modSource = "External URL";
     return;
   } else {
     await chiplib.load(`${apiDownload}${url}`);
+    modSource = "The Mod Archive";
     return;
   }
 }
@@ -217,6 +222,7 @@ element("fileInput").addEventListener("change", e => {
   const reader = new FileReader();
   reader.onload = () => {
     chiplib.play(reader.result);
+    modSource = "File";
   };
   reader.readAsArrayBuffer(file);
 });
