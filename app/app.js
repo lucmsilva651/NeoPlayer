@@ -222,7 +222,7 @@ element("fileInput").addEventListener("change", e => {
   const reader = new FileReader();
   reader.onload = () => {
     chiplib.play(reader.result);
-    modSource = "File";
+    modSource = "Local file";
   };
   reader.readAsArrayBuffer(file);
 });
