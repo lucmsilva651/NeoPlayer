@@ -12,71 +12,27 @@
   "main": "main.js",
   "module": "main.js",
   "devDependencies": {
-    "@types/bun": "latest",
+    "@electron-forge/cli": "^7.8.1",
+    "@electron-forge/maker-deb": "^7.8.1",
+    "@electron-forge/maker-dmg": "^7.8.1",
+    "@electron-forge/maker-rpm": "^7.8.1",
+    "@electron-forge/maker-squirrel": "^7.8.1",
+    "@electron-forge/maker-zip": "^7.8.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
     "cross-env": "^7.0.3",
-    "electron": "^36.4.0",
-    "electron-builder": "^26.0.12",
-    "nodemon": "^3.1.10"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "build": {
-    "appId": "com.lucmsilva.neoplayer",
-    "productName": "NeoPlayer",
-    "compression": "store",
-    "electronLanguages": "en",
-    "asar": true,
-    "files": [
-      "main.js",
-      "preload.js",
-      {
-        "from": "app/",
-        "to": "app",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ],
-    "directories": {
-      "buildResources": "app/icons"
-    },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": false,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
-    },
-    "win": {
-      "icon": "app/icons/win/icon.ico",
-      "target": [
-        "nsis"
-      ]
-    },
-    "linux": {
-      "icon": "app/icons/png",
-      "category": "Audio",
-      "target": [
-        "deb",
-        "rpm"
-      ]
-    },
-    "mac": {
-      "icon": "app/icons/mac/icon.icns",
-      "category": "public.app-category.music",
-      "darkModeSupport": true,
-      "target": [
-        "dmg"
-      ]
-    }
+    "electron": "^36.4.0"
   },
   "description": "Module player built on Electron",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
   "scripts": {
-    "start": "nodemon",
-    "dist": "cross-env GENERATE_SOURCEMAP=false GENERATE_BLOCKMAP=false electron-builder"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1",
+    "update-electron-app": "^3.1.1"
+  }
 }
