@@ -34,7 +34,6 @@ export default {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
-          icon: 'app/icons/png',
           category: 'Audio'
         }
       }
