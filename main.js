@@ -17,12 +17,12 @@ app.whenReady().then(() => {
     minHeight: 365,
     visible: false,
     darkTheme: true,
-    spellcheck: false,
     backgroundColor: '#0d0d0d',
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      spellcheck: false,
       sandbox: true
     }
   });
