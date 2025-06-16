@@ -211,26 +211,3 @@ button.codicon {
   transform: translateY(0);
   pointer-events: auto;
 }
-
-@media (min-width: 50rem) and (min-height: 25rem) {
-  #url,
-  .mod-details,
-  #moduleMsgBtn,
-  .bottom-bar p {
-    font-size: 1rem;
-  }
-
-  button.codicon {
-    font-size: 1.20rem !important;
-  }
-
-  .bottom-bar .codicon {
-    width: 3.4rem;
-    height: 2.8rem;
-    font-size: 1.125rem;
-  }
-
-  #instruct {
-    font-size: 1.25rem;
-  }
-}
