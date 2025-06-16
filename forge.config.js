@@ -40,15 +40,6 @@ export default {
       }
     },
     {
-      name: '@electron-forge/maker-rpm',
-      config: {
-        options: {
-          icon: 'app/icons/png',
-          category: 'Audio'
-        }
-      }
-    },
-    {
       name: '@electron-forge/maker-dmg',
       config: {
         format: 'ULFO',
