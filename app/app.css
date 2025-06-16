@@ -145,11 +145,11 @@ button.codicon {
 }
 
 .bottom-bar {
+  line-height: normal;
   background-color: #131313;
   width: 100%;
   position: absolute;
   bottom: 0;
-  padding-right: 1.11rem;
   font-size: 0.8125rem;
   border-top: 0.0625rem solid #ffffff;
   display: flex;
@@ -159,12 +159,15 @@ button.codicon {
   gap: 0;
 }
 
-.bottom-bar .left {
+.bottom-bar .left,
+.bottom-bar .right {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
-.bottom-bar .left .codicon {
+.bottom-bar .codicon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,7 +177,7 @@ button.codicon {
   font-size: 0.875rem;
 }
 
-.bottom-bar .left .codicon:hover {
+.bottom-bar .codicon:hover {
   background-color: #323232;
 }
 
@@ -222,7 +225,7 @@ button.codicon {
   #url,
   .mod-details,
   #moduleMsgBtn,
-  .bottom-bar .right * {
+  .bottom-bar p {
     font-size: 1rem;
   }
 
@@ -230,7 +233,7 @@ button.codicon {
     font-size: 1.20rem !important;
   }
 
-  .bottom-bar .left .codicon {
+  .bottom-bar .codicon {
     width: 3.4rem;
     height: 2.8rem;
     font-size: 1.125rem;
