@@ -86,12 +86,16 @@ chiplib.onInitialized(() => {
 });
 
 chiplib.onError((err) => {
-  if (err.type === "ptr") {
-    alertError("Unknown error, but it's probably a bad URL or ID.");
-  } else if (err.type === "Load") {
-    alertError("Failed to load the module. (?)");
-  } else {
-    alertError(err.type);
+  switch (err.type) {
+    case "ptr":
+      alertError("Unknown error, but it's probably a bad URL or ID.");
+      break;
+    case "Load":
+      alertError("Failed to load the module.");
+      break;
+    default:
+      alertError(err.type);
+      break;
   }
   chiplib.stop();
 });
