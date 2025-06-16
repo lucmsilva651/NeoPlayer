@@ -45,7 +45,7 @@ Number.prototype.round = function () {
 };
 
 function alertError(error) {
-  window.api.openDialog({
+  window.api.alert({
     type: 'error',
     buttons: ['Close'],
     title: 'Error',
@@ -185,7 +185,7 @@ element("loopToggle").addEventListener("click", () => {
 
 // element("aboutBtn").addEventListener("click", () => {
 //   const aboutStr = "NeoPlayer is © 2025 Lucas Gabriel (lucmsilva). All rights reserved.\n\nSource code:\nhttps://github.com/lucmsilva651/NeoPlayer\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons";
-//   window.api.openDialog({
+//   window.api.alert({
 //     type: 'info',
 //     buttons: ['Ok'],
 //     title: 'About NeoPlayer',
@@ -194,7 +194,7 @@ element("loopToggle").addEventListener("click", () => {
 // })
 
 element("moduleMsgBtn").addEventListener("click", () => {
-  window.api.openDialog({
+  window.api.alert({
     type: 'none',
     buttons: ['Close'],
     title: 'Module text/instruments',
