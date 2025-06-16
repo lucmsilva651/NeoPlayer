@@ -27,8 +27,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: windows-build
-          path: dist/
+          name: neoplayer-windows-nightly-${{ github.sha }}
+          path: out/
 
   build-linux:
     runs-on: ubuntu-latest
@@ -48,8 +48,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-build
-          path: dist/
+          name: neoplayer-linux-nightly-${{ github.sha }}
+          path: out/
 
   build-macos:
     runs-on: macos-latest
@@ -69,5 +69,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: macos-build
-          path: dist/
+          name: neoplayer-darwin-nightly-${{ github.sha }}
+          path: out/
