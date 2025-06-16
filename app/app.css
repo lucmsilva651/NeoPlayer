@@ -218,7 +218,7 @@ button.codicon {
   pointer-events: auto;
 }
 
-@media (min-width: 50rem) {
+@media (min-width: 50rem) and (min-height: 22rem) {
   .mod-details {
     font-size: 1rem;
   }
