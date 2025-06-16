@@ -186,15 +186,6 @@ button.codicon {
   color: #aaaaaa;
 }
 
-.bottom-bar a {
-  color: #66ccff;
-  text-decoration: none;
-}
-
-.bottom-bar a:hover {
-  text-decoration: underline;
-}
-
 #instruct {
   display: flex;
   align-items: center;
