@@ -169,6 +169,14 @@ document.body.onkeyup = function (btn) {
 
 element("playBtn").addEventListener("click", () => {
   chiplib.togglePause();
+  const playBtn = document.getElementById("playBtn");
+  if (playBtn.classList.contains("codicon-play")) {
+    playBtn.classList.remove("codicon-play");
+    playBtn.classList.add("codicon-debug-pause");
+  } else {
+    playBtn.classList.remove("codicon-debug-pause");
+    playBtn.classList.add("codicon-play");
+  }
 });
 
 element("loopToggle").addEventListener("click", () => {
