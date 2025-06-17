@@ -44,10 +44,6 @@ export default {
         format: 'ULFO',
         icon: 'app/icons/mac/icon.icns'
       }
-    },
-    {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin']
     }
   ],
   plugins: [
