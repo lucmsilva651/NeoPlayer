@@ -20,7 +20,7 @@
     "@electron-forge/maker-zip": "^7.8.1",
     "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
     "cross-env": "^7.0.3",
-    "electron": "^36.4.0"
+    "electron": "^37.0.0"
   },
   "description": "Module player built on Electron",
   "license": "BSD-3-Clause",
