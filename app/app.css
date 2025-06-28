@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&family=Fira+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Boldonse&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/vscode-codicons@0.0.17/dist/codicon.min.css");
 
 * {
@@ -6,6 +6,8 @@
   -webkit-user-select: none;
   box-sizing: border-box;
   user-select: none;
+  padding: 0;
+  margin: 0;
 }
 
 ::selection {
@@ -27,7 +29,32 @@ body {
   font-size: 0.8rem;
 }
 
-#aboutBtn {
+.titlebar {
+  background-color: #131313;
+  height: 2.25rem;
+  padding: 0.0625rem 0 0 0.9375rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  -webkit-app-region: drag;
+}
+
+.menubar {
+  border-bottom: 0.0625rem solid #ffffff;
+  justify-content: space-between;
+  background-color: #131313;
+  padding: 0 0.9375rem;
+  align-items: center;
+  display: flex;
+  gap: .5rem;
+}
+
+.menubar span {
+  font-size: .8rem;
+}
+
+.about-neoplayer:first-of-type,
+.openfile-btn {
   user-select: auto;
   -webkit-user-select: auto;
   -webkit-app-region: no-drag;

@@ -2,6 +2,7 @@ import { ChiptuneJsPlayer as chiptune3 } from './lib-chiptune3/chiptune3.js';
 import { dnd } from "./lib-chiptune3/dnd.js";
 
 const element = (e) => document.getElementById(e);
+const elements = (c) => document.querySelectorAll(`.${c}`);
 
 let modMeta;
 let modSource;
@@ -191,15 +192,17 @@ element("loopToggle").addEventListener("click", () => {
   }
 });
 
-// element("aboutBtn").addEventListener("click", () => {
-//   const aboutStr = "NeoPlayer is © 2025 Lucas Gabriel (lucmsilva). All rights reserved.\n\nSource code:\nhttps://github.com/lucmsilva651/NeoPlayer\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons";
-//   window.api.alert({
-//     type: 'info',
-//     buttons: ['Ok'],
-//     title: 'About NeoPlayer',
-//     message: aboutStr,
-//   });
-// })
+elements("about-neoplayer").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const aboutStr = "NeoPlayer is © 2025 Lucas Gabriel (lucmsilva). All rights reserved.\n\nSource code:\nhttps://github.com/lucmsilva651/NeoPlayer\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons";
+    window.api.alert({
+      type: 'info',
+      buttons: ['Ok'],
+      title: 'About NeoPlayer',
+      message: aboutStr,
+    });
+  });
+});
 
 element("moduleMsgBtn").addEventListener("click", () => {
   window.api.alert({
@@ -221,8 +224,10 @@ element("url").addEventListener("keydown", (event) => {
   }
 });
 
-element("openFile").addEventListener("click", () => {
-  element("fileInput").click();
+elements("openfile-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    element("fileInput").click();
+  });
 });
 
 element("fileInput").addEventListener("change", e => {

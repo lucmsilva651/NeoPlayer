@@ -34,13 +34,19 @@ if (!gotTheLock) {
     const win = new BrowserWindow({
       icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
       width: 600,
-      height: 365,
+      height: 385,
       center: true,
       minWidth: 600,
-      minHeight: 365,
+      minHeight: 385,
       visible: false,
       darkTheme: true,
+      titleBarStyle: "hidden",
       backgroundColor: '#0d0d0d',
+      titleBarOverlay: {
+        color: '#131313',
+        symbolColor: '#ffffff',
+        height: 35
+      },
       webPreferences: {
         preload: join(__dirname, 'preload.js'),
         nodeIntegration: false,
