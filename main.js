@@ -1,5 +1,6 @@
 import { app, BrowserWindow, dialog, ipcMain } from "electron";
 import { updateElectronApp } from "update-electron-app";
+import { is } from "@electron-toolkit/utils";
 import { createRequire } from 'module';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -45,12 +46,17 @@ if (!gotTheLock) {
         nodeIntegration: false,
         contextIsolation: true,
         spellcheck: false,
-        sandbox: true
+        sandbox: true,
+        ...(is.dev ? {} : { devTools: false }),
       }
     });
 
     win.removeMenu();
     win.loadFile(join(__dirname, 'app', 'app.html'));
+
+    if (is.dev) {
+      win.webContents.openDevTools();
+    };
 
     win.on('show', () => {
       setTimeout(() => {
