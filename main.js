@@ -1,94 +1,79 @@
-import { app, BrowserWindow, dialog, ipcMain } from "electron";
-import { updateElectronApp } from "update-electron-app";
-import { is } from "@electron-toolkit/utils";
-import { createRequire } from 'module';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+const { app, BrowserWindow, dialog, ipcMain } = require("electron/main");
+const { updateElectronApp } = require("update-electron-app");
+const { is } = require("@electron-toolkit/utils");
+const path = require("node:path");
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+if (require("electron-squirrel-startup")) app.quit();
 updateElectronApp();
 
-const require = createRequire(import.meta.url);
+const instanceLock = app.requestSingleInstanceLock();
+let window = null;
 
-if (require('electron-squirrel-startup')) {
-  app.quit();
-}
+function createWindow() {
+  app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
+  const webPreferences = {
+    preload: path.join(__dirname, "preload.js"),
+    ...(is.dev ? {} : { devTools: false }),
+    nodeIntegration: false,
+    contextIsolation: true,
+    spellcheck: false,
+    sandbox: true
+  };
 
-let win = null;
-const gotTheLock = app.requestSingleInstanceLock();
+  const titleBarOverlay = {
+    color: "#131313",
+    symbolColor: "#ffffff",
+    height: 35
+  };
 
-if (!gotTheLock) {
-  app.quit();
-} else {
-  app.on('second-instance', (event) => {
-    if (win) {
-      if (win.isMinimized()) win.restore();
-      win.focus();
-    };
+  window = new BrowserWindow({
+    icon: path.join(__dirname, "app", "icons", "png", "16x16.png"),
+    disableAutoHideCursor: true,
+    backgroundColor: "#0d0d0d",
+    titleBarStyle: "hidden",
+    titleBarOverlay,
+    darkTheme: true,
+    webPreferences,
+    minHeight: 385,
+    minWidth: 600,
+    center: true,
+    height: 385,
+    width: 600
   });
 
-  app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
-  app.whenReady().then(() => {
-    const win = new BrowserWindow({
-      icon: join(__dirname, 'app', 'icons', 'png', '16x16.png'),
-      width: 600,
-      height: 385,
-      center: true,
-      minWidth: 600,
-      minHeight: 385,
-      visible: false,
-      darkTheme: true,
-      titleBarStyle: "hidden",
-      backgroundColor: '#0d0d0d',
-      titleBarOverlay: {
-        color: '#131313',
-        symbolColor: '#ffffff',
-        height: 35
-      },
-      webPreferences: {
-        preload: join(__dirname, 'preload.js'),
-        nodeIntegration: false,
-        contextIsolation: true,
-        spellcheck: false,
-        sandbox: true,
-        ...(is.dev ? {} : { devTools: false }),
-      }
-    });
+  window.removeMenu();
+  window.loadFile(path.join(__dirname, "app", "app.html"));
+  if (is.dev) window.webContents.openDevTools();
+};
 
-    win.removeMenu();
-    win.loadFile(join(__dirname, 'app', 'app.html'));
-
-    if (is.dev) {
-      win.webContents.openDevTools();
-    };
-
-    win.on('show', () => {
-      setTimeout(() => {
-        win.focus();
-      }, 200);
-    });
-
-    win.show();
-
-    app.on("activate", () => {
-      if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    });
-
-    app.on("window-all-closed", () => {
-      if (process.platform !== "darwin") app.quit();
-    });
-
-    let isDialogOpen = false;
-    ipcMain.handle('dialog', async (event, options) => {
-      if (isDialogOpen) return;
-      isDialogOpen = true;
-      try {
-        return await dialog.showMessageBox(options);
-      } finally {
-        isDialogOpen = false;
+app.whenReady().then(() => {
+  if (!instanceLock) {
+    app.quit();
+  } else {
+    app.on("second-instance", () => {
+      if (window) {
+        if (window.isMinimized()) window.restore();
+        window.focus();
       };
     });
+    createWindow();
+  };
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-};
+
+  let isDialogOpen = false;
+  ipcMain.handle("dialog", async (event, options) => {
+    if (isDialogOpen) return;
+    isDialogOpen = true;
+    try {
+      return await dialog.showMessageBox(options);
+    } finally {
+      isDialogOpen = false;
+    };
+  });
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});
