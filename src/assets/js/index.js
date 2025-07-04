@@ -112,7 +112,7 @@ chiplib.onMetadata((meta) => {
   element("modPatterns").textContent = meta.song.patterns.length;
   element("modSource").textContent = modSource;
   element("modDurTot").textContent = addPadding(modDurStr);
-  document.title = `NeoPlayer - ${element("modTitle").textContent} - ${modTypeShortStr} - ${addPadding(modDurStr)}`;
+  
   modMeta = meta.message.split("\n").map((line, i) => `${(i + 1).toString().padStart(2, "0")}: ${line}`).join("\n");
 });
 
