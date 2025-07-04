@@ -23,7 +23,7 @@
     "@electron-forge/publisher-github": "^7.8.1",
     "@electron-toolkit/utils": "^4.0.0",
     "cross-env": "^7.0.3",
-    "electron": "^37.1.0"
+    "electron": "^37.2.0"
   },
   "scripts": {
     "start": "electron-forge start",
