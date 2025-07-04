@@ -1,4 +1,4 @@
-import { ChiptuneJsPlayer as chiptune3 } from '../../lib/chiptune/chiptune3.js';
+import { ChiptuneJsPlayer as chiptune3 } from "../../lib/chiptune/chiptune3.js";
 import { dnd } from "../../lib/chiptune/dnd.js";
 
 const element = (e) => document.getElementById(e);
@@ -16,11 +16,11 @@ const apiDownload = "https://api.modarchive.org/downloads.php?moduleid=";
 function isoFormat(time) {
   const date = new Date(time);
   const year = date.getFullYear() || 1999;
-  const day = String(date.getDate() || 1).padStart(2, '0');
-  const month = String(date.getMonth() + 1 || 1).padStart(2, '0');
-  const hour = String(date.getHours() || 0).padStart(2, '0');
-  const minute = String(date.getMinutes() || 0).padStart(2, '0');
-  const seconds = String(date.getSeconds() || 0).padStart(2, '0');
+  const day = String(date.getDate() || 1).padStart(2, "0");
+  const month = String(date.getMonth() + 1 || 1).padStart(2, "0");
+  const hour = String(date.getHours() || 0).padStart(2, "0");
+  const minute = String(date.getMinutes() || 0).padStart(2, "0");
+  const seconds = String(date.getSeconds() || 0).padStart(2, "0");
 
   if (time == "") return time;
   return `${day}/${month}/${year} - ${hour}:${minute}:${seconds}`;
@@ -29,12 +29,12 @@ function isoFormat(time) {
 function secToMin(sec) {
   const minutes = Math.floor(sec / 60);
   const remSecs = sec % 60;
-  return `${String(minutes).padStart(2, '0')}:${String(remSecs).padStart(2, '0')}`;
+  return `${String(minutes).padStart(2, "0")}:${String(remSecs).padStart(2, "0")}`;
 }
 
 function addPadding(time) {
-  const [min, sec] = time.split(':');
-  return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  const [min, sec] = time.split(":");
+  return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 }
 
 function fmtMSS(seconds) {
@@ -47,9 +47,9 @@ Number.prototype.round = function () {
 
 function alertError(error) {
   window.api.alert({
-    type: 'error',
-    buttons: ['Close'],
-    title: 'Error',
+    type: "error",
+    buttons: ["Close"],
+    title: "Error",
     message: error,
   });
   hideElements();
@@ -133,7 +133,7 @@ chiplib.onMetadata(async (meta) => {
   element("modSource").textContent = modSource;
   element("modDurTot").textContent = addPadding(modDurStr);
   document.title = `NeoPlayer - ${element("modTitle").textContent} - ${modTypeShortStr} - ${addPadding(modDurStr)}`;
-  modMeta = `${meta.message.split('\n').map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`).join('\n')}` || "No text/instruments found.";
+  modMeta = `${meta.message.split("\n").map((line, i) => `${(i + 1).toString().padStart(2, "0")}: ${line}`).join("\n")}` || "No text/instruments found.";
 });
 
 async function loadModule(url) {
@@ -196,9 +196,9 @@ elements("about-neoplayer").forEach((btn) => {
   btn.addEventListener("click", () => {
     const aboutStr = "NeoPlayer is © 2025 Lucas Gabriel (lucmsilva). All rights reserved.\n\nSource code:\nhttps://github.com/lucmsilva651/NeoPlayer\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons";
     window.api.alert({
-      type: 'info',
-      buttons: ['Ok'],
-      title: 'About NeoPlayer',
+      type: "info",
+      buttons: ["Ok"],
+      title: "About NeoPlayer",
       message: aboutStr,
     });
   });
@@ -206,9 +206,9 @@ elements("about-neoplayer").forEach((btn) => {
 
 element("moduleMsgBtn").addEventListener("click", () => {
   window.api.alert({
-    type: 'none',
-    buttons: ['Close'],
-    title: 'Module text/instruments',
+    type: "none",
+    buttons: ["Close"],
+    title: "Module text/instruments",
     message: modMeta,
   });
 });
