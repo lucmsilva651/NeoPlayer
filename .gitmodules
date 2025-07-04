@@ -1,3 +1,3 @@
-[submodule "app/lib-chiptune3"]
-	path = app/lib-chiptune3
+[submodule "src/lib/chiptune"]
+	path = src/lib/chiptune
 	url = https://github.com/DrSnuggles/chiptune
