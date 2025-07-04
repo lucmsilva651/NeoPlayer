@@ -1,33 +1,33 @@
 {
   "name": "neoplayer",
   "version": "1.2.0",
+  "main": "renderer.js",
+  "license": "BSD-3-Clause",
+  "packageName": "NeoPlayer",
+  "repository": "github:lucmsilva651/neoplayer",
+  "description": "Module player built on Electron",
   "author": {
     "name": "Lucas Gabriel (lucmsilva)",
     "email": "lucmsilva651@gmail.com"
   },
-  "repository": "github:lucmsilva651/neoplayer",
-  "main": "main.js",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1",
+    "update-electron-app": "^3.1.1"
+  },
   "devDependencies": {
     "@electron-forge/cli": "^7.8.1",
     "@electron-forge/maker-deb": "^7.8.1",
     "@electron-forge/maker-dmg": "^7.8.1",
     "@electron-forge/maker-squirrel": "^7.8.1",
     "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
+    "@electron-forge/publisher-github": "^7.8.1",
+    "@electron-toolkit/utils": "^4.0.0",
     "cross-env": "^7.0.3",
     "electron": "^37.1.0"
   },
-  "description": "Module player built on Electron",
-  "license": "BSD-3-Clause",
-  "packageName": "NeoPlayer",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
-  },
-  "dependencies": {
-    "@electron-forge/publisher-github": "^7.8.1",
-    "@electron-toolkit/utils": "^4.0.0",
-    "electron-squirrel-startup": "^1.0.1",
-    "update-electron-app": "^3.1.1"
   }
 }
