@@ -53,6 +53,5 @@ export default {
     }
   ],
   hooks: {},
-  publishers: [],
   buildIdentifier: 'com.lucmsilva.neoplayer'
 };
