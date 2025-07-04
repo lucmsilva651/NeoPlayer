@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="electron" content="app">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="animations.css">
+  <title>NeoPlayer</title>
+</head>
+<body>
+  <div class="titlebar">
+    <span class="about-neoplayer logo">NeoPlayer</span>
+  </div>
+  <div class="menubar">
+    <div class="left">
+      <span class="openfile-btn">Open file</span>
+    </div>
+    <div class="right">
+      <span class="align-right about-neoplayer">About NeoPlayer</span>
+    </div>
+  </div>
+  <main>
+    <p id="instruct">
+      <i class="codicon codicon-info" aria-hidden="true"></i>
+      Insert a URL or an ID of a module below (drag & drop supported)
+    </p>
+    <div class="input-play-row">
+      <input autocomplete="off" type="url" id="url" required placeholder="https://" />
+      <button id="inputPlayBtn" class="codicon codicon-file-symlink-file" title="Load external file"></button>
+      <button class="openfile-btn codicon codicon-file" title="Open local file"></button>
+      <input type="file" id="fileInput" style="display: none;">
+    </div>
+    <div class="mod-details" id="modDetails">
+      <div class="mod-details-grid">
+        <div class="grid-item">
+          <p>Now playing: <span id="modTitle"></span></p>
+          <p>Artist: <span id="modArtist"></span></p>
+          <p>Prod. date: <span id="modDate"></span></p>
+          <p>Type: <span id="modType"></span></p>
+          <p>Tracker: <span id="modTracker"></span></p>
+        </div>
+        <div class="grid-item">
+          <p>Source: <span id="modSource"></span></p>
+          <p>Channels: <span id="modChannels"></span></p>
+          <p>Instruments: <span id="modInstruments"></span></p>
+          <p>Samples: <span id="modSamples"></span></p>
+          <p>Patterns: <span id="modPatterns"></span></p>
+        </div>
+      </div>
+    </div>
+    <button id="moduleMsgBtn">Show module text/instruments</button>
+  </main>
+  <div class="bottom-bar">
+    <div class="left">
+      <i id="playBtn" class="codicon codicon-debug-pause" aria-hidden="true" title="Play/Pause"></i>
+      <p><span id="modDurAct">00:00</span>/<span id="modDurTot">00:00</span></p>
+    </div>
+    <div class="right">
+      <i id="loopToggle" class="codicon codicon-sync" aria-hidden="true" title="Repeat"></i>
+      <i id="stopBtn" class="codicon codicon-debug-stop" aria-hidden="true" title="Stop"></i>
+    </div>
+  </div>
+  <script type="module" src="index.js"></script>
+</body>
+</html>

@@ -42,7 +42,7 @@ function createWindow() {
   });
 
   window.removeMenu();
-  window.loadFile(path.join(__dirname, "app", "app.html"));
+  window.loadFile(path.join(__dirname, "src", "index.html"));
   if (is.dev) window.webContents.openDevTools();
 };
 
