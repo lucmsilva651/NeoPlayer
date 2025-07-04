@@ -12,7 +12,7 @@ let window = null;
 function createWindow() {
   app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
   const webPreferences = {
-    preload: path.join(__dirname, "preload.js"),
+    preload: path.join(__dirname, "src", "electron", "preload.js"),
     ...(is.dev ? {} : { devTools: false }),
     nodeIntegration: false,
     contextIsolation: true,
