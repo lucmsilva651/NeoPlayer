@@ -1,3 +1,0 @@
-[submodule "src/lib/chiptune"]
-	path = src/lib/chiptune
-	url = https://github.com/DrSnuggles/chiptune
