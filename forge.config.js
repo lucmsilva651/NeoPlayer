@@ -2,7 +2,7 @@
 export default {
   packagerConfig: {
     asar: true,
-    icon: 'app/icons/win/icon',
+    icon: 'src/assets/icons/win/icon',
     appBundleId: 'com.lucmsilva.neoplayer',
     appCategoryType: 'public.app-category.music',
     "win32metadata": {
@@ -27,7 +27,7 @@ export default {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'NeoPlayer',
-        setupIcon: 'app/icons/win/icon.ico'
+        setupIcon: 'src/assets/icons/win/icon.ico'
       }
     },
     {
@@ -42,7 +42,7 @@ export default {
       name: '@electron-forge/maker-dmg',
       config: {
         format: 'ULFO',
-        icon: 'app/icons/mac/icon.icns'
+        icon: 'src/assets/icons/mac/icon.icns'
       }
     }
   ],
