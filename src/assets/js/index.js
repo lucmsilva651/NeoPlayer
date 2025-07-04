@@ -1,4 +1,5 @@
 import { ChiptuneJsPlayer as chiptune3 } from "../../lib/chiptune/chiptune3.js";
+import validator from "https://cdn.skypack.dev/validator";
 import { dnd } from "../../lib/chiptune/dnd.js";
 
 const element = (e) => document.getElementById(e);
@@ -7,11 +8,6 @@ const elements = (c) => document.querySelectorAll(`.${c}`);
 let modMeta;
 let modSource;
 let loopState = 0; // 0 for off, -1 for loop
-
-const modulePage1 = "modarchive.org/index.php?request=view_by_moduleid";
-const modulePage2 = "modarchive.org/index.php?request=view_player";
-const modulePage3 = "modarchive.org/module.php";
-const apiDownload = "https://api.modarchive.org/downloads.php?moduleid=";
 
 function isoFormat(time) {
   const date = new Date(time);
@@ -137,21 +133,20 @@ chiplib.onMetadata(async (meta) => {
 });
 
 async function loadModule(url) {
-  if (url.includes(modulePage1 || modulePage2 || modulePage3)) {
-    const id = url.match(/(\d+)$/);
-    await chiplib.load(`${apiDownload}${id[0]}`);
+  const tma = "https://api.modarchive.org/downloads.php?moduleid=";
+    const id = url.match(/moduleid=(\d+)/i) || url.match(/(\d+)$/);
+  if (url.includes("modarchive.org")) {
+    await chiplib.load(tma + id[1]);
     modSource = "The Mod Archive";
-    return;
-  } else if (isNaN(url)) {
+  } else if (validator.isURL(url)) {
     await chiplib.load(url);
     modSource = "External URL";
-    return;
   } else {
-    await chiplib.load(`${apiDownload}${url}`);
+    await chiplib.load(`${tma}${url}`);
     modSource = "The Mod Archive";
-    return;
   }
 }
+
 
 element("inputPlayBtn").addEventListener("click", () => {
   if (element("url").value === "") {
