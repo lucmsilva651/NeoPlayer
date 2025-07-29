@@ -1,10 +1,8 @@
 const { app, BrowserWindow, dialog, ipcMain } = require("electron/main");
-const { updateElectronApp } = require("update-electron-app");
 const { is } = require("@electron-toolkit/utils");
 const path = require("node:path");
 
 if (require("electron-squirrel-startup")) app.quit();
-updateElectronApp();
 
 const instanceLock = app.requestSingleInstanceLock();
 let window = null;
@@ -27,7 +25,7 @@ function createWindow() {
   };
 
   window = new BrowserWindow({
-    icon: path.join(__dirname, "src", "assets", "icons", "png", "16x16.png"),
+    icon: path.join(__dirname, "src", "icons", "icon.png"),
     disableAutoHideCursor: true,
     backgroundColor: "#0d0d0d",
     titleBarStyle: "hidden",
