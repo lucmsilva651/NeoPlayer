@@ -11,6 +11,7 @@
     "email": "lucmsilva651@gmail.com"
   },
   "dependencies": {
+    "@electron-toolkit/utils": "^4.0.0",
     "electron-squirrel-startup": "^1.0.1",
     "update-electron-app": "^3.1.1"
   },
@@ -21,8 +22,6 @@
     "@electron-forge/maker-squirrel": "^7.8.1",
     "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
     "@electron-forge/publisher-github": "^7.8.1",
-    "@electron-toolkit/utils": "^4.0.0",
-    "cross-env": "^10.0.0",
     "electron": "^37.2.0"
   },
   "scripts": {
