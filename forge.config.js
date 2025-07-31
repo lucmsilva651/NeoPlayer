@@ -10,9 +10,27 @@ module.exports = {
   },
   makers: [
     {
-      name: "@electron-forge/maker-zip",
-      platforms: ["darwin", "linux", "win32"]
+      name: "@electron-forge/maker-deb",
+      config: {
+        options: {
+          category: "Audio",
+          icon: "src/icons/icon.png"
+        }
+      }
     },
+    {
+      name: "@electron-forge/maker-dmg",
+      config: {
+        format: "ULFO",
+        icon: "src/icons/icon.icns"
+      }
+    },
+    {
+      name: "@electron-forge/maker-squirrel",
+      config: {
+        setupIcon: "src/icons/icon.ico"
+      }
+    }
   ],
   plugins: [
     {
