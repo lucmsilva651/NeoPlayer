@@ -1,3 +1,6 @@
 [submodule "src/lib/chiptune"]
 	path = src/lib/chiptune
 	url = https://github.com/DrSnuggles/chiptune
+[submodule "src/lib/codicons"]
+	path = src/lib/codicons
+	url = https://github.com/microsoft/vscode-codicons

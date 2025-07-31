@@ -1,5 +1,5 @@
-import { ChiptuneJsPlayer as chiptune3 } from "../../lib/chiptune/chiptune3.js";
-import { dnd } from "../../lib/chiptune/dnd.js";
+import { ChiptuneJsPlayer as chiptune3 } from "../lib/chiptune/chiptune3.js";
+import { dnd } from "../lib/chiptune/dnd.js";
 
 const element = (e) => document.getElementById(e);
 const elements = (c) => document.querySelectorAll(`.${c}`);

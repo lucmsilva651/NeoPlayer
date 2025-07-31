@@ -1,7 +1,7 @@
 {
   "name": "neoplayer",
   "version": "1.3.0",
-  "main": "renderer.js",
+  "main": "src/main.js",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
   "repository": "github:lucmsilva651/neoplayer",
@@ -22,8 +22,10 @@
     "electron": "^37.2.0"
   },
   "scripts": {
-    "start": "electron-forge start",
+    "icons": "cd src/lib/codicons && npm i && npm run build",
+    "make": "npm run icons && npm run forge",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "electron-forge start",
+    "forge": "electron-forge make"
   }
 }
