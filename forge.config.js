@@ -1,5 +1,6 @@
 const { FusesPlugin } = require("@electron-forge/plugin-fuses");
 const { FuseV1Options, FuseVersion } = require("@electron/fuses");
+const package = require("./package.json");
 
 module.exports = {
   buildIdentifier: "com.lucmsilva.neoplayer",
@@ -13,8 +14,13 @@ module.exports = {
       name: "@electron-forge/maker-rpm",
       config: {
         options: {
-          category: "Audio",
-          icon: "src/icons/icon.png"
+          categories: package.appCategories,
+          description: package.description,
+          productName: package.packageName,
+          icon: "src/icons/icon.png",
+          license: package.license,
+          version: package.version,
+          compressionLevel: 9
         }
       }
     },
@@ -22,22 +28,30 @@ module.exports = {
       name: "@electron-forge/maker-deb",
       config: {
         options: {
-          category: "Audio",
-          icon: "src/icons/icon.png"
+          categories: package.appCategories,
+          description: package.description,
+          productName: package.packageName,
+          maintainer: package.author.name,
+          icon: "src/icons/icon.png",
+          version: package.version,
+          priority: "optional"
         }
       }
     },
     {
       name: "@electron-forge/maker-dmg",
       config: {
-        format: "ULFO",
-        icon: "src/icons/icon.icns"
+        icon: "src/icons/icon.icns",
+        name: package.packageName,
+        format: "UDZO"
       }
     },
     {
       name: "@electron-forge/maker-squirrel",
       config: {
-        setupIcon: "src/icons/icon.ico"
+        setupIcon: "src/icons/icon.ico",
+        appVersion: package.version,
+        name: package.packageName
       }
     }
   ],

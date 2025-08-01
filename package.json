@@ -2,10 +2,12 @@
   "name": "neoplayer",
   "version": "1.3.1",
   "main": "src/main.js",
+  "appCategories": "Audio",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
   "repository": "github:lucmsilva651/neoplayer",
   "description": "Module player built on Electron",
+  "macCategory": "public.app-category.music",
   "author": {
     "name": "Lucas Gabriel (lucmsilva)",
     "email": "lucmsilva651@gmail.com"

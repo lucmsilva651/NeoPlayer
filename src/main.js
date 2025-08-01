@@ -2,7 +2,7 @@ const { app, BrowserWindow, Tray, nativeImage, dialog, ipcMain } = require("elec
 const { is, platform } = require("@electron-toolkit/utils");
 const path = require("node:path");
 
-if(require('electron-squirrel-startup')) return;
+if (require('electron-squirrel-startup')) return;
 
 const appIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "icon.png"));
 const instanceLock = app.requestSingleInstanceLock();
