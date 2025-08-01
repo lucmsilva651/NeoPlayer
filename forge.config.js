@@ -14,7 +14,7 @@ module.exports = {
       name: "@electron-forge/maker-rpm",
       config: {
         options: {
-          categories: package.appCategories,
+          categories: package.category,
           description: package.description,
           productName: package.packageName,
           icon: "src/icons/icon.png",
@@ -28,7 +28,7 @@ module.exports = {
       name: "@electron-forge/maker-deb",
       config: {
         options: {
-          categories: package.appCategories.split(),
+          categories: package.category.split(),
           description: package.description,
           productName: package.packageName,
           maintainer: package.author.name,
