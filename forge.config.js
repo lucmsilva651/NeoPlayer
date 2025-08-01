@@ -28,7 +28,7 @@ module.exports = {
       name: "@electron-forge/maker-deb",
       config: {
         options: {
-          categories: package.appCategories,
+          categories: package.appCategories.split(),
           description: package.description,
           productName: package.packageName,
           maintainer: package.author.name,
