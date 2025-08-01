@@ -1,10 +1,11 @@
-const { app, BrowserWindow, nativeImage, dialog, ipcMain } = require("electron/main");
+const { app, BrowserWindow, Tray, nativeImage, dialog, ipcMain } = require("electron/main");
 const { is, platform } = require("@electron-toolkit/utils");
 const path = require("node:path");
 
 const appIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "icon.png"));
 const instanceLock = app.requestSingleInstanceLock();
 let window = null;
+let tray = null;
 
 function createWindow() {
   const webPreferences = {
@@ -43,6 +44,20 @@ function createWindow() {
   if (is.dev) window.webContents.openDevTools();
 };
 
+function createTray(win) {
+  tray = new Tray(appIcon);
+  tray.setToolTip("NeoPlayer");
+
+  tray.on('click', () => {
+    if (win.isVisible()) {
+      win.hide();
+    } else {
+      win.show();
+      win.focus();
+    }
+  });
+};
+
 app.whenReady().then(() => {
   if (!instanceLock) {
     app.quit();
@@ -54,6 +69,7 @@ app.whenReady().then(() => {
       };
     });
     createWindow();
+    createTray(window);
   };
 
   app.on("activate", () => {
