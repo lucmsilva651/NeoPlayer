@@ -6,9 +6,19 @@ module.exports = {
   packagerConfig: {
     appCategoryType: "public.app-category.music",
     icon: "src/icons/icon",
+    name: "NeoPlayer",
     asar: true,
   },
   makers: [
+    {
+      name: "@electron-forge/maker-rpm",
+      config: {
+        options: {
+          category: "Audio",
+          icon: "src/icons/icon.png"
+        }
+      }
+    },
     {
       name: "@electron-forge/maker-deb",
       config: {

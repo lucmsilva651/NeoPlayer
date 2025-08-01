@@ -26,10 +26,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Prepare build (Windows)
+        run: |
+          cd out/com.lucmsilva.neoplayer/make/squirrel.windows/x64/
+          del neoplayer-1.3.0-full.nupkg
+          del RELEASES
+
       - uses: actions/upload-artifact@v4
         with:
-          name: neoplayer-windows-nightly-${{ github.sha }}
-          path: out/com.lucmsilva.neoplayer/make/
+          name: neoplayer-windows-nightly
+          path: out/com.lucmsilva.neoplayer/make/squirrel.windows/x64/
 
   build-linux:
     runs-on: ubuntu-latest
@@ -51,9 +57,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Prepare build (Linux)
+        run: |
+          cd out/com.lucmsilva.neoplayer/make/
+          mv deb/x64/*.deb .
+          mv rpm/x64/*.rpm .
+
       - uses: actions/upload-artifact@v4
         with:
-          name: neoplayer-linux-nightly-${{ github.sha }}
+          name: neoplayer-linux-nightly
           path: out/com.lucmsilva.neoplayer/make/
 
   build-macos:
@@ -78,5 +90,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: neoplayer-darwin-nightly-${{ github.sha }}
+          name: neoplayer-darwin-nightly
           path: out/com.lucmsilva.neoplayer/make/
