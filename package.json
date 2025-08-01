@@ -3,6 +3,7 @@
   "version": "1.3.0",
   "main": "src/main.js",
   "license": "BSD-3-Clause",
+  "packageName": "NeoPlayer",
   "repository": "github:lucmsilva651/neoplayer",
   "description": "Module player built on Electron",
   "author": {

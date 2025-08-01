@@ -6,7 +6,6 @@ module.exports = {
   packagerConfig: {
     appCategoryType: "public.app-category.music",
     icon: "src/icons/icon",
-    name: "NeoPlayer",
     asar: true,
   },
   makers: [
