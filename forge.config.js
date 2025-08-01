@@ -14,7 +14,7 @@ module.exports = {
       name: "@electron-forge/maker-rpm",
       config: {
         options: {
-          categories: package.appCategories,
+          categories: package.appCategories.split(),
           description: package.description,
           productName: package.packageName,
           icon: "src/icons/icon.png",
