@@ -1,14 +1,15 @@
-const { app, BrowserWindow, dialog, ipcMain } = require("electron/main");
-const { is } = require("@electron-toolkit/utils");
+const { app, BrowserWindow, nativeImage, dialog, ipcMain } = require("electron/main");
+const { is, platform } = require("@electron-toolkit/utils");
 const path = require("node:path");
 
+const appIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "icon.png"));
 const instanceLock = app.requestSingleInstanceLock();
 let window = null;
 
 function createWindow() {
-  app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
   const webPreferences = {
     preload: path.join(__dirname, "preload.js"),
+    autoplayPolicy: "no-user-gesture-required",
     ...(is.dev ? {} : { devTools: false }),
     nodeIntegration: false,
     contextIsolation: true,
@@ -23,7 +24,6 @@ function createWindow() {
   };
 
   window = new BrowserWindow({
-    icon: path.join(__dirname, "icons", "icon.png"),
     disableAutoHideCursor: true,
     backgroundColor: "#0d0d0d",
     titleBarStyle: "hidden",
@@ -32,6 +32,7 @@ function createWindow() {
     webPreferences,
     minHeight: 385,
     minWidth: 600,
+    icon: appIcon,
     center: true,
     height: 385,
     width: 600
@@ -54,8 +55,13 @@ app.whenReady().then(() => {
     });
     createWindow();
   };
+
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+
+  app.on("window-all-closed", () => {
+    if (!platform.isMacOS) app.quit();
   });
 
   let isDialogOpen = false;
@@ -68,8 +74,4 @@ app.whenReady().then(() => {
       isDialogOpen = false;
     };
   });
-});
-
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
 });
