@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain } = require("electron/main");
 const { is, platform } = require("@electron-toolkit/utils");
+const pkg = require("../package.json");
 const path = require("node:path");
 
 if (require("electron-squirrel-startup")) return;
@@ -50,10 +51,10 @@ function createWindow() {
 
 function createTray(win) {
   tray = new Tray(appIcon);
-  tray.setToolTip("NeoPlayer");
+  tray.setToolTip(pkg.packageName);
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: "Quit NeoPlayer", role: "quit" }
+    { label: `Quit ${pkg.packageName}`, role: "quit" }
   ])
 
   tray.setContextMenu(contextMenu)

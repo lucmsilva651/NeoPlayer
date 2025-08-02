@@ -1,4 +1,5 @@
 import { ChiptuneJsPlayer as chiptune3 } from "../lib/chiptune/chiptune3.js";
+import pkg from "../../package.json" with { type: "json" };
 import { dnd } from "../lib/chiptune/dnd.js";
 
 const element = (e) => document.getElementById(e);
@@ -54,11 +55,15 @@ function showElements() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.title = pkg.packageName;
   element("fileInput").setAttribute("accept", ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp");
   hideElements();
   const toggle = element("loopToggle");
   toggle.classList.remove(loopState === 0 ? "codicon-sync" : "codicon-sync-ignored");
   toggle.classList.add(loopState === 0 ? "codicon-sync-ignored" : "codicon-sync");
+  elements("app-name").forEach(e => {
+    e.textContent = pkg.packageName;
+  })
 });
 
 window.chiplib = new chiptune3();
