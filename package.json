@@ -5,7 +5,10 @@
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
   "category": ["Audio", "AudioVideo"],
-  "repository": "github:lucmsilva651/neoplayer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucmsilva651/NeoPlayer.git"
+  },
   "description": "Module player built on Electron",
   "macCategory": "public.app-category.music",
   "author": {
