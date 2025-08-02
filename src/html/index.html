@@ -12,14 +12,14 @@
 </head>
 <body>
   <div class="titlebar">
-    <span class="about-neoplayer logo">NeoPlayer</span>
+    <span class="logo app-name">NeoPlayer</span>
   </div>
   <div class="menubar">
     <div class="left">
-      <span class="openfile-btn">Open file</span>
+      <span id="openFileBtn">Open file</span>
     </div>
     <div class="right">
-      <span class="align-right about-neoplayer">About NeoPlayer</span>
+      <span id="aboutAppBtn" class="align-right">About NeoPlayer</span>
     </div>
   </div>
   <main>
@@ -30,7 +30,6 @@
     <div class="input-play-row">
       <input autocomplete="off" type="url" id="url" required placeholder="https://" />
       <button id="inputPlayBtn" class="codicon codicon-file-symlink-file" title="Load external file"></button>
-      <button class="openfile-btn codicon codicon-file" title="Open local file"></button>
       <input type="file" id="fileInput" style="display: none;">
     </div>
     <div class="mod-details" id="modDetails">

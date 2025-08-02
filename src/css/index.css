@@ -50,6 +50,7 @@ body {
   border-bottom: 0.0625rem solid #ffffff;
   justify-content: space-between;
   background-color: #131313;
+  -webkit-app-region: drag;
   padding: 0 0.9375rem;
   align-items: center;
   display: flex;
@@ -60,8 +61,7 @@ body {
   font-size: .8rem;
 }
 
-.about-neoplayer:first-of-type,
-.openfile-btn {
+.menubar * {
   user-select: auto;
   -webkit-user-select: auto;
   -webkit-app-region: no-drag;

@@ -54,6 +54,7 @@ function showElements() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  element("fileInput").setAttribute("accept", ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp");
   hideElements();
   const toggle = element("loopToggle");
   toggle.classList.remove(loopState === 0 ? "codicon-sync" : "codicon-sync-ignored");
@@ -164,14 +165,12 @@ element("loopToggle").addEventListener("click", () => {
   toggle.classList.toggle("codicon-sync-ignored");
 });
 
-elements("about-neoplayer").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    window.api.alert({
-      type: "info",
-      buttons: ["Ok"],
-      title: "About NeoPlayer",
-      message: "NeoPlayer is © 2025 Lucas Gabriel (lucmsilva). All rights reserved.\n\nSource code:\nhttps://github.com/lucmsilva651/NeoPlayer\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons",
-    });
+element("aboutAppBtn").addEventListener("click", () => {
+  window.api.alert({
+    type: "info",
+    buttons: ["Ok"],
+    title: `About ${pkg.packageName}`,
+    message: `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.\n\nSource code:\n${pkg.repository.url}\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons`,
   });
 });
 
@@ -195,11 +194,8 @@ element("url").addEventListener("keydown", (event) => {
   }
 });
 
-elements("openfile-btn").forEach((btn) => {
-  element("fileInput").setAttribute("accept", ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp");
-  btn.addEventListener("click", () => {
-    element("fileInput").click();
-  });
+element("openFileBtn").addEventListener("click", () => {
+  element("fileInput").click();
 });
 
 element("fileInput").addEventListener("change", (e) => {
