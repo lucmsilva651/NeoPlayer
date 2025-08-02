@@ -29,8 +29,10 @@ function createWindow() {
   window = new BrowserWindow({
     disableAutoHideCursor: true,
     backgroundColor: "#0d0d0d",
-    titleBarStyle: "hidden",
-    titleBarOverlay,
+    ...(!platform.isMacOS ? {
+      titleBarStyle: "hidden",
+      titleBarOverlay
+    } : {}),
     darkTheme: true,
     webPreferences,
     minHeight: 385,
