@@ -2,7 +2,7 @@ const { app, BrowserWindow, Tray, nativeImage, dialog, ipcMain } = require("elec
 const { is, platform } = require("@electron-toolkit/utils");
 const path = require("node:path");
 
-if (require('electron-squirrel-startup')) return;
+if (require("electron-squirrel-startup")) return;
 
 const appIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "icon.png"));
 const instanceLock = app.requestSingleInstanceLock();
@@ -52,7 +52,7 @@ function createTray(win) {
   tray = new Tray(appIcon);
   tray.setToolTip("NeoPlayer");
 
-  tray.on('click', () => {
+  tray.on("click", () => {
     if (win.isVisible()) {
       win.hide();
     } else {
@@ -81,7 +81,7 @@ app.whenReady().then(() => {
   });
 
   app.on("window-all-closed", () => {
-    if (!platform.isMacOS) app.quit();
+    app.quit();
   });
 
   let isDialogOpen = false;
