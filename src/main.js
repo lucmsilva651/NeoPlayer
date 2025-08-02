@@ -73,7 +73,7 @@ app.whenReady().then(() => {
       };
     });
     createWindow();
-    createTray(window);
+    if (!platform.isMacOS) createTray(window);
   };
 
   app.on("activate", () => {
