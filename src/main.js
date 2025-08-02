@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, nativeImage, dialog, ipcMain } = require("electron/main");
+const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain } = require("electron/main");
 const { is, platform } = require("@electron-toolkit/utils");
 const path = require("node:path");
 
@@ -51,6 +51,12 @@ function createWindow() {
 function createTray(win) {
   tray = new Tray(appIcon);
   tray.setToolTip("NeoPlayer");
+
+  const contextMenu = Menu.buildFromTemplate([
+    { label: "Quit NeoPlayer", role: "quit" }
+  ])
+
+  tray.setContextMenu(contextMenu)
 
   tray.on("click", () => {
     if (win.isVisible()) {
