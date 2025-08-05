@@ -60,7 +60,7 @@ function createTray(win) {
   tray.setContextMenu(contextMenu)
 
   tray.on("click", () => {
-    if (win.isVisible()) {
+    if (win.isVisible() && !win.isMinimized()) {
       win.hide();
     } else {
       win.show();
