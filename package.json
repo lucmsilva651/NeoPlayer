@@ -1,6 +1,6 @@
 {
   "name": "neoplayer",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "main": "src/main.js",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
