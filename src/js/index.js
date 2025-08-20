@@ -175,7 +175,7 @@ element("aboutAppBtn").addEventListener("click", () => {
     type: "info",
     buttons: ["Ok"],
     title: `About ${pkg.packageName}`,
-    message: `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.\n\nSource code:\n${pkg.repository.url}\n\nUsing Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons`,
+    message: `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.\n\nSource code:\n${pkg.repository.url}\n\nUsing chiptune3 by DrSnuggles\nhttps://drsnuggles.github.io/chiptune\n\nAlso using Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons`,
   });
 });
 
