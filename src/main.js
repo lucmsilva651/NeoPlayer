@@ -40,6 +40,7 @@ function createWindow() {
     minWidth: 600,
     icon: appIcon,
     center: true,
+    show: false,
     height: 385,
     width: 600
   });
@@ -47,6 +48,11 @@ function createWindow() {
   window.removeMenu();
   window.loadFile(path.join(__dirname, "html", "index.html"));
   if (is.dev) window.webContents.openDevTools();
+  
+  window.once('ready-to-show', () => {
+    window.show();
+    window.focus();
+  });
 };
 
 function createTray(win) {
