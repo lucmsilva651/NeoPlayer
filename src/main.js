@@ -45,7 +45,7 @@ function createWindow() {
     width: 600
   });
 
-  win.removeMenu();
+  Menu.setApplicationMenu(null);
   win.loadFile(path.join(__dirname, "html", "index.html"));
   if (is.dev) win.webContents.openDevTools();
 
