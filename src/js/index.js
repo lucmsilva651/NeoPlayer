@@ -1,24 +1,26 @@
 import { ChiptuneJsPlayer as chiptune3 } from "../lib/chiptune/chiptune3.js";
 import pkg from "../../package.json" with { type: "json" };
 import { dnd } from "../lib/chiptune/dnd.js";
-
-const element = (e) => document.getElementById(e);
-const elements = (c) => document.querySelectorAll(`.${c}`);
+import { $, $$ } from "./utils/index.js";
 
 let modMeta;
 let modSource;
 let loopState = 0;
 
+function showDialog(type, title, message) {
+  return window.api.alert({
+    type,
+    buttons: ["Close"],
+    title,
+    message,
+  });
+}
+
 function isoFormat(time) {
-  if (time === "") return time;
+  if (!time) return "Unknown";
   const date = new Date(time);
-  const year = date.getFullYear();
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const hour = String(date.getHours()).padStart(2, "0");
-  const minute = String(date.getMinutes()).padStart(2, "0");
-  const seconds = String(date.getSeconds()).padStart(2, "0");
-  return `${day}/${month}/${year} - ${hour}:${minute}:${seconds}`;
+  if (isNaN(date.getTime())) return "Unknown";
+  return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1).toString().padStart(2, "0")}/${date.getFullYear()} - ${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`;
 }
 
 function addPadding(time) {
@@ -30,38 +32,31 @@ function fmtMSS(seconds) {
   return (seconds - (seconds %= 60)) / 60 + (9 < seconds ? ":" : ":0") + seconds;
 }
 
-Number.prototype.round = function () {
-  return Math.round(this);
-};
+const round = (n) => Math.round(n);
 
 function alertError(error) {
-  window.api.alert({
-    type: "error",
-    buttons: ["Close"],
-    title: "Error",
-    message: error,
-  });
+  showDialog("error", "Error", error);
   hideElements();
 }
 
 function hideElements() {
-  element("modDetails").classList.remove("show");
-  element("moduleMsgBtn").classList.remove("show");
+  $("modDetails").classList.remove("show");
+  $("moduleMsgBtn").classList.remove("show");
 }
 
 function showElements() {
-  element("modDetails").classList.add("show");
-  element("moduleMsgBtn").classList.add("show");
+  $("modDetails").classList.add("show");
+  $("moduleMsgBtn").classList.add("show");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   document.title = pkg.packageName;
-  element("fileInput").setAttribute("accept", ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp");
+  $("fileInput").setAttribute("accept", ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp");
   hideElements();
-  const toggle = element("loopToggle");
+  const toggle = $("loopToggle");
   toggle.classList.remove(loopState === 0 ? "codicon-sync" : "codicon-sync-ignored");
   toggle.classList.add(loopState === 0 ? "codicon-sync-ignored" : "codicon-sync");
-  elements("app-name").forEach(e => {
+  $$("app-name").forEach(e => {
     e.textContent = pkg.packageName;
   })
 });
@@ -94,10 +89,10 @@ chiplib.onError((err) => {
 chiplib.onEnded(hideElements);
 
 chiplib.onProgress((pos) => {
-  const actualPos = pos.pos.round();
+  const actualPos = round(pos.pos);
   const now = Date.now();
   if (!chiplib._lastUpdate || now - chiplib._lastUpdate > 1000) {
-    element("modDurAct").textContent = addPadding(fmtMSS(actualPos));
+    $("modDurAct").textContent = addPadding(fmtMSS(actualPos));
     chiplib._lastUpdate = now;
   }
   showElements();
@@ -105,43 +100,44 @@ chiplib.onProgress((pos) => {
 
 chiplib.onMetadata((meta) => {
   const modTypeShortStr = meta.type.toUpperCase();
-  const modDurStr = fmtMSS(meta.dur.round());
+  const modDurStr = fmtMSS(round(meta.dur));
   const modTypeStr = meta.type_long;
-  element("modTracker").textContent = meta.tracker || "Unknown";
-  element("modTitle").textContent = meta.title || "Untitled";
-  element("modType").textContent = `${modTypeStr} (${modTypeShortStr})`;
-  element("modArtist").textContent = meta.artist || "Unknown";
-  element("modDate").textContent = isoFormat(meta.date) || "Unknown";
-  element("modInstruments").textContent = meta.song.instruments.length;
-  element("modSamples").textContent = meta.song.samples.length;
-  element("modChannels").textContent = meta.song.channels.length;
-  element("modPatterns").textContent = meta.song.patterns.length;
-  element("modSource").textContent = modSource;
-  element("modDurTot").textContent = addPadding(modDurStr);
-  
+  $("modTracker").textContent = meta.tracker || "Unknown";
+  $("modTitle").textContent = meta.title || "Untitled";
+  $("modType").textContent = `${modTypeStr} (${modTypeShortStr})`;
+  $("modArtist").textContent = meta.artist || "Unknown";
+  $("modDate").textContent = isoFormat(meta.date) || "Unknown";
+  $("modInstruments").textContent = meta.song.instruments.length;
+  $("modSamples").textContent = meta.song.samples.length;
+  $("modChannels").textContent = meta.song.channels.length;
+  $("modPatterns").textContent = meta.song.patterns.length;
+  $("modSource").textContent = modSource;
+  $("modDurTot").textContent = addPadding(modDurStr);
+
   modMeta = meta.message.split("\n").map((line, i) => `${(i + 1).toString().padStart(2, "0")}: ${line}`).join("\n");
 });
 
 async function loadModule(url) {
   const tma = "https://api.modarchive.org/downloads.php?moduleid=";
   const id = url.match(/moduleid=(\d+)/i) || url.match(/(\d+)$/);
+
+  if (url.includes("modarchive.org") && id) {
+    await chiplib.load(tma + id[1]);
+    modSource = "The Mod Archive";
+    return;
+  }
   try {
     new URL(url);
-    if (url.includes("modarchive.org") && id) {
-      await chiplib.load(tma + id[1]);
-      modSource = "The Mod Archive";
-    } else {
-      await chiplib.load(url);
-      modSource = "External URL";
-    }
+    await chiplib.load(url);
+    modSource = "External URL";
   } catch {
-    await chiplib.load(`${tma}${url}`);
+    await chiplib.load(tma + url);
     modSource = "The Mod Archive";
   }
 }
 
-element("inputPlayBtn").addEventListener("click", () => {
-  const val = element("url").value;
+$("inputPlayBtn").addEventListener("click", () => {
+  const val = $("url").value;
   if (val === "") {
     alertError("Please enter a URL!");
   } else {
@@ -155,58 +151,49 @@ document.body.onkeyup = function (btn) {
   }
 };
 
-element("playBtn").addEventListener("click", () => {
+$("playBtn").addEventListener("click", () => {
   chiplib.togglePause();
-  const playBtn = element("playBtn");
+  const playBtn = $("playBtn");
   playBtn.classList.toggle("codicon-play");
   playBtn.classList.toggle("codicon-debug-pause");
 });
 
-element("loopToggle").addEventListener("click", () => {
+$("loopToggle").addEventListener("click", () => {
   loopState = loopState === 0 ? -1 : 0;
   chiplib.setRepeatCount(loopState);
-  const toggle = element("loopToggle");
+  const toggle = $("loopToggle");
   toggle.classList.toggle("codicon-sync");
   toggle.classList.toggle("codicon-sync-ignored");
 });
 
-element("aboutAppBtn").addEventListener("click", () => {
-  window.api.alert({
-    type: "info",
-    buttons: ["Ok"],
-    title: `About ${pkg.packageName}`,
-    message: `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.\n\nSource code:\n${pkg.repository.url}\n\nUsing chiptune3 by DrSnuggles\nhttps://drsnuggles.github.io/chiptune\n\nAlso using Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons`,
-  });
+$("aboutAppBtn").addEventListener("click", () => {
+  const message = `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.\n\nSource code:\n${pkg.repository.url}\n\nUsing chiptune3 by DrSnuggles\nhttps://drsnuggles.github.io/chiptune\n\nAlso using Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons`;
+  showDialog("info", `About ${pkg.packageName}`, message);
 });
 
-element("moduleMsgBtn").addEventListener("click", () => {
-  window.api.alert({
-    type: "none",
-    buttons: ["Close"],
-    title: "Module text/instruments",
-    message: modMeta,
-  });
+$("moduleMsgBtn").addEventListener("click", () => {
+  showDialog("none", "Module text/instruments", modMeta);
 });
 
-element("stopBtn").addEventListener("click", () => {
+$("stopBtn").addEventListener("click", () => {
   hideElements();
   chiplib.stop();
 });
 
-element("url").addEventListener("keydown", (event) => {
+$("url").addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    element("inputPlayBtn").click();
+    $("inputPlayBtn").click();
   }
 });
 
-element("openFileBtn").addEventListener("click", () => {
-  element("fileInput").click();
+$("openFileBtn").addEventListener("click", () => {
+  $("fileInput").click();
 });
 
-element("fileInput").addEventListener("change", (e) => {
+$("fileInput").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  element("url").value = file.name;
+  $("url").value = file.name;
   const reader = new FileReader();
   reader.onload = () => {
     chiplib.play(reader.result);
