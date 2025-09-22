@@ -4,63 +4,89 @@
   <base href="../">
   <meta charset="UTF-8">
   <meta name="electron" content="app">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="light">
   <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="lib/7.css/dist/7.css">
   <link rel="stylesheet" href="lib/codicons/dist/codicon.css">
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <div class="titlebar">
-    <span class="logo app-name">?</span>
-  </div>
-  <div class="menubar">
-    <div class="left">
-      <span id="openFileBtn">Open file</span>
-    </div>
-    <div class="right">
-      <span id="aboutAppBtn" class="align-right">About <span class="app-name">?</span></span>
-    </div>
-  </div>
-  <main>
-    <p id="instruct">
-      <i class="codicon codicon-info" aria-hidden="true"></i>
-      Insert a URL or an ID of a module below (drag & drop supported)
-    </p>
-    <div class="input-play-row">
-      <input autocomplete="off" type="url" id="url" required placeholder="https://" />
-      <button id="inputPlayBtn" class="codicon codicon-file-symlink-file" title="Load external file"></button>
-      <input type="file" id="fileInput" style="display: none;">
-    </div>
-    <div class="mod-details" id="modDetails">
-      <div class="mod-details-grid">
-        <div class="grid-item">
-          <p>Now playing: <span id="modTitle"></span></p>
-          <p>Artist: <span id="modArtist"></span></p>
-          <p>Prod. date: <span id="modDate"></span></p>
-          <p>Type: <span id="modType"></span></p>
-          <p>Tracker: <span id="modTracker"></span></p>
-        </div>
-        <div class="grid-item">
-          <p>Source: <span id="modSource"></span></p>
-          <p>Channels: <span id="modChannels"></span></p>
-          <p>Instruments: <span id="modInstruments"></span></p>
-          <p>Samples: <span id="modSamples"></span></p>
-          <p>Patterns: <span id="modPatterns"></span></p>
-        </div>
+  <div class="window glass active">
+    <div class="title-bar">
+      <img src="icons/icon.png" alt="" srcset="">
+      <div class="title-bar-text app-name">?</div>
+      <div class="title-bar-controls">
+        <button id="minimizeBtn" aria-label="Minimize"></button>
+        <button id="closeBtn" aria-label="Close"></button>
       </div>
     </div>
-    <button id="moduleMsgBtn">Show module text/instruments</button>
-  </main>
-  <div class="bottom-bar">
-    <div class="left">
-      <i id="playBtn" class="codicon codicon-debug-pause" aria-hidden="true" title="Play/Pause"></i>
-      <p><span id="modDurAct">00:00</span>/<span id="modDurTot">00:00</span></p>
-    </div>
-    <div class="right">
-      <i id="loopToggle" class="codicon codicon-sync" aria-hidden="true" title="Repeat"></i>
-      <i id="stopBtn" class="codicon codicon-debug-stop" aria-hidden="true" title="Stop"></i>
+    <div class="window-body">
+      <ul role="menubar" class="can-hover">
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          File
+          <ul role="menu">
+            <li role="menuitem">
+              <a id="openFileBtn">
+                Open local file
+              </a>
+            </li>
+            <li role="menuitem">
+              <a id="openExtBtn">
+                Open external file
+              </a>
+            </li>
+            <li role="menuitem">
+              <a id="exitAppBtn">Exit</a>
+            </li>
+          </ul>
+        </li>
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          Help
+          <ul role="menu">
+            <li role="menuitem"><a id="seeIssuesBtn" target="_blank">Report a issue</a></li>
+            <li role="menuitem"><a id="aboutAppBtn">About</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="instruct">
+        <i class="codicon codicon-info" aria-hidden="true"></i>
+        Insert a URL or an ID of a module below (drag & drop supported)
+      </div>
+      <div class="input-play-row">
+        <input autocomplete="off" type="url" id="url" required placeholder="https://" />
+        <button id="inputPlayBtn" class="codicon codicon-file-symlink-file" title="Load external file"></button>
+        <input type="file" id="fileInput" style="display: none;">
+      </div>
+      <div class="mod-details" id="modDetails">
+        <div class="mod-details-grid">
+          <div class="grid-item">
+            <p>Now playing: <span id="modTitle"></span></p>
+            <p>Artist: <span id="modArtist"></span></p>
+            <p>Prod. date: <span id="modDate"></span></p>
+            <p>Type: <span id="modType"></span></p>
+            <p>Tracker: <span id="modTracker"></span></p>
+          </div>
+          <div class="grid-item">
+            <p>Source: <span id="modSource"></span></p>
+            <p>Channels: <span id="modChannels"></span></p>
+            <p>Instruments: <span id="modInstruments"></span></p>
+            <p>Samples: <span id="modSamples"></span></p>
+            <p>Patterns: <span id="modPatterns"></span></p>
+          </div>
+        </div>
+      </div>
+      <button id="moduleMsgBtn">Show module text/instruments</button>
+      <div class="bottom-bar">
+        <div class="left">
+          <i id="playBtn" class="codicon codicon-debug-pause" aria-hidden="true" title="Play/Pause"></i>
+          <p><span id="modDurAct">00:00</span>/<span id="modDurTot">00:00</span></p>
+        </div>
+        <div class="right">
+          <i id="loopToggle" class="codicon codicon-sync" aria-hidden="true" title="Repeat"></i>
+          <i id="stopBtn" class="codicon codicon-debug-stop" aria-hidden="true" title="Stop"></i>
+        </div>
+      </div>
     </div>
   </div>
   <script type="module" src="js/index.js"></script>

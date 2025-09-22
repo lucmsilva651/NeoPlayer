@@ -4,7 +4,13 @@
   "main": "src/main.js",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
-  "category": ["Audio", "AudioVideo"],
+  "category": [
+    "Audio",
+    "AudioVideo"
+  ],
+  "bugs": {
+    "url": "https://github.com/lucmsilva651/NeoPlayer/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lucmsilva651/NeoPlayer.git"
@@ -17,6 +23,7 @@
   },
   "dependencies": {
     "@electron-toolkit/utils": "^4.0.0",
+    "7.css": "^0.21.1",
     "electron-squirrel-startup": "^1.0.1"
   },
   "devDependencies": {
@@ -32,7 +39,8 @@
   },
   "scripts": {
     "icons": "cd src/lib/codicons && npm i && npm run build",
-    "make": "npm run icons && npm run forge",
+    "gui": "cd src/lib/7.css && npm i && npm run build",
+    "make": "npm run icons && npm run gui && npm run forge",
     "package": "electron-forge package",
     "start": "electron-forge start",
     "forge": "electron-forge make"

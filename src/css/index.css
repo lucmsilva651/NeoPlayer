@@ -1,71 +1,26 @@
-@font-face {
-  font-family: "Boldonse";
-  src: url(../fonts/Boldonse-Regular.ttf);
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url(../fonts/Inter-VariableFont_opsz\,wght.ttf);
-}
-
 * {
-  font-family: "Inter", sans-serif;
-  -webkit-user-select: none;
-  box-sizing: border-box;
   user-select: none;
+}
+
+body {
   padding: 0;
   margin: 0;
 }
 
-::selection {
-  background: #4da6ff;
-  color: #ffffff;
+.window {
+  height: calc(100vh - 2px);
 }
 
-body {
-  background-color: #0d0d0d;
-  color: #ffffff;
-  margin: 0;
-  overflow: hidden;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.logo {
-  font-family: "Boldonse", sans-serif;
-  font-size: 0.8rem;
-}
-
-.titlebar {
-  background-color: #131313;
-  height: 2.25rem;
-  padding: 0.0625rem 0 0 0.9375rem;
-  display: flex;
-  align-items: center;
-  position: relative;
+.title-bar {
   -webkit-app-region: drag;
 }
 
-.menubar {
-  border-bottom: 0.0625rem solid #ffffff;
-  justify-content: space-between;
-  background-color: #131313;
-  -webkit-app-region: drag;
-  padding: 0 0.9375rem;
-  align-items: center;
-  display: flex;
-  gap: .5rem;
-}
-
-.menubar span {
-  font-size: .8rem;
-}
-
-.menubar * {
-  user-select: auto;
-  -webkit-user-select: auto;
+.title-bar .title-bar-controls {
   -webkit-app-region: no-drag;
-  cursor: pointer;
+}
+
+.window-body {
+  height: calc(100vh - 38px);
 }
 
 .mod-details-grid {
@@ -73,52 +28,6 @@ body {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
   grid-gap: 0.625rem;
-}
-
-.mod-details {
-  font-size: 0.75rem;
-  color: #dddddd;
-  background-color: #161616;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  border: 0.0625rem solid #2a2a2a;
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(0.625rem);
-  pointer-events: none;
-}
-
-.mod-details.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.mod-details p {
-  margin: 0;
-  font-weight: 400;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: #aaaaaa;
-}
-
-.mod-details > .mod-details-grid > .grid-item > p > span {
-  color: #ffffff;
-}
-
-main {
-  padding: 0.75rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.input-play-row {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 input[type="url"] {
@@ -144,105 +53,4 @@ input[type="url"]:focus {
   border-color: #4da6ff;
   background-color: #222;
   box-shadow: 0 0 0 0.125rem rgba(77, 166, 255, 0.3);
-}
-
-button {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  color: #ffffff;
-  background-color: #1a1a1a;
-  border: 0.0625rem solid #333;
-  border-radius: 0.5rem;
-  outline: none;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-  box-shadow: inset 0 0 0.3125rem rgba(255, 255, 255, 0.1);
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-button:hover {
-  background-color: #222;
-  border-color: #4da6ff;
-  box-shadow: 0 0 0 0.125rem rgba(77, 166, 255, 0.3);
-}
-
-button:active {
-  transform: scale(0.97);
-  background-color: #333;
-}
-
-button.codicon {
-  font-size: 1.125rem !important;
-}
-
-.bottom-bar {
-  line-height: normal;
-  background-color: #131313;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  font-size: 0.8125rem;
-  border-top: 0.0625rem solid #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0;
-}
-
-.bottom-bar .left,
-.bottom-bar .right {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.bottom-bar .codicon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  width: 2.8125rem;
-  height: 2.1875rem;
-  transition: 150ms;
-  font-size: 0.875rem;
-}
-
-.bottom-bar .codicon:hover {
-  background-color: #323232;
-}
-
-.bottom-bar p {
-  margin: 0;
-  color: #aaaaaa;
-}
-
-#instruct {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: #cccccc;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0;
-  margin: 0;
-}
-
-#moduleMsgBtn {
-  font-weight: 500;
-  opacity: 0;
-  transform: translateY(0.625rem);
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-
-#moduleMsgBtn.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
 }

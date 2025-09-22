@@ -4,3 +4,6 @@
 [submodule "src/lib/codicons"]
 	path = src/lib/codicons
 	url = https://github.com/microsoft/vscode-codicons
+[submodule "src/lib/7.css"]
+	path = src/lib/7.css
+	url = https://github.com/khang-nd/7.css

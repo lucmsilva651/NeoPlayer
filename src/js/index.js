@@ -1,6 +1,6 @@
 import { ChiptuneJsPlayer as chiptune3 } from "../lib/chiptune/chiptune3.js";
 import { $, $$, hideElem, showElem } from "./utils/handleElem.js";
-import {isoFormat, addPadding, fmtMSS} from "./utils/timeUtils.js";
+import { isoFormat, addPadding, fmtMSS } from "./utils/timeUtils.js";
 import pkg from "../../package.json" with { type: "json" };
 import showDialog from "./utils/showDialog.js";
 import { dnd } from "../lib/chiptune/dnd.js";
@@ -16,6 +16,7 @@ function alertError(error) {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.title = pkg.packageName;
+  $("seeIssuesBtn").href = pkg.bugs.url;
   $("fileInput").setAttribute("accept", ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp");
   hideElem();
   const toggle = $("loopToggle");
@@ -155,6 +156,14 @@ $("openFileBtn").addEventListener("click", () => {
   $("fileInput").click();
 });
 
+$("openExtBtn").addEventListener("click", () => {
+  $("fileInput").click();
+});
+
+$("exitAppBtn").addEventListener("click", () => {
+  app.quit();
+});
+
 $("fileInput").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -165,4 +174,12 @@ $("fileInput").addEventListener("change", (e) => {
     modSource = "Local file";
   };
   reader.readAsArrayBuffer(file);
+});
+
+$('minimizeBtn').addEventListener('click', () => {
+  window.api.minimize();
+});
+
+$('closeBtn').addEventListener('click', () => {
+  window.api.close();
 });

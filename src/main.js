@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain } = require("electron/main");
+const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, shell, ipcMain } = require("electron/main");
 const { is, platform } = require("@electron-toolkit/utils");
 const pkg = require("../package.json");
 const path = require("node:path");
@@ -19,30 +19,24 @@ function createWindow() {
     sandbox: true
   };
 
-  const titleBarOverlay = {
-    color: "#131313",
-    symbolColor: "#ffffff",
-    height: 35
-  };
-
   const win = new BrowserWindow({
     disableAutoHideCursor: true,
-    backgroundColor: "#0d0d0d",
-    ...(!platform.isMacOS
-      ? {
-        titleBarStyle: "hidden",
-        titleBarOverlay
-      }
-      : {}),
-    darkTheme: true,
+    transparent: true,
+    darkTheme: false,
     webPreferences,
     minHeight: 385,
     minWidth: 600,
     icon: appIcon,
     center: true,
+    frame: false,
     show: false,
     height: 385,
     width: 600
+  });
+
+  win.webContents.setWindowOpenHandler((details) => {
+    shell.openExternal(details.url);
+    return { action: 'deny' };
   });
 
   Menu.setApplicationMenu(null);
@@ -85,34 +79,45 @@ if (!instanceLock) {
   app.quit();
 } else {
   app.whenReady().then(() => {
-    let mainWindow = createWindow();
+    let win = createWindow();
     let tray = null;
 
     app.on("second-instance", () => {
-      if (mainWindow) {
-        if (mainWindow.isMinimized()) mainWindow.restore();
-        mainWindow.focus();
+      if (win) {
+        if (win.isMinimized()) win.restore();
+        win.focus();
       }
     });
 
-    if (!platform.isMacOS) tray = createTray(mainWindow);
+    if (!platform.isMacOS) tray = createTray(win);
 
     app.on("activate", () => {
       if (BrowserWindow.getAllWindows().length === 0) {
-        mainWindow = createWindow();
+        win = createWindow();
+      }
+    });
+
+    ipcMain.on('window-control', (event, action) => {
+      switch (action) {
+        case 'minimize':
+          win.minimize();
+          break;
+        case 'close':
+          win.close();
+          break;
       }
     });
 
     app.on("window-all-closed", () => {
       app.quit();
     });
-
+    
     let isDialogOpen = false;
     ipcMain.handle("dialog", async (event, options) => {
       if (isDialogOpen) return;
       isDialogOpen = true;
       try {
-        return await dialog.showMessageBox(mainWindow, {
+        return await dialog.showMessageBox(win, {
           icon: appIcon,
           ...options
         });
