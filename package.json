@@ -20,18 +20,19 @@
     "electron-squirrel-startup": "^1.0.1"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.8.3",
-    "@electron-forge/maker-deb": "^7.8.3",
-    "@electron-forge/maker-dmg": "^7.8.3",
-    "@electron-forge/maker-rpm": "^7.8.3",
-    "@electron-forge/maker-squirrel": "^7.8.3",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.8.3",
-    "@electron-forge/plugin-fuses": "^7.8.3",
+    "@electron-forge/cli": "^7.10.2",
+    "@electron-forge/maker-deb": "^7.10.2",
+    "@electron-forge/maker-dmg": "^7.10.2",
+    "@electron-forge/maker-rpm": "^7.10.2",
+    "@electron-forge/maker-squirrel": "^7.10.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
+    "@electron-forge/plugin-fuses": "^7.10.2",
     "@electron/fuses": "^1.8.0",
-    "electron": "^38.1.2"
+    "electron": "^38.4.0"
   },
   "scripts": {
-    "icons": "cd src/lib/codicons && npm i && npm run build",
+    "deps": "git submodule update --init --recursive",
+    "icons": "npm run deps && cd src/lib/codicons && npm i && npm run build",
     "make": "npm run icons && npm run forge",
     "package": "electron-forge package",
     "start": "electron-forge start",
