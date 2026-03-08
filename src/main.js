@@ -20,9 +20,9 @@ function createWindow() {
   };
 
   const titleBarOverlay = {
-    color: "#131313",
     symbolColor: "#ffffff",
-    height: 35
+    color: "#0d0f12",
+    height: (40 - 1)
   };
 
   const win = new BrowserWindow({
@@ -34,14 +34,14 @@ function createWindow() {
         titleBarOverlay
       }
       : {}),
+    maximizable: false,
+    resizable: false,
     darkTheme: true,
     webPreferences,
-    minHeight: 385,
-    minWidth: 600,
     icon: appIcon,
     center: true,
     show: false,
-    height: 385,
+    height: 520,
     width: 600
   });
 

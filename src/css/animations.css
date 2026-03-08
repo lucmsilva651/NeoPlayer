@@ -1,73 +1,98 @@
-* {
-  transition: all 0.2s ease;
-}
+/* ─── App Fade-in ───────────────────────────────────────────────────────── */
 
 body {
   opacity: 0;
-  animation: fadeInApp 0.6s ease forwards;
+  animation: fadeInApp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeInApp {
-  to {
-    opacity: 1;
-  }
+  to { opacity: 1; }
 }
+
+/* ─── Inputs & Buttons ──────────────────────────────────────────────────── */
 
 input[type="url"] {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-
-input[type="url"]:focus {
-  border-color: #4da6ff;
-  background-color: #222;
-  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.3);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
 }
 
 button {
-  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
 }
 
-button:hover {
-  background-color: #222;
-  border-color: #4da6ff;
-  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.3);
-}
-
-button:active {
-  transform: scale(0.97);
-  background-color: #333;
-}
+/* ─── Module Details ─────────────────────────────────────────────────────── */
 
 .mod-details {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  display: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mod-details.show {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  animation: cardReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.bottom-bar {
-  transition: background-color 0.3s ease;
-}
-
-.bottom-bar p {
-  animation: slideUp 0.4s ease forwards;
-}
-
-@keyframes slideUp {
+@keyframes cardReveal {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Stagger children inside card on reveal */
+.mod-details.show .mod-now-playing,
+.mod-details.show .mod-divider,
+.mod-details.show .mod-details-grid,
+.mod-details.show .mod-msg-row {
+  animation: itemFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mod-details.show .mod-now-playing  { animation-delay: 0.05s; }
+.mod-details.show .mod-divider      { animation-delay: 0.1s; }
+.mod-details.show .mod-details-grid { animation-delay: 0.15s; }
+.mod-details.show .mod-msg-row      { animation-delay: 0.2s; }
+
+@keyframes itemFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Time Display ───────────────────────────────────────────────────────── */
+
+.time-display {
+  transition: color 0.2s ease;
+}
+
+/* ─── Playback Controls ─────────────────────────────────────────────────── */
+
+.ctrl-btn {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.ctrl-btn:active {
+  transform: scale(0.93);
+}
+
+.ctrl-btn.ctrl-play:active {
+  transform: scale(0.9);
+}
+
+/* ─── Titlebar buttons ───────────────────────────────────────────────────── */
+
+.titlebar-btn {
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+/* ─── Accent pulse on play button (when music is playing) ─────────────────── */
+
+@keyframes accentPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 204, 0.3); }
+  50%       { box-shadow: 0 0 18px rgba(0, 255, 204, 0.6); }
 }

@@ -1,6 +1,6 @@
 import { ChiptuneJsPlayer as chiptune3 } from "../lib/chiptune/chiptune3.js";
 import { $, $$, hideElem, showElem } from "./utils/handleElem.js";
-import {isoFormat, addPadding, fmtMSS} from "./utils/timeUtils.js";
+import { isoFormat, addPadding, fmtMSS } from "./utils/timeUtils.js";
 import pkg from "../../package.json" with { type: "json" };
 import showDialog from "./utils/showDialog.js";
 import { dnd } from "../lib/chiptune/dnd.js";
@@ -9,6 +9,9 @@ let modMeta;
 let modSource;
 let loopState = 0;
 
+// Helper: get the <i> icon child of a button
+const icon = (id) => $(id).querySelector("i");
+
 function alertError(error) {
   showDialog("error", "Error", error);
   hideElem();
@@ -16,14 +19,20 @@ function alertError(error) {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.title = pkg.packageName;
-  $("fileInput").setAttribute("accept", ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp");
+  $("fileInput").setAttribute(
+    "accept",
+    ".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .imf, .ims, .ice, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .gmc, .gtk, .gt2, .ult, .unic, .wow, .xmf, .gdm, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp"
+  );
   hideElem();
-  const toggle = $("loopToggle");
-  toggle.classList.remove(loopState === 0 ? "codicon-sync" : "codicon-sync-ignored");
-  toggle.classList.add(loopState === 0 ? "codicon-sync-ignored" : "codicon-sync");
-  $$("app-name").forEach(e => {
+
+  // Set initial loop toggle icon state
+  const loopIcon = icon("loopToggle");
+  loopIcon.classList.remove("codicon-sync", "codicon-sync-ignored");
+  loopIcon.classList.add(loopState === 0 ? "codicon-sync-ignored" : "codicon-sync");
+
+  $$("app-name").forEach((e) => {
     e.textContent = pkg.packageName;
-  })
+  });
 });
 
 window.chiplib = new chiptune3();
@@ -67,19 +76,22 @@ chiplib.onMetadata((meta) => {
   const modTypeShortStr = meta.type.toUpperCase();
   const modDurStr = fmtMSS(Math.round(meta.dur));
   const modTypeStr = meta.type_long;
-  $("modTracker").textContent = meta.tracker || "Unknown";
-  $("modTitle").textContent = meta.title || "Untitled";
-  $("modType").textContent = `${modTypeStr} (${modTypeShortStr})`;
-  $("modArtist").textContent = meta.artist || "Unknown";
-  $("modDate").textContent = isoFormat(meta.date) || "Unknown";
+  $("modTracker").textContent    = meta.tracker  || "Unknown";
+  $("modTitle").textContent      = meta.title    || "Untitled";
+  $("modType").textContent       = `${modTypeStr} (${modTypeShortStr})`;
+  $("modArtist").textContent     = meta.artist   || "Unknown";
+  $("modDate").textContent       = isoFormat(meta.date) || "Unknown";
   $("modInstruments").textContent = meta.song.instruments.length;
-  $("modSamples").textContent = meta.song.samples.length;
-  $("modChannels").textContent = meta.song.channels.length;
-  $("modPatterns").textContent = meta.song.patterns.length;
-  $("modSource").textContent = modSource;
-  $("modDurTot").textContent = addPadding(modDurStr);
+  $("modSamples").textContent    = meta.song.samples.length;
+  $("modChannels").textContent   = meta.song.channels.length;
+  $("modPatterns").textContent   = meta.song.patterns.length;
+  $("modSource").textContent     = modSource;
+  $("modDurTot").textContent     = addPadding(modDurStr);
 
-  modMeta = meta.message.split("\n").map((line, i) => `${(i + 1).toString().padStart(2, "0")}: ${line}`).join("\n");
+  modMeta = meta.message
+    .split("\n")
+    .map((line, i) => `${(i + 1).toString().padStart(2, "0")}: ${line}`)
+    .join("\n");
 });
 
 async function loadModule(url) {
@@ -118,17 +130,20 @@ document.body.onkeyup = function (btn) {
 
 $("playBtn").addEventListener("click", () => {
   chiplib.togglePause();
-  const playBtn = $("playBtn");
-  playBtn.classList.toggle("codicon-play");
-  playBtn.classList.toggle("codicon-debug-pause");
+  const playIcon = icon("playBtn");
+  playIcon.classList.toggle("codicon-play");
+  playIcon.classList.toggle("codicon-debug-pause");
 });
 
 $("loopToggle").addEventListener("click", () => {
   loopState = loopState === 0 ? -1 : 0;
   chiplib.setRepeatCount(loopState);
-  const toggle = $("loopToggle");
-  toggle.classList.toggle("codicon-sync");
-  toggle.classList.toggle("codicon-sync-ignored");
+
+  const loopBtn  = $("loopToggle");
+  const loopIcon = icon("loopToggle");
+  loopIcon.classList.toggle("codicon-sync");
+  loopIcon.classList.toggle("codicon-sync-ignored");
+  loopBtn.classList.toggle("loop-on", loopState !== 0);
 });
 
 $("aboutAppBtn").addEventListener("click", () => {
