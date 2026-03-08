@@ -41,7 +41,7 @@ function createWindow() {
     icon: appIcon,
     center: true,
     show: false,
-    height: 515,
+    height: 512,
     width: 600
   });
 
