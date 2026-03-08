@@ -41,8 +41,8 @@ function createWindow() {
     icon: appIcon,
     center: true,
     show: false,
-    height: 510,
-    width: 600
+    height: 430,
+    width: 550
   });
 
   Menu.setApplicationMenu(null);

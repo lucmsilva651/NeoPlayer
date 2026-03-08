@@ -18,6 +18,10 @@
         <i class="codicon codicon-info"></i>
         About
       </span>
+      <span id="loadUrlBtn" class="titlebar-btn">
+        <i class="codicon codicon-link"></i>
+        Load URL
+      </span>
       <span id="openFileBtn" class="titlebar-btn">
         <i class="codicon codicon-folder-opened"></i>
         Open file
@@ -25,10 +29,10 @@
     </div>
   </div>
   <main>
-    <div class="input-section">
+    <dialog id="loadDialog" class="input-section">
       <p id="instruct">
-        <i class="codicon codicon-arrow-right" aria-hidden="true"></i>
-        Enter a URL, module ID, or drag & drop a file
+        <i class="codicon codicon-arrow-right"></i>
+        Enter a URL or module ID
       </p>
       <div class="input-play-row">
         <div class="input-wrapper">
@@ -41,7 +45,7 @@
         </button>
         <input type="file" id="fileInput" style="display: none;">
       </div>
-    </div>
+    </dialog>
     <div class="mod-details" id="modDetails">
       <div class="mod-now-playing">
         <span class="label">NOW PLAYING</span>
@@ -87,31 +91,32 @@
           </div>
         </div>
       </div>
-      <div class="mod-msg-row">
-        <button id="moduleMsgBtn">
-          <i class="codicon codicon-list-unordered"></i>
-          Module text / instruments
-        </button>
-      </div>
+      <div class="mod-divider"></div>
+      <button id="moduleMsgBtn">
+        <i class="codicon codicon-list-unordered"></i>
+        Module text / instruments
+      </button>
     </div>
   </main>
-  <input type="range" id="modSeekbar" value="0">
-  <div class="bottom-bar">
-    <div class="time-display">
-      <span id="modDurAct">00:00</span>
-      <span class="time-sep">/</span>
-      <span id="modDurTot">00:00</span>
-    </div>
-    <div class="playback-controls">
-      <button class="ctrl-btn" id="stopBtn" title="Stop">
-        <i class="codicon codicon-debug-stop"></i>
-      </button>
-      <button class="ctrl-btn" id="loopToggle" title="Toggle loop">
-        <i class="codicon codicon-sync-ignored"></i>
-      </button>
-      <button class="ctrl-btn ctrl-play" id="playBtn" title="Play/Pause">
-        <i class="codicon codicon-debug-pause"></i>
-      </button>
+  <div class="bottom-container">
+    <input type="range" id="modSeekbar" value="0">
+    <div class="bottom-bar">
+      <div class="time-display">
+        <span id="modDurAct">00:00</span>
+        <span class="time-sep">/</span>
+        <span id="modDurTot">00:00</span>
+      </div>
+      <div class="playback-controls">
+        <button class="ctrl-btn" id="stopBtn" title="Stop">
+          <i class="codicon codicon-debug-stop"></i>
+        </button>
+        <button class="ctrl-btn" id="loopToggle" title="Toggle loop">
+          <i class="codicon codicon-sync-ignored"></i>
+        </button>
+        <button class="ctrl-btn ctrl-play" id="playBtn" title="Play/Pause">
+          <i class="codicon codicon-debug-pause"></i>
+        </button>
+      </div>
     </div>
   </div>
   <script type="module" src="js/index.js"></script>

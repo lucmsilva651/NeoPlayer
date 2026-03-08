@@ -60,7 +60,9 @@ chiplib.onError((err) => {
   chiplib.stop();
 });
 
-chiplib.onEnded(hideElem);
+chiplib.onEnded(() => {
+  hideElem();
+});
 
 chiplib.onProgress((pos) => {
   const actualPos = Math.round(pos.pos);
@@ -125,6 +127,7 @@ $("inputPlayBtn").addEventListener("click", () => {
   if (val === "") {
     alertError("Please enter a URL!");
   } else {
+    $("loadDialog").close();
     loadModule(val);
   }
 });
@@ -184,11 +187,18 @@ $("openFileBtn").addEventListener("click", () => {
 $("fileInput").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  $("url").value = file.name;
   const reader = new FileReader();
   reader.onload = () => {
     chiplib.play(reader.result);
     modSource = "Local file";
   };
   reader.readAsArrayBuffer(file);
+});
+
+$("loadUrlBtn").addEventListener("click", () => {
+  $("loadDialog").showModal();
+});
+
+$("loadDialog").addEventListener("click", (e) => {
+  if (e.target === $("loadDialog")) $("loadDialog").close();
 });
