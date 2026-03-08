@@ -64,9 +64,15 @@ chiplib.onEnded(hideElem);
 
 chiplib.onProgress((pos) => {
   const actualPos = Math.round(pos.pos);
+  const modSeekbar = $("modSeekbar");
   const now = Date.now();
   if (!chiplib._lastUpdate || now - chiplib._lastUpdate > 1000) {
     $("modDurAct").textContent = addPadding(fmtMSS(actualPos));
+    modSeekbar.value = actualPos;
+
+    const pct = (modSeekbar.value / modSeekbar.max) * 100;
+    modSeekbar.style.setProperty('--seek-progress', pct + '%');
+
     chiplib._lastUpdate = now;
   }
   showElem();
@@ -87,6 +93,7 @@ chiplib.onMetadata((meta) => {
   $("modPatterns").textContent   = meta.song.patterns.length;
   $("modSource").textContent     = modSource;
   $("modDurTot").textContent     = addPadding(modDurStr);
+  $("modSeekbar").max            = meta.dur;
 
   modMeta = meta.message
     .split("\n")
@@ -120,6 +127,10 @@ $("inputPlayBtn").addEventListener("click", () => {
   } else {
     loadModule(val);
   }
+});
+
+$("modSeekbar").addEventListener("input", () => {
+  chiplib.setPos($("modSeekbar").value);
 });
 
 document.body.onkeyup = function (btn) {
