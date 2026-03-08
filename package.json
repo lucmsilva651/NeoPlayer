@@ -4,7 +4,10 @@
   "main": "src/main.js",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
-  "category": ["Audio", "AudioVideo"],
+  "category": [
+    "Audio",
+    "AudioVideo"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/lucmsilva651/NeoPlayer.git"
@@ -20,15 +23,14 @@
     "electron-squirrel-startup": "^1.0.1"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.10.2",
-    "@electron-forge/maker-deb": "^7.10.2",
-    "@electron-forge/maker-dmg": "^7.10.2",
-    "@electron-forge/maker-rpm": "^7.10.2",
-    "@electron-forge/maker-squirrel": "^7.10.2",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
-    "@electron-forge/plugin-fuses": "^7.10.2",
-    "@electron/fuses": "^1.8.0",
-    "electron": "^40.0.0"
+    "@electron-forge/cli": "^7.11.1",
+    "@electron-forge/maker-deb": "^7.11.1",
+    "@electron-forge/maker-dmg": "^7.11.1",
+    "@electron-forge/maker-rpm": "^7.11.1",
+    "@electron-forge/maker-squirrel": "^7.11.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
+    "@electron-forge/plugin-fuses": "^7.11.1",
+    "electron": "^40.8.0"
   },
   "scripts": {
     "deps": "git submodule update --init --recursive",
