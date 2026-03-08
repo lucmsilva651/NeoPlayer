@@ -3,12 +3,18 @@
   src: url(../fonts/Boldonse-Regular.ttf);
 }
 
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url(../fonts/JetBrainsMono-VariableFont_wght.ttf);
+}
+
 /* ─── Reset & Base ─────────────────────────────────────────────────────── */
 
 * {
-  font-family: "JetBrains Mono", "Courier New", monospace;
-  -webkit-user-select: none;
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
   box-sizing: border-box;
+  font-style: normal;
   user-select: none;
   padding: 0;
   margin: 0;

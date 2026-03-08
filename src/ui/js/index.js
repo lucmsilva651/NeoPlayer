@@ -1,9 +1,9 @@
-import { ChiptuneJsPlayer as chiptune3 } from "../lib/chiptune/chiptune3.js";
+import { ChiptuneJsPlayer as chiptune3 } from "../../lib/chiptune/chiptune3.js";
 import { $, $$, hideElem, showElem } from "./utils/handleElem.js";
 import { isoFormat, addPadding, fmtMSS } from "./utils/timeUtils.js";
-import pkg from "../../package.json" with { type: "json" };
+import pkg from "../../../package.json" with { type: "json" };
 import showDialog from "./utils/showDialog.js";
-import { dnd } from "../lib/chiptune/dnd.js";
+import { dnd } from "../../lib/chiptune/dnd.js";
 
 let modMeta;
 let modSource;

@@ -1,11 +1,11 @@
 const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain } = require("electron/main");
 const { is, platform } = require("@electron-toolkit/utils");
-const pkg = require("../package.json");
+const pkg = require("../../package.json");
 const path = require("node:path");
 
 if (require("electron-squirrel-startup")) return;
 
-const appIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "icon.png"));
+const appIcon = nativeImage.createFromPath(path.join(__dirname, "..", "icons", "icon.png"));
 const instanceLock = app.requestSingleInstanceLock();
 
 function createWindow() {
@@ -46,7 +46,7 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  win.loadFile(path.join(__dirname, "html", "index.html"));
+  win.loadFile(path.join(__dirname, "..", "ui", "html", "index.html"));
   if (is.dev) win.webContents.openDevTools();
 
   win.once("ready-to-show", () => {
