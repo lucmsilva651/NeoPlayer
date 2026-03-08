@@ -1,6 +1,6 @@
 {
   "name": "neoplayer",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "main": "src/electron/main.js",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
