@@ -147,7 +147,7 @@ $("loopToggle").addEventListener("click", () => {
 });
 
 $("aboutAppBtn").addEventListener("click", () => {
-  const message = `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.\n\nSource code:\n${pkg.repository.url}\n\nUsing chiptune3 by DrSnuggles\nhttps://drsnuggles.github.io/chiptune\n\nAlso using Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons`;
+  const message = `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.\nVersion ${pkg.version}\n\nSource code:\n${pkg.repository.url}\n\nUsing chiptune3 by DrSnuggles\nhttps://drsnuggles.github.io/chiptune\n\nAlso using Microsoft's VS Code codicons\nhttps://github.com/microsoft/vscode-codicons`;
   showDialog("info", `About ${pkg.packageName}`, message);
 });
 
