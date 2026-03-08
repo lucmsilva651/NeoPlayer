@@ -46,7 +46,7 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  win.loadFile(path.join(__dirname, "..", "ui", "html", "index.html"));
+  win.loadFile(path.join(__dirname, "..", "ui", "index.html"));
   if (is.dev) win.webContents.openDevTools();
 
   win.once("ready-to-show", () => {
