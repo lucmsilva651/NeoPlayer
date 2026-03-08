@@ -1,4 +1,10 @@
-# neoplayer
+# NeoPlayer
+
+Module player built with Electron. Plays local files and from [TheModArchive](https://themodarchive.org).
+
+![Screenshot](screenshot.png)
+
+## Development
 
 To install dependencies:
 
@@ -23,3 +29,7 @@ To run:
 ```bash
 npm start
 ```
+
+## License
+
+2025-2026 Lucas Gabriel (lucmsilva). Licensed under [BSD 3-Clause](LICENSE)
