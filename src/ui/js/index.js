@@ -104,22 +104,25 @@ chiplib.onMetadata((meta) => {
 });
 
 async function loadModule(url) {
-  const tma = "https://api.modarchive.org/downloads.php?moduleid=";
-  const id = url.match(/moduleid=(\d+)/i) || url.match(/(\d+)$/);
-
+  const TMA = "https://api.modarchive.org/downloads.php?moduleid=";
+  const id = url.match(/moduleid=(\d+)/i)?.[1] ?? url.match(/(\d+)$/)?.[1];
+  
   if (url.includes("modarchive.org") && id) {
-    await chiplib.load(tma + id[1]);
-    modSource = "The Mod Archive";
+    await chiplib.load(TMA + id);
+    modSource = `The Mod Archive (ID: ${id})`;
     return;
   }
+
   try {
     new URL(url);
     await chiplib.load(url);
     modSource = "External URL";
-  } catch {
-    await chiplib.load(tma + url);
-    modSource = "The Mod Archive";
-  }
+    return;
+  } catch {}
+
+  const rawId = id ?? url;
+  await chiplib.load(TMA + rawId);
+  modSource = `The Mod Archive (ID: ${rawId})`;
 }
 
 $("inputPlayBtn").addEventListener("click", () => {
