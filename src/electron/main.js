@@ -59,23 +59,28 @@ function createWindow() {
   return win;
 }
 
+function hideWindow(win) {
+  if (win.isVisible() && !win.isMinimized()) {
+    win.hide();
+  } else {
+    win.show();
+    win.focus();
+  }
+}
+
 function createTray(win) {
   const tray = new Tray(appIcon);
   tray.setToolTip(pkg.packageName);
 
   const contextMenu = Menu.buildFromTemplate([
+    { label: `Hide/Show Window`, click: () => hideWindow(win) },
     { label: `Quit ${pkg.packageName}`, role: "quit" }
   ]);
 
   tray.setContextMenu(contextMenu);
 
   tray.on("click", () => {
-    if (win.isVisible() && !win.isMinimized()) {
-      win.hide();
-    } else {
-      win.show();
-      win.focus();
-    }
+    hideWindow(win);
   });
 
   return tray;
