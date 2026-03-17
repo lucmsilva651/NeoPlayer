@@ -21,7 +21,8 @@ jobs:
         with:
           node-version: latest
 
-      - run: npm install --force
+      - run: npm install
+      - run: npm audit fix
       - run: npm run make
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +54,8 @@ jobs:
         with:
           node-version: latest
 
-      - run: npm install --force
+      - run: npm install
+      - run: npm audit fix
       - run: npm run make
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -85,7 +87,8 @@ jobs:
         with:
           node-version: latest
 
-      - run: npm install --force
+      - run: npm install
+      - run: npm audit fix
       - run: npm run make
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
