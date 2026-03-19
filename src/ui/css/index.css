@@ -115,8 +115,10 @@ body::before {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.titlebar-btn .codicon {
+.titlebar-btn svg {
   font-size: 0.8rem;
+  width: 0.8rem;
+  height: 0.8rem;
 }
 
 /* ─── Main ──────────────────────────────────────────────────────────────── */
@@ -141,9 +143,11 @@ main {
   text-transform: uppercase;
 }
 
-#instruct .codicon {
+#instruct svg {
   color: var(--accent);
   font-size: 0.65rem;
+  width: 0.65rem;
+  height: 0.65rem;
 }
 
 .input-play-row {

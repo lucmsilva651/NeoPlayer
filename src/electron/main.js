@@ -46,7 +46,13 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  win.loadFile(path.join(__dirname, "..", "ui", "index.html"));
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    win.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(
+      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
+    );
+  }
   if (is.dev) win.webContents.openDevTools();
 
   win.once("ready-to-show", () => {
