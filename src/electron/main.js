@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain } = require("electron/main");
+const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain, session } = require("electron/main");
 const { is, platform } = require("@electron-toolkit/utils");
 const pkg = require("../../package.json");
 const path = require("node:path");
@@ -96,6 +96,28 @@ if (!instanceLock) {
   app.quit();
 } else {
   app.whenReady().then(() => {
+    if (!is.dev) {
+      const PROD_CSP = [
+        "default-src 'self'",
+        "script-src 'self' 'wasm-unsafe-eval'",
+        "style-src 'self'",
+        "font-src 'self'",
+        "img-src 'self' data:",
+        "connect-src https: file:",
+        "worker-src 'self'",
+        "object-src 'none'",
+      ].join('; ');
+
+      session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+        callback({
+          responseHeaders: {
+            ...details.responseHeaders,
+            'Content-Security-Policy': [PROD_CSP],
+          },
+        });
+      });
+    }
+
     let mainWindow = createWindow();
     let tray = null;
 
