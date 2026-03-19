@@ -141,10 +141,10 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
-import { ChiptuneJsPlayer as Chiptune3 } from '../../lib/chiptune/chiptune3.js';
+import { ChiptuneJsPlayer as Chiptune3 } from '../lib/chiptune/chiptune3.js';
 import { isoFormat, fmtTime } from './js/utils/timeUtils.js';
 import showDialog from './js/utils/showDialog.js';
-import { dnd } from '../../lib/chiptune/dnd.js';
+import { dnd } from '../lib/chiptune/dnd.js';
 import pkg from '../../package.json';
 
 // ── App metadata ─────────────────────────────────────────────────────────────
