@@ -139,7 +139,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import { ChiptuneJsPlayer as Chiptune3 } from '../lib/chiptune/chiptune3.js';
 import { isoFormat, fmtTime } from './js/utils/timeUtils.js';
@@ -150,6 +150,7 @@ import pkg from '../../package.json';
 // ── App metadata ─────────────────────────────────────────────────────────────
 
 const appName = pkg.packageName;
+const copyrightYear = new Date().getFullYear();
 
 const acceptedFormats =
   '.mptm,.mod,.s3m,.xm,.it,.667,.669,.amf,.ams,.c67,.cba,.dbm,.digi,.dmf,.dsm,.dsym,' +
@@ -237,8 +238,8 @@ chiplib.onProgress((pos) => {
     seekValue.value = actualPos;
     chiplib._lastUpdate = now;
   }
-  showDetails.value = true;
-  isPlaying.value = true;
+  if (!showDetails.value) showDetails.value = true;
+  if (!isPlaying.value) isPlaying.value = true;
 });
 
 chiplib.onMetadata((meta) => {
@@ -319,7 +320,7 @@ function stopPlayback() {
 
 function showAbout() {
   const message =
-    `${pkg.packageName} is © ${new Date().getFullYear()} ${pkg.author.name}.\n` +
+    `${pkg.packageName} is © ${copyrightYear} ${pkg.author.name}.\n` +
     `Version ${pkg.version}\n\n` +
     `Source code:\n${pkg.repository.url}\n\n` +
     `Using chiptune3 by DrSnuggles\nhttps://drsnuggles.github.io/chiptune\n\n` +
@@ -352,13 +353,19 @@ function openLoadDialog() {
 
 // ── Lifecycle ─────────────────────────────────────────────────────────────────
 
+function onKeyUp(e) {
+  if (e.key === ' ' || e.code === 'Space') {
+    chiplib.togglePause();
+    isPlaying.value = !isPlaying.value;
+  }
+}
+
 onMounted(() => {
   document.title = pkg.packageName;
-  document.addEventListener('keyup', (e) => {
-    if (e.key === ' ' || e.code === 'Space') {
-      chiplib.togglePause();
-      isPlaying.value = !isPlaying.value;
-    }
-  });
+  document.addEventListener('keyup', onKeyUp);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('keyup', onKeyUp);
 });
 </script>
