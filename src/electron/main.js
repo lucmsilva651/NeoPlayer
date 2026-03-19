@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain } = require("electron/main");
+const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, ipcMain, session } = require("electron/main");
 const { is, platform } = require("@electron-toolkit/utils");
 const pkg = require("../../package.json");
 const path = require("node:path");
@@ -46,7 +46,13 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  win.loadFile(path.join(__dirname, "..", "ui", "index.html"));
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    win.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(
+      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
+    );
+  }
   if (is.dev) win.webContents.openDevTools();
 
   win.once("ready-to-show", () => {
@@ -90,6 +96,28 @@ if (!instanceLock) {
   app.quit();
 } else {
   app.whenReady().then(() => {
+    if (!is.dev) {
+      const PROD_CSP = [
+        "default-src 'self'",
+        "script-src 'self' 'wasm-unsafe-eval'",
+        "style-src 'self'",
+        "font-src 'self'",
+        "img-src 'self' data:",
+        "connect-src https: file:",
+        "worker-src 'self'",
+        "object-src 'none'",
+      ].join('; ');
+
+      session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+        callback({
+          responseHeaders: {
+            ...details.responseHeaders,
+            'Content-Security-Policy': [PROD_CSP],
+          },
+        });
+      });
+    }
+
     let mainWindow = createWindow();
     let tray = null;
 

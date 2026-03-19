@@ -1,7 +1,7 @@
 {
   "name": "neoplayer",
   "version": "1.5.4",
-  "main": "src/electron/main.js",
+  "main": ".vite/build/main.js",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
   "category": [
@@ -20,7 +20,10 @@
   },
   "dependencies": {
     "@electron-toolkit/utils": "^4.0.0",
-    "electron-squirrel-startup": "^1.0.1"
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify/vue": "^5.0.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "vue": "^3.5.30"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.11.1",
@@ -30,14 +33,15 @@
     "@electron-forge/maker-squirrel": "^7.11.1",
     "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
     "@electron-forge/plugin-fuses": "^7.11.1",
-    "electron": "^41.0.2"
+    "@electron-forge/plugin-vite": "^7.11.1",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "electron": "^41.0.2",
+    "vite": "^8.0.1"
   },
   "scripts": {
-    "deps": "git submodule update --init --recursive",
-    "icons": "npm run deps && cd src/lib/codicons && npm i && npm run build",
-    "make": "npm run icons && npm run forge",
-    "package": "electron-forge package",
-    "start": "electron-forge start",
-    "forge": "electron-forge make"
+    "deps": "git submodule update --init src/lib/chiptune",
+    "start": "npm run deps && electron-forge start",
+    "package": "npm run deps && electron-forge package",
+    "make": "npm run deps && electron-forge make"
   }
 }

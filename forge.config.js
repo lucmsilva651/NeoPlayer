@@ -1,5 +1,6 @@
 const { FusesPlugin } = require("@electron-forge/plugin-fuses");
 const { FuseV1Options, FuseVersion } = require("@electron/fuses");
+const { VitePlugin } = require("@electron-forge/plugin-vite");
 const package = require("./package.json");
 
 module.exports = {
@@ -56,6 +57,26 @@ module.exports = {
     }
   ],
   plugins: [
+    new VitePlugin({
+      build: [
+        {
+          entry: "src/electron/main.js",
+          config: "vite.main.config.js",
+          target: "main",
+        },
+        {
+          entry: "src/electron/preload.js",
+          config: "vite.preload.config.js",
+          target: "preload",
+        },
+      ],
+      renderer: [
+        {
+          name: "main_window",
+          config: "vite.renderer.config.js",
+        },
+      ],
+    }),
     {
       name: "@electron-forge/plugin-auto-unpack-natives",
       config: {}
