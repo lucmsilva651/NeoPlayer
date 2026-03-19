@@ -103,6 +103,7 @@ if (!instanceLock) {
         "style-src 'self'",
         "font-src 'self'",
         "img-src 'self' data:",
+        // https: is intentionally broad to support the "Load from external URL" feature.
         "connect-src https: file:",
         "worker-src 'self'",
         "object-src 'none'",

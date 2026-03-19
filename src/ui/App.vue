@@ -194,8 +194,7 @@ const seekProgress = computed(
 
 // ── Chiptune player ───────────────────────────────────────────────────────────
 
-window.chiplib = new Chiptune3();
-const chiplib = window.chiplib;
+const chiplib = new Chiptune3();
 
 function alertError(message) {
   showDialog('error', 'Error', message);
@@ -265,24 +264,30 @@ chiplib.onMetadata((meta) => {
 
 async function loadModule(url) {
   const TMA = 'https://api.modarchive.org/downloads.php?moduleid=';
-  const id = url.match(/moduleid=(\d+)/i)?.[1] ?? url.match(/(\d+)$/)?.[1];
+  // Match a module ID in a query string or as the whole input (plain numeric ID).
+  const idMatch = url.match(/moduleid=(\d{1,8})/i)?.[1] ?? url.match(/^(\d{1,8})$/)?.[1];
 
   try {
     const urlObj = new URL(url);
     const host = urlObj.hostname;
-    if ((host === 'modarchive.org' || host.endsWith('.modarchive.org')) && id) {
-      await chiplib.load(TMA + id);
-      modSource.value = `The Mod Archive (ID: ${id})`;
+    if ((host === 'modarchive.org' || host.endsWith('.modarchive.org')) && idMatch) {
+      await chiplib.load(TMA + idMatch);
+      modSource.value = `The Mod Archive (ID: ${idMatch})`;
       return;
     }
     await chiplib.load(url);
     modSource.value = 'External URL';
     return;
-  } catch {}
+  } catch (e) {
+    console.error('[NeoPlayer] loadModule URL parse failed:', e);
+  }
 
-  const rawId = id ?? url;
-  await chiplib.load(TMA + rawId);
-  modSource.value = `The Mod Archive (ID: ${rawId})`;
+  if (!idMatch) {
+    alertError('Invalid input: enter a valid URL or a numeric module ID.');
+    return;
+  }
+  await chiplib.load(TMA + idMatch);
+  modSource.value = `The Mod Archive (ID: ${idMatch})`;
 }
 
 // ── UI actions ────────────────────────────────────────────────────────────────
