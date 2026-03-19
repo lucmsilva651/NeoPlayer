@@ -142,7 +142,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import { ChiptuneJsPlayer as Chiptune3 } from '../../lib/chiptune/chiptune3.js';
-import { isoFormat, addPadding, fmtMSS } from './js/utils/timeUtils.js';
+import { isoFormat, fmtTime } from './js/utils/timeUtils.js';
 import showDialog from './js/utils/showDialog.js';
 import { dnd } from '../../lib/chiptune/dnd.js';
 import pkg from '../../package.json';
@@ -233,7 +233,7 @@ chiplib.onProgress((pos) => {
   const actualPos = Math.round(pos.pos);
   const now = Date.now();
   if (!chiplib._lastUpdate || now - chiplib._lastUpdate > 1000) {
-    currentTime.value = addPadding(fmtMSS(actualPos));
+    currentTime.value = fmtTime(actualPos);
     seekValue.value = actualPos;
     chiplib._lastUpdate = now;
   }
@@ -243,7 +243,6 @@ chiplib.onProgress((pos) => {
 
 chiplib.onMetadata((meta) => {
   const modTypeShortStr = meta.type.toUpperCase();
-  const modDurStr = fmtMSS(Math.round(meta.dur));
   modTracker.value = meta.tracker || 'Unknown';
   modTitle.value = meta.title || 'Untitled';
   modType.value = `${meta.type_long} (${modTypeShortStr})`;
@@ -254,7 +253,7 @@ chiplib.onMetadata((meta) => {
   modChannels.value = meta.song.channels.length;
   modPatterns.value = meta.song.patterns.length;
   seekMax.value = meta.dur;
-  totalTime.value = addPadding(modDurStr);
+  totalTime.value = fmtTime(Math.round(meta.dur));
   modMeta = meta.message
     .split('\n')
     .map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`)

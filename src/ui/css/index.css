@@ -64,6 +64,7 @@ body::before {
     rgba(0, 0, 0, 0.08) 3px,
     rgba(0, 0, 0, 0.08) 4px
   );
+  will-change: transform;
 }
 
 /* ─── Logo ──────────────────────────────────────────────────────────────── */
@@ -170,6 +171,10 @@ main {
   color: var(--text-dim);
   pointer-events: none;
   transition: color 0.2s;
+}
+
+input[type="file"]#fileInput {
+  display: none;
 }
 
 input[type="url"] {
