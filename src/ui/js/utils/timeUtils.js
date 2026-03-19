@@ -5,11 +5,10 @@ export function isoFormat(time) {
   return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1).toString().padStart(2, "0")}/${date.getFullYear()} - ${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`;
 }
 
-export function addPadding(time) {
-  const [min, sec] = time.split(":");
-  return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
-}
-
-export function fmtMSS(seconds) {
-  return (seconds - (seconds %= 60)) / 60 + (9 < seconds ? ":" : ":0") + seconds;
+// Formats an integer number of seconds as a zero-padded "MM:SS" string.
+// Replaces the previous addPadding(fmtMSS(s)) two-step pattern with a single pass.
+export function fmtTime(seconds) {
+  const s = seconds % 60;
+  const m = Math.floor(seconds / 60);
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }

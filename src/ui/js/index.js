@@ -1,6 +1,6 @@
 import { ChiptuneJsPlayer as chiptune3 } from "../../lib/chiptune/chiptune3.js";
 import { $, $$, hideElem, showElem } from "./utils/handleElem.js";
-import { isoFormat, addPadding, fmtMSS } from "./utils/timeUtils.js";
+import { isoFormat, fmtTime } from "./utils/timeUtils.js";
 import pkg from "../../../package.json" with { type: "json" };
 import showDialog from "./utils/showDialog.js";
 import { dnd } from "../../lib/chiptune/dnd.js";
@@ -11,6 +11,32 @@ let loopState = 0;
 
 // Helper: get the <i> icon child of a button
 const icon = (id) => $(id).querySelector("i");
+
+// Cached references to DOM elements updated during playback.
+// The script is loaded as a module at the end of <body>, so the DOM is fully
+// parsed and all elements exist at module evaluation time.
+const modSeekbar = $("modSeekbar");
+const modDurAct = $("modDurAct");
+
+// Cached references to metadata display elements (populated on each file load)
+const metaElems = {
+  tracker:     $("modTracker"),
+  title:       $("modTitle"),
+  type:        $("modType"),
+  artist:      $("modArtist"),
+  date:        $("modDate"),
+  instruments: $("modInstruments"),
+  samples:     $("modSamples"),
+  channels:    $("modChannels"),
+  patterns:    $("modPatterns"),
+  source:      $("modSource"),
+  durTot:      $("modDurTot"),
+};
+
+const loadDialog = $("loadDialog");
+
+// Throttle state for progress updates (local variable instead of library mutation)
+let lastProgressUpdate = 0;
 
 function alertError(error) {
   showDialog("error", "Error", error);
@@ -65,37 +91,35 @@ chiplib.onEnded(() => {
 });
 
 chiplib.onProgress((pos) => {
-  const actualPos = Math.round(pos.pos);
-  const modSeekbar = $("modSeekbar");
   const now = Date.now();
-  if (!chiplib._lastUpdate || now - chiplib._lastUpdate > 1000) {
-    $("modDurAct").textContent = addPadding(fmtMSS(actualPos));
+  if (now - lastProgressUpdate > 1000) {
+    const actualPos = Math.round(pos.pos);
+    modDurAct.textContent = fmtTime(actualPos);
     modSeekbar.value = actualPos;
 
-    const pct = (modSeekbar.value / modSeekbar.max) * 100;
+    const pct = (actualPos / modSeekbar.max) * 100;
     modSeekbar.style.setProperty('--seek-progress', pct + '%');
 
-    chiplib._lastUpdate = now;
+    lastProgressUpdate = now;
   }
   showElem();
 });
 
 chiplib.onMetadata((meta) => {
   const modTypeShortStr = meta.type.toUpperCase();
-  const modDurStr = fmtMSS(Math.round(meta.dur));
   const modTypeStr = meta.type_long;
-  $("modTracker").textContent    = meta.tracker  || "Unknown";
-  $("modTitle").textContent      = meta.title    || "Untitled";
-  $("modType").textContent       = `${modTypeStr} (${modTypeShortStr})`;
-  $("modArtist").textContent     = meta.artist   || "Unknown";
-  $("modDate").textContent       = isoFormat(meta.date) || "Unknown";
-  $("modInstruments").textContent = meta.song.instruments.length;
-  $("modSamples").textContent    = meta.song.samples.length;
-  $("modChannels").textContent   = meta.song.channels.length;
-  $("modPatterns").textContent   = meta.song.patterns.length;
-  $("modSource").textContent     = modSource;
-  $("modDurTot").textContent     = addPadding(modDurStr);
-  $("modSeekbar").max            = meta.dur;
+  metaElems.tracker.textContent     = meta.tracker  || "Unknown";
+  metaElems.title.textContent       = meta.title    || "Untitled";
+  metaElems.type.textContent        = `${modTypeStr} (${modTypeShortStr})`;
+  metaElems.artist.textContent      = meta.artist   || "Unknown";
+  metaElems.date.textContent        = isoFormat(meta.date) || "Unknown";
+  metaElems.instruments.textContent = meta.song.instruments.length;
+  metaElems.samples.textContent     = meta.song.samples.length;
+  metaElems.channels.textContent    = meta.song.channels.length;
+  metaElems.patterns.textContent    = meta.song.patterns.length;
+  metaElems.source.textContent      = modSource;
+  metaElems.durTot.textContent      = fmtTime(Math.round(meta.dur));
+  modSeekbar.max                    = meta.dur;
 
   modMeta = meta.message
     .split("\n")
@@ -130,13 +154,13 @@ $("inputPlayBtn").addEventListener("click", () => {
   if (val === "") {
     alertError("Please enter a URL!");
   } else {
-    $("loadDialog").close();
+    loadDialog.close();
     loadModule(val);
   }
 });
 
 $("modSeekbar").addEventListener("input", () => {
-  chiplib.setPos($("modSeekbar").value);
+  chiplib.setPos(modSeekbar.value);
 });
 
 document.body.onkeyup = function (btn) {
@@ -199,9 +223,9 @@ $("fileInput").addEventListener("change", (e) => {
 });
 
 $("loadUrlBtn").addEventListener("click", () => {
-  $("loadDialog").showModal();
+  loadDialog.showModal();
 });
 
-$("loadDialog").addEventListener("click", (e) => {
-  if (e.target === $("loadDialog")) $("loadDialog").close();
+loadDialog.addEventListener("click", (e) => {
+  if (e.target === loadDialog) loadDialog.close();
 });
