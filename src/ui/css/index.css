@@ -81,7 +81,12 @@ body::before {
 .titlebar {
   background-color: var(--bg-raised);
   height: 2.5rem;
-  padding: 0 6rem 0 1rem;
+  /* padding-right reduced from 6rem → 0.5rem: the original 6rem was reserved
+     for the native Electron titleBarOverlay controls (close/min/max buttons).
+     Under Tauri with decorations:false those controls are replaced by the
+     custom .titlebar-wc buttons in the flex row, so the large right offset is
+     no longer needed. */
+  padding: 0 0.5rem 0 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -119,6 +124,16 @@ body::before {
   font-size: 0.8rem;
   width: 0.8rem;
   height: 0.8rem;
+}
+
+/* Window-control buttons (minimise / close) added for Tauri's decorations:false mode */
+.titlebar-wc {
+  padding: 0.25rem 0.5rem;
+}
+
+.titlebar-wc--close:hover {
+  color: var(--danger);
+  background: rgba(255, 71, 87, 0.12);
 }
 
 /* ─── Main ──────────────────────────────────────────────────────────────── */

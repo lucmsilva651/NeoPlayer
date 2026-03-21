@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "NeoPlayer",
+  "version": "1.5.4",
+  "identifier": "com.lucmsilva.neoplayer",
+  "build": {
+    "beforeDevCommand": "npm run vite:dev",
+    "beforeBuildCommand": "npm run vite:build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../src/ui/dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "NeoPlayer",
+        "width": 550,
+        "height": 425,
+        "minWidth": 550,
+        "minHeight": 425,
+        "resizable": false,
+        "maximizable": false,
+        "minimizable": true,
+        "decorations": false,
+        "transparent": false,
+        "center": true,
+        "visible": false,
+        "focus": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/icon.icns",
+      "icons/icon.ico",
+      "icons/icon.png"
+    ]
+  }
+}

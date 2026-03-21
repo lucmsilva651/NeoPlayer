@@ -22,6 +22,8 @@
     "@electron-toolkit/utils": "^4.0.0",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/vue": "^5.0.0",
+    "@tauri-apps/api": "^2.10.1",
+    "@tauri-apps/plugin-dialog": "^2.6.0",
     "electron-squirrel-startup": "^1.0.1",
     "vue": "^3.5.30"
   },
@@ -34,6 +36,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
     "@electron-forge/plugin-fuses": "^7.11.1",
     "@electron-forge/plugin-vite": "^7.11.1",
+    "@tauri-apps/cli": "^2.10.1",
     "@vitejs/plugin-vue": "^6.0.5",
     "electron": "^41.0.2",
     "vite": "^8.0.1"
@@ -42,6 +45,10 @@
     "deps": "git submodule update --init src/lib/chiptune",
     "start": "npm run deps && electron-forge start",
     "package": "npm run deps && electron-forge package",
-    "make": "npm run deps && electron-forge make"
+    "make": "npm run deps && electron-forge make",
+    "vite:dev": "vite --config vite.renderer.config.js",
+    "vite:build": "vite build --config vite.renderer.config.js",
+    "dev": "npm run deps && tauri dev",
+    "build": "npm run deps && tauri build"
   }
 }

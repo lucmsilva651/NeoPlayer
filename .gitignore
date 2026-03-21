@@ -178,3 +178,6 @@ dist
 
 # Electron Forge output
 out/
+
+# Tauri build output
+src-tauri/target/

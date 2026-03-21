@@ -14,6 +14,16 @@
         <Icon icon="mdi:folder-open" />
         Open file
       </span>
+      <!-- Window controls — shown only in Tauri because decorations:false
+           removes the native OS title bar and its close/minimise buttons. -->
+      <template v-if="isTauri">
+        <span class="titlebar-btn titlebar-wc" @click="minimizeWindow" title="Minimise">
+          <Icon icon="mdi:window-minimize" />
+        </span>
+        <span class="titlebar-btn titlebar-wc titlebar-wc--close" @click="closeWindow" title="Close">
+          <Icon icon="mdi:close" />
+        </span>
+      </template>
     </div>
   </div>
 
@@ -146,11 +156,21 @@ import { isoFormat, fmtTime } from './js/utils/timeUtils.js';
 import showDialog from './js/utils/showDialog.js';
 import { dnd } from '../lib/chiptune/dnd.js';
 import pkg from '../../package.json';
+// Tauri window API — used for the custom close/minimise buttons that replace
+// the native OS window controls removed by decorations:false in tauri.conf.json.
+import { getCurrentWindow } from '@tauri-apps/api/window';
 
 // ── App metadata ─────────────────────────────────────────────────────────────
 
 const appName = pkg.packageName;
 const copyrightYear = new Date().getFullYear();
+
+// True when the page is running inside a Tauri webview.
+// `__TAURI_INTERNALS__` is the official Tauri 2.x sentinel injected into every
+// webview context.  The Tauri documentation and migration guides explicitly
+// recommend this check for environment detection (see the Tauri v2 upgrade
+// guide: https://v2.tauri.app/start/migrate/from-tauri-1/).
+const isTauri = '__TAURI_INTERNALS__' in window;
 
 const acceptedFormats =
   '.mptm,.mod,.s3m,.xm,.it,.667,.669,.amf,.ams,.c67,.cba,.dbm,.digi,.dmf,.dsm,.dsym,' +
@@ -349,6 +369,18 @@ function handleFileChange(e) {
 
 function openLoadDialog() {
   loadDialogEl.value.showModal();
+}
+
+// ── Tauri window controls ─────────────────────────────────────────────────────
+// These replace the native OS close / minimise buttons that are absent when
+// running under Tauri with decorations:false.
+
+async function closeWindow() {
+  await getCurrentWindow().close();
+}
+
+async function minimizeWindow() {
+  await getCurrentWindow().minimize();
 }
 
 // ── Lifecycle ─────────────────────────────────────────────────────────────────
