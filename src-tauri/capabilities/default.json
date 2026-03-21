@@ -1,0 +1,13 @@
+{
+  "identifier": "default",
+  "description": "Default capability for NeoPlayer — grants dialog, window close/minimize, and core permissions.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "dialog:default"
+  ]
+}

@@ -1,0 +1,31 @@
+[package]
+name = "neoplayer"
+version = "1.5.4"
+edition = "2021"
+description = "Module player built on Tauri 2.x"
+license = "BSD-3-Clause"
+
+[lib]
+name = "neoplayer_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# Core Tauri runtime — tray-icon feature replaces Electron Tray / Menu APIs
+tauri = { version = "2", features = ["tray-icon"] }
+
+# Replaces Electron dialog.showMessageBox (ipcMain.handle("dialog"))
+tauri-plugin-dialog = "2"
+
+# Replaces app.requestSingleInstanceLock() + app.on("second-instance", ...)
+tauri-plugin-single-instance = "2"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+# Optimise release builds for size
+strip = true
+opt-level = "s"
