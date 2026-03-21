@@ -20,6 +20,8 @@ addCollection({
       'repeat-off',
       'pause',
       'format-list-bulleted',
+      'window-minimize',
+      'close',
     ].map((name) => [name, icons.icons[name]])
   ),
   width: icons.width,
