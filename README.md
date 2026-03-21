@@ -2,7 +2,7 @@
 
 Module player built with Electron. Plays local files and from [TheModArchive](https://themodarchive.org).
 
-![Screenshot](screenshot.png)
+![Screenshot](misc/screenshot.jpg)
 
 ## Development
 
