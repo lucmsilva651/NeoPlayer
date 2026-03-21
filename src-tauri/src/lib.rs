@@ -1,5 +1,8 @@
 use tauri::Manager;
 
+/// Label of the main (and only) application window, as declared in tauri.conf.json.
+const MAIN_WINDOW_LABEL: &str = "main";
+
 // MIGRATION NOTE — autoplay policy:
 // Electron's BrowserWindow had `autoplayPolicy: "no-user-gesture-required"` which
 // explicitly permitted audio playback without a prior user interaction.  Tauri's
@@ -26,7 +29,7 @@ pub fn run() {
         // Replaces: app.requestSingleInstanceLock() + app.on("second-instance", ...)
         // When a second instance is launched this callback focuses the existing window.
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
-            if let Some(win) = app.get_webview_window("main") {
+            if let Some(win) = app.get_webview_window(MAIN_WINDOW_LABEL) {
                 let _ = win.show();
                 let _ = win.set_focus();
             }
@@ -38,7 +41,7 @@ pub fn run() {
             // Replaces: win.once("ready-to-show", () => win.show())
             // The window starts hidden (visible:false in tauri.conf.json) and is
             // shown here after the Tauri runtime has fully initialised.
-            if let Some(win) = app.get_webview_window("main") {
+            if let Some(win) = app.get_webview_window(MAIN_WINDOW_LABEL) {
                 win.show()?;
 
                 // Replaces: app.on("window-all-closed", () => app.quit()) for macOS.
@@ -97,7 +100,7 @@ fn setup_tray(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
         // Replaces: context-menu click handlers (Hide/Show and Quit items)
         .on_menu_event(|app, event| match event.id.as_ref() {
             "hide_show" => {
-                if let Some(win) = app.get_webview_window("main") {
+                if let Some(win) = app.get_webview_window(MAIN_WINDOW_LABEL) {
                     if win.is_visible().unwrap_or(false) {
                         let _ = win.hide();
                     } else {
@@ -120,7 +123,7 @@ fn setup_tray(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
             } = event
             {
                 let app = tray.app_handle();
-                if let Some(win) = app.get_webview_window("main") {
+                if let Some(win) = app.get_webview_window(MAIN_WINDOW_LABEL) {
                     if win.is_visible().unwrap_or(false) {
                         let _ = win.hide();
                     } else {

@@ -83,7 +83,18 @@ Complete migration guide from **Electron 41 + Vite + Vue 3** to **Tauri 2.x**.
 5. **Capability tuning** — Review `src-tauri/capabilities/default.json`.
    Remove any permission that is not actively used in the application.
 
-6. **macOS title-bar** — The migration uses `decorations: false` on all
+6. **Content Security Policy** — `tauri.conf.json` sets `"csp": null` to disable
+   the CSP entirely.  This is required because NeoPlayer:
+   - Loads WebAssembly (`chiptune3.worklet.wasm`) which needs `script-src 'wasm-unsafe-eval'`
+   - Fetches module files from arbitrary external URLs (modarchive.org and others) which needs `connect-src *`
+   
+   Once you have a fixed list of allowed origins, replace `null` with a proper
+   policy such as:
+   ```
+   "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' https://api.modarchive.org https:; font-src 'self'; style-src 'self' 'unsafe-inline'"
+   ```
+
+7. **macOS title-bar** — The migration uses `decorations: false` on all
    platforms for a uniform custom title bar.  If you prefer the native macOS
    traffic lights, set `decorations: true` in `tauri.conf.json` and add a
    `titleBarStyle: "Overlay"` window option for macOS using a platform-specific

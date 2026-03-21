@@ -166,8 +166,10 @@ const appName = pkg.packageName;
 const copyrightYear = new Date().getFullYear();
 
 // True when the page is running inside a Tauri webview.
-// Used to conditionally render the custom window-control buttons that replace
-// the native OS title-bar controls (which are absent when decorations:false).
+// `__TAURI_INTERNALS__` is the official Tauri 2.x sentinel injected into every
+// webview context.  The Tauri documentation and migration guides explicitly
+// recommend this check for environment detection (see the Tauri v2 upgrade
+// guide: https://v2.tauri.app/start/migrate/from-tauri-1/).
 const isTauri = '__TAURI_INTERNALS__' in window;
 
 const acceptedFormats =

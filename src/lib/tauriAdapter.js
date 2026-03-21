@@ -25,7 +25,8 @@ import { message } from '@tauri-apps/plugin-dialog';
  * @returns {Promise<void>}
  */
 export function alertDialog({ type, title, message: body }) {
-  // Map Electron dialog types to Tauri dialog kinds.
+  // `message` is renamed to `body` here to avoid shadowing the imported
+  // `message` function from @tauri-apps/plugin-dialog.
   const kindMap = { error: 'error', warning: 'warning', info: 'info', none: 'info' };
   const kind = kindMap[type] ?? 'info';
 
