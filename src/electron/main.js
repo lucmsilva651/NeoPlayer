@@ -8,6 +8,9 @@ if (require("electron-squirrel-startup")) return;
 const appIcon = nativeImage.createFromPath(path.join(__dirname, "..", "icons", "icon.png"));
 const instanceLock = app.requestSingleInstanceLock();
 
+const winWidth = 550;
+const winHeight = 425;
+
 function createWindow() {
   const webPreferences = {
     preload: path.join(__dirname, "preload.js"),
@@ -34,15 +37,18 @@ function createWindow() {
         titleBarOverlay
       }
       : {}),
+    useContentSize: true,
+    minHeight: winHeight,
     maximizable: false,
+    minWidth: winWidth,
+    height: winHeight,
+    width: winWidth,
     resizable: false,
     darkTheme: true,
     webPreferences,
     icon: appIcon,
     center: true,
     show: false,
-    height: 430,
-    width: 550
   });
 
   Menu.setApplicationMenu(null);
@@ -60,6 +66,9 @@ function createWindow() {
     win.on('show', () => {
       win.focus();
     });
+
+    win.setMinimumSize(winWidth, winHeight);
+    win.setSize(winWidth, winHeight);
   });
 
   return win;
@@ -96,28 +105,6 @@ if (!instanceLock) {
   app.quit();
 } else {
   app.whenReady().then(() => {
-    if (!is.dev) {
-      const PROD_CSP = [
-        "default-src 'self'",
-        "script-src 'self' 'wasm-unsafe-eval'",
-        "style-src 'self'",
-        "font-src 'self'",
-        "img-src 'self' data:",
-        "connect-src https: file:",
-        "worker-src 'self'",
-        "object-src 'none'",
-      ].join('; ');
-
-      session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-        callback({
-          responseHeaders: {
-            ...details.responseHeaders,
-            'Content-Security-Policy': [PROD_CSP],
-          },
-        });
-      });
-    }
-
     let mainWindow = createWindow();
     let tray = null;
 
