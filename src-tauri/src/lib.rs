@@ -1,5 +1,23 @@
 use tauri::Manager;
 
+// MIGRATION NOTE — autoplay policy:
+// Electron's BrowserWindow had `autoplayPolicy: "no-user-gesture-required"` which
+// explicitly permitted audio playback without a prior user interaction.  Tauri's
+// WebKitGTK (Linux) and WebView2 (Windows) runtimes do not expose this flag via
+// config.  In practice, audio autoplay works inside embedded webviews without it,
+// but if users encounter silent playback on a particular platform the developer
+// may need to investigate platform-specific WebView flags.
+
+// MIGRATION NOTE — macOS title-bar:
+// The original Electron code used the default (non-hidden) title bar on macOS,
+// giving users the native traffic-light buttons.  This Tauri build uses
+// `decorations: false` on all platforms for a uniform custom title bar.  As a
+// result, macOS users see the custom HTML minimise / close buttons instead of the
+// native traffic lights.  To restore native traffic lights on macOS, set
+// `decorations: true` in tauri.conf.json and add `titleBarStyle: "Overlay"` for
+// macOS only using a platform-conditional `setup()` block or a separate
+// `tauri.macos.conf.json` override.
+
 /// Application entry point — called from main.rs (desktop) and from the
 /// mobile entry point macro if mobile targets are ever added.
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
