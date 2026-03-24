@@ -36,7 +36,7 @@
     "@electron-forge/plugin-vite": "^7.11.1",
     "@vitejs/plugin-vue": "^6.0.5",
     "electron": "^41.0.2",
-    "vite": "^8.0.1"
+    "vite": "^8.0.2"
   },
   "scripts": {
     "deps": "git submodule update --init src/lib/chiptune",
