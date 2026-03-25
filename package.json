@@ -23,7 +23,7 @@
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/vue": "^5.0.0",
     "electron-squirrel-startup": "^1.0.1",
-    "vue": "^3.5.30"
+    "vue": "^3.5.31"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.11.1",
