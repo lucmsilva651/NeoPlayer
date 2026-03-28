@@ -1,6 +1,6 @@
 {
   "name": "neoplayer",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "main": ".vite/build/main.js",
   "license": "BSD-3-Clause",
   "packageName": "NeoPlayer",
