@@ -1,0 +1,18 @@
+TIP FOR ONCE CHIPTUNE3 DEPRECATES FROM NEOPLAYER
+NEED TO ADD THIS TO package.json AT scripts
+
+    "postinstall": "node scripts/install-cowbell.js",
+
+=============
+
+ALSO THIS ANYWHERE ON THE SAME FILE
+
+  "cowbellVersion": "0.7.1",
+
+=============
+
+GITIGNORE
+
+
+# Project-specific
+src/lib/cowbell

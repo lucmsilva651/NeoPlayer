@@ -1,10 +1,16 @@
 # NeoPlayer
 
-Module player built with Electron. Plays local files and from [TheModArchive](https://themodarchive.org).
+Module player built with Tauri. Plays local files and from [TheModArchive](https://themodarchive.org).
 
-![Screenshot](misc/screenshot.jpg)
+![Screenshot](misc/screenshot.png)
+
+## Recommended IDE Setup
+
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
 ## Development
+
+You will need to have Rust and NodeJS installed to build NeoPlayer from source.
 
 To install dependencies:
 
@@ -18,16 +24,10 @@ To install submodules:
 git submodule init && git submodule update
 ```
 
-Init ``codicons``:
-
-```bash
-npm run icons
-```
-
 To run:
 
 ```bash
-npm start
+npm run tauri dev
 ```
 
 ## License

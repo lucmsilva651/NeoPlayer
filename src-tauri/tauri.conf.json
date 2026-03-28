@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "NeoPlayer",
+  "version": "2.0.0",
+  "identifier": "com.lucmsilva.NeoPlayer",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "NeoPlayer",
+        "minHeight": 470,
+        "minWidth": 550,
+        "height": 470,
+        "width": 550
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/64x64.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico",
+      "icons/icon.png",
+      "icons/Square30x30Logo.png",
+      "icons/Square44x44Logo.png",
+      "icons/Square71x71Logo.png",
+      "icons/Square89x89Logo.png",
+      "icons/Square107x107Logo.png",
+      "icons/Square142x142Logo.png",
+      "icons/Square150x150Logo.png",
+      "icons/Square284x284Logo.png",
+      "icons/Square310x310Logo.png",
+      "icons/StoreLogo.png"
+    ],
+    "category": "Music",
+    "linux": {
+      "deb": {
+        "priority": "optional"
+      },
+      "rpm": {
+      }
+    },
+    "macOS": {
+      "dmg": {
+      },
+      "minimumSystemVersion": "10.13"
+    },
+    "windows": {
+      "nsis": {
+        "displayLanguageSelector": false,
+        "installMode": "currentUser"
+      }
+    }
+  }
+}
