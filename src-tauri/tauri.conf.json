@@ -7,6 +7,7 @@
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "npm run build",
+    "removeUnusedCommands": true,
     "frontendDist": "../dist"
   },
   "app": {
@@ -49,13 +50,9 @@
     "linux": {
       "deb": {
         "priority": "optional"
-      },
-      "rpm": {
       }
     },
     "macOS": {
-      "dmg": {
-      },
       "minimumSystemVersion": "10.13"
     },
     "windows": {
