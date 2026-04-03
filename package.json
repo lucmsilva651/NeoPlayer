@@ -24,7 +24,7 @@
     "@tauri-apps/plugin-opener": "^2",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/vue": "^5.0.0",
-    "vue": "^3.5.31"
+    "vue": "^3.5.32"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",
