@@ -1,14 +1,11 @@
 name: NeoPlayer CI (nightly)
-
 on:
   push:
     branches:
       - main
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -17,32 +14,22 @@ jobs:
         with:
           fetch-depth: 0
           submodules: "recursive"
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
+      - uses: oven-sh/setup-bun@v2
       - uses: dtolnay/rust-toolchain@stable
-
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: src-tauri
-
-      - run: npm ci
-
+      - run: bun install --frozen-lockfile
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --bundles nsis
-
       - uses: actions/upload-artifact@v4
         with:
           name: neoplayer-windows-nightly
           path: src-tauri/target/release/bundle/nsis/*.exe
           retention-days: 7
-
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -50,18 +37,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: "recursive"
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
+      - uses: oven-sh/setup-bun@v2
       - uses: dtolnay/rust-toolchain@stable
-
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: src-tauri
-      
       - name: Install Linux dependencies
         run: |
           sudo apt-get update
@@ -70,15 +50,12 @@ jobs:
             libappindicator3-dev \
             librsvg2-dev \
             patchelf
-
-      - run: npm ci
-
+      - run: bun install --frozen-lockfile
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --bundles deb,rpm,appimage
-
       - uses: actions/upload-artifact@v4
         with:
           name: neoplayer-linux-nightly
@@ -87,7 +64,6 @@ jobs:
             src-tauri/target/release/bundle/rpm/*.rpm
             src-tauri/target/release/bundle/appimage/*.AppImage
           retention-days: 7
-
   build-macos:
     runs-on: macos-latest
     steps:
@@ -95,28 +71,19 @@ jobs:
         with:
           fetch-depth: 0
           submodules: "recursive"
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
+      - uses: oven-sh/setup-bun@v2
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-apple-darwin,x86_64-apple-darwin
-
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: src-tauri
-
-      - run: npm ci
-
+      - run: bun install --frozen-lockfile
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --bundles dmg --target universal-apple-darwin
-
       - uses: actions/upload-artifact@v4
         with:
           name: neoplayer-darwin-nightly
