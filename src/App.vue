@@ -144,6 +144,7 @@ import { Icon } from '@iconify/vue';
 import { ChiptuneJsPlayer as Chiptune3 } from './lib/chiptune/chiptune3.min.js';
 import { isoFormat, fmtTime } from './js/timeUtils.js';
 import { dnd } from './lib/chiptune/dnd.js';
+import { useCowbell } from './js/useCowbell.js';
 
 // ── App metadata ─────────────────────────────────────────────────────────────
 
@@ -154,7 +155,9 @@ const acceptedFormats =
   '.dtm,.etx,.far,.fc,.fc13,.fc14,.fmt,.fst,.ftm,.imf,.ims,.ice,.j2b,.m15,.mdl,.med,' +
   '.mms,.mt2,.mtm,.mus,.nst,.okt,.plm,.psm,.pt36,.ptm,.puma,.rtm,.sfx,.sfx2,.smod,' +
   '.st26,.stk,.stm,.stx,.stp,.symmod,.tcb,.gmc,.gtk,.gt2,.ult,.unic,.wow,.xmf,.gdm,' +
-  '.mo3,.oxm,.umx,.xpk,.ppm,.mmcmp';
+  '.mo3,.oxm,.umx,.xpk,.ppm,.mmcmp,' +
+  // Cowbell-exclusive formats
+  '.sid,.sap,.cmc,.cm3,.cmr,.cms,.dmc,.dlt,.mpd,.rmt,.tmc,.tm8,.tm2,.sndh,.vtx,.stc,.sqt,.pt3';
 
 // ── DOM refs ──────────────────────────────────────────────────────────────────
 
@@ -194,20 +197,35 @@ const seekProgress = computed(
 window.chiplib = new Chiptune3();
 const chiplib = window.chiplib;
 
+// ── Cowbell player ────────────────────────────────────────────────────────────
+
+const cowbell = useCowbell();
+
+// ── Shared playback callbacks ─────────────────────────────────────────────────
+
 function alertError(message) {
   alert('Error\n\n' + message);
   showDetails.value = false;
 }
 
-chiplib.onInitialized(() => {
-  chiplib.setRepeatCount(0);
-  dnd(window, (file) => {
-    chiplib.play(file);
-    modSource.value = 'Drag & Drop';
-  });
-});
+let lastProgressUpdate = 0;
 
-chiplib.onError((err) => {
+function handleProgress(pos) {
+  const now = Date.now();
+  if (now - lastProgressUpdate > 1000) {
+    const actualPos = Math.round(pos.pos);
+    currentTime.value = fmtTime(actualPos);
+    seekValue.value = actualPos;
+    lastProgressUpdate = now;
+  }
+}
+
+function handleEnded() {
+  showDetails.value = false;
+  isPlaying.value = false;
+}
+
+function handleError(err) {
   switch (err.type) {
     case 'ptr':
       alertError("Unknown error, but it's probably a bad URL or ID.");
@@ -220,43 +238,55 @@ chiplib.onError((err) => {
       break;
   }
   chiplib.stop();
-});
+  cowbell.stop();
+}
 
-chiplib.onEnded(() => {
-  showDetails.value = false;
-  isPlaying.value = false;
-});
-
-chiplib.onProgress((pos) => {
-  const actualPos = Math.round(pos.pos);
-  const now = Date.now();
-  if (!chiplib._lastUpdate || now - chiplib._lastUpdate > 1000) {
-    currentTime.value = fmtTime(actualPos);
-    seekValue.value = actualPos;
-    chiplib._lastUpdate = now;
-  }
-  if (!showDetails.value) showDetails.value = true;
-  if (!isPlaying.value) isPlaying.value = true;
-});
-
-chiplib.onMetadata((meta) => {
-  const modTypeShortStr = meta.type.toUpperCase();
-  modTracker.value = meta.tracker || 'Unknown';
-  modTitle.value = meta.title || 'Untitled';
-  modType.value = `${meta.type_long} (${modTypeShortStr})`;
-  modArtist.value = meta.artist || 'Unknown';
-  modDate.value = isoFormat(meta.date) || 'Unknown';
-  modInstruments.value = meta.song.instruments.length;
-  modSamples.value = meta.song.samples.length;
-  modChannels.value = meta.song.channels.length;
-  modPatterns.value = meta.song.patterns.length;
+function handleMetadata(meta) {
+  const modTypeShortStr = (meta.type || '').toUpperCase();
+  modTracker.value = meta.tracker || '—';
+  modTitle.value = meta.title || '—';
+  modType.value = modTypeShortStr
+    ? `${meta.type_long} (${modTypeShortStr})`
+    : (meta.type_long || '—');
+  modArtist.value = meta.artist || '—';
+  modDate.value = meta.date ? (isoFormat(meta.date) || '—') : '—';
+  modChannels.value = meta.song.channels != null ? meta.song.channels.length : '—';
+  modInstruments.value = meta.song.instruments != null ? meta.song.instruments.length : '—';
+  modSamples.value = meta.song.samples != null ? meta.song.samples.length : '—';
+  modPatterns.value = meta.song.patterns != null ? meta.song.patterns.length : '—';
   seekMax.value = meta.dur;
   totalTime.value = fmtTime(Math.round(meta.dur));
-  modMeta = meta.message
+  modMeta = (meta.message || '')
     .split('\n')
     .map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`)
     .join('\n');
+  showDetails.value = true;
+  isPlaying.value = true;
+}
+
+chiplib.onInitialized(() => {
+  chiplib.setRepeatCount(0);
+  dnd(window, (file) => {
+    if (cowbell.canHandle(file.name)) {
+      chiplib.stop();
+      file.arrayBuffer().then((buf) => cowbell.play(buf, file.name));
+    } else {
+      cowbell.stop();
+      chiplib.play(file);
+    }
+    modSource.value = 'Drag & Drop';
+  });
 });
+
+chiplib.onError(handleError);
+chiplib.onEnded(handleEnded);
+chiplib.onProgress(handleProgress);
+chiplib.onMetadata(handleMetadata);
+
+cowbell.onError(handleError);
+cowbell.onEnded(handleEnded);
+cowbell.onProgress(handleProgress);
+cowbell.onMetadata(handleMetadata);
 
 // ── Module loading ────────────────────────────────────────────────────────────
 
@@ -268,16 +298,25 @@ async function loadModule(url) {
     const urlObj = new URL(url);
     const host = urlObj.hostname;
     if ((host === 'modarchive.org' || host.endsWith('.modarchive.org')) && id) {
+      cowbell.stop();
       await chiplib.load(TMA + id);
       modSource.value = `The Mod Archive (ID: ${id})`;
       return;
     }
+    if (cowbell.canHandle(url)) {
+      chiplib.stop();
+      await cowbell.load(url);
+      modSource.value = 'External URL';
+      return;
+    }
+    cowbell.stop();
     await chiplib.load(url);
     modSource.value = 'External URL';
     return;
   } catch {}
 
   const rawId = id ?? url;
+  cowbell.stop();
   await chiplib.load(TMA + rawId);
   modSource.value = `The Mod Archive (ID: ${rawId})`;
 }
@@ -297,22 +336,26 @@ function loadAndPlay() {
 function onSeek(e) {
   seekValue.value = Number(e.target.value);
   chiplib.setPos(seekValue.value);
+  cowbell.setPos(seekValue.value);
 }
 
 function togglePause() {
   chiplib.togglePause();
+  cowbell.togglePause();
   isPlaying.value = !isPlaying.value;
 }
 
 function toggleLoop() {
   loopEnabled.value = !loopEnabled.value;
   chiplib.setRepeatCount(loopEnabled.value ? -1 : 0);
+  cowbell.setRepeatCount(loopEnabled.value ? -1 : 0);
 }
 
 function stopPlayback() {
   showDetails.value = false;
   isPlaying.value = false;
   chiplib.stop();
+  cowbell.stop();
 }
 
 function showAbout() {
@@ -336,12 +379,18 @@ function triggerFileOpen() {
 function handleFileChange(e) {
   const file = e.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    chiplib.play(reader.result);
+  file.arrayBuffer().then((buf) => {
+    if (cowbell.canHandle(file.name)) {
+      chiplib.stop();
+      cowbell.play(buf, file.name);
+    } else {
+      cowbell.stop();
+      chiplib.play(buf);
+    }
     modSource.value = 'Local file';
-  };
-  reader.readAsArrayBuffer(file);
+  }).catch(() => {
+    alertError('Failed to read the file.');
+  });
 }
 
 function openLoadDialog() {
@@ -353,6 +402,7 @@ function openLoadDialog() {
 function onKeyUp(e) {
   if (e.key === ' ' || e.code === 'Space') {
     chiplib.togglePause();
+    cowbell.togglePause();
     isPlaying.value = !isPlaying.value;
   }
 }
