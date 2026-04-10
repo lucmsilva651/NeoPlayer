@@ -268,8 +268,10 @@ chiplib.onInitialized(() => {
   chiplib.setRepeatCount(0);
   dnd(window, (file) => {
     if (cowbell.canHandle(file.name)) {
+      chiplib.stop();
       file.arrayBuffer().then((buf) => cowbell.play(buf, file.name));
     } else {
+      cowbell.stop();
       chiplib.play(file);
     }
     modSource.value = 'Drag & Drop';
@@ -296,21 +298,25 @@ async function loadModule(url) {
     const urlObj = new URL(url);
     const host = urlObj.hostname;
     if ((host === 'modarchive.org' || host.endsWith('.modarchive.org')) && id) {
+      cowbell.stop();
       await chiplib.load(TMA + id);
       modSource.value = `The Mod Archive (ID: ${id})`;
       return;
     }
     if (cowbell.canHandle(url)) {
+      chiplib.stop();
       await cowbell.load(url);
       modSource.value = 'External URL';
       return;
     }
+    cowbell.stop();
     await chiplib.load(url);
     modSource.value = 'External URL';
     return;
   } catch {}
 
   const rawId = id ?? url;
+  cowbell.stop();
   await chiplib.load(TMA + rawId);
   modSource.value = `The Mod Archive (ID: ${rawId})`;
 }
@@ -376,8 +382,10 @@ function handleFileChange(e) {
   const reader = new FileReader();
   reader.onload = () => {
     if (cowbell.canHandle(file.name)) {
+      chiplib.stop();
       cowbell.play(reader.result, file.name);
     } else {
+      cowbell.stop();
       chiplib.play(reader.result);
     }
     modSource.value = 'Local file';
