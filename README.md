@@ -27,8 +27,10 @@ git submodule init && git submodule update
 To run:
 
 ```bash
-npm run tauri dev
+bun run tauri dev
 ```
+
+Note that Tauri builds will take long for the first time, so please drink a coffee and do something else while the app is being prepared to run in dev mode.
 
 ## License
 

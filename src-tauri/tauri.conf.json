@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "identifier": "com.lucmsilva.NeoPlayer",
   "build": {
-    "beforeDevCommand": "npm run dev",
+    "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
+    "beforeBuildCommand": "bun run build",
     "removeUnusedCommands": true,
     "frontendDist": "../dist"
   },
@@ -14,9 +14,9 @@
     "windows": [
       {
         "title": "NeoPlayer",
-        "minHeight": 470,
+        "minHeight": 425,
         "minWidth": 550,
-        "height": 470,
+        "height": 425,
         "width": 550
       }
     ],
