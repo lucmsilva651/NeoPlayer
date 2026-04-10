@@ -26,6 +26,28 @@ const COWBELL_EXT_MAP = {
   pt3:  () => new window.Cowbell.Player.ZXPT3(),
 };
 
+// Human-readable label and engine name for each supported extension.
+const COWBELL_INFO = {
+  sid:  { label: 'SID',  tracker: 'JSSID'   },
+  sap:  { label: 'SAP',  tracker: 'ASAP'    },
+  cmc:  { label: 'CMC',  tracker: 'ASAP'    },
+  cm3:  { label: 'CM3',  tracker: 'ASAP'    },
+  cmr:  { label: 'CMR',  tracker: 'ASAP'    },
+  cms:  { label: 'CMS',  tracker: 'ASAP'    },
+  dmc:  { label: 'DMC',  tracker: 'ASAP'    },
+  dlt:  { label: 'DLT',  tracker: 'ASAP'    },
+  mpd:  { label: 'MPD',  tracker: 'ASAP'    },
+  rmt:  { label: 'RMT',  tracker: 'ASAP'    },
+  tmc:  { label: 'TMC',  tracker: 'ASAP'    },
+  tm8:  { label: 'TM8',  tracker: 'ASAP'    },
+  tm2:  { label: 'TM2',  tracker: 'ASAP'    },
+  sndh: { label: 'SNDH', tracker: 'PSGPlay' },
+  vtx:  { label: 'VTX',  tracker: 'VTX'     },
+  stc:  { label: 'STC',  tracker: 'ZXSTC'   },
+  sqt:  { label: 'SQT',  tracker: 'ZXSQT'   },
+  pt3:  { label: 'PT3',  tracker: 'ZXPT3'   },
+};
+
 function getExt(filename) {
   return filename.split('/').pop().split('?')[0].split('.').pop().toLowerCase();
 }
@@ -68,17 +90,20 @@ export function useCowbell() {
     }, 250);
   }
 
-  function _setupHandlers(audioEl) {
+  function _setupHandlers(audioEl, ext) {
+    const info = COWBELL_INFO[ext] || { label: ext.toUpperCase(), tracker: 'Cowbell' };
+    const title = `${info.label} module`;
+
     audioEl.onloadedmetadata = () => {
       const dur = isFinite(audioEl.duration) && audioEl.duration > 0
         ? audioEl.duration
         : 0;
       metadataFn?.({
-        title: '—',
+        title,
         artist: '—',
-        tracker: '—',
-        type: '',
-        type_long: '—',
+        tracker: info.tracker,
+        type: info.label,
+        type_long: title,
         date: null,
         dur,
         song: { channels: null, instruments: null, samples: null, patterns: null },
@@ -129,7 +154,7 @@ export function useCowbell() {
       const audioEl = track.open();
       currentTrack = audioEl;
 
-      _setupHandlers(audioEl);
+      _setupHandlers(audioEl, ext);
       _startPolling();
       audioEl.play();
     } catch (_e) {
