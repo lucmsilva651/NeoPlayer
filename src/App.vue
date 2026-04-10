@@ -211,15 +211,13 @@ function alertError(message) {
 let lastProgressUpdate = 0;
 
 function handleProgress(pos) {
-  const actualPos = Math.round(pos.pos);
   const now = Date.now();
   if (now - lastProgressUpdate > 1000) {
+    const actualPos = Math.round(pos.pos);
     currentTime.value = fmtTime(actualPos);
     seekValue.value = actualPos;
     lastProgressUpdate = now;
   }
-  if (!showDetails.value) showDetails.value = true;
-  if (!isPlaying.value) isPlaying.value = true;
 }
 
 function handleEnded() {
@@ -262,6 +260,8 @@ function handleMetadata(meta) {
     .split('\n')
     .map((line, i) => `${(i + 1).toString().padStart(2, '0')}: ${line}`)
     .join('\n');
+  showDetails.value = true;
+  isPlaying.value = true;
 }
 
 chiplib.onInitialized(() => {
@@ -379,18 +379,18 @@ function triggerFileOpen() {
 function handleFileChange(e) {
   const file = e.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
+  file.arrayBuffer().then((buf) => {
     if (cowbell.canHandle(file.name)) {
       chiplib.stop();
-      cowbell.play(reader.result, file.name);
+      cowbell.play(buf, file.name);
     } else {
       cowbell.stop();
-      chiplib.play(reader.result);
+      chiplib.play(buf);
     }
     modSource.value = 'Local file';
-  };
-  reader.readAsArrayBuffer(file);
+  }).catch(() => {
+    alertError('Failed to read the file.');
+  });
 }
 
 function openLoadDialog() {

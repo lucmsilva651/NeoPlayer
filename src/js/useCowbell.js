@@ -87,7 +87,7 @@ export function useCowbell() {
       if (currentTrack && !currentTrack.paused) {
         progressFn?.({ pos: currentTrack.currentTime });
       }
-    }, 250);
+    }, 1000);
   }
 
   function _setupHandlers(audioEl, ext) {
