@@ -98,8 +98,18 @@ export function useCowbell() {
     };
   }
 
+  function _stopAudio() {
+    _clearInterval();
+    if (currentTrack) {
+      currentTrack.onended = null;
+      currentTrack.onloadedmetadata = null;
+      try { currentTrack.pause(); } catch (_e) { /* ignore */ }
+      currentTrack = null;
+    }
+  }
+
   function _openAndPlay(url, filename) {
-    stop();
+    _stopAudio();
 
     const ext = getExt(filename);
     const factory = COWBELL_EXT_MAP[ext];
@@ -139,13 +149,7 @@ export function useCowbell() {
   }
 
   function stop() {
-    _clearInterval();
-    if (currentTrack) {
-      currentTrack.onended = null;
-      currentTrack.onloadedmetadata = null;
-      try { currentTrack.pause(); } catch (_e) { /* ignore */ }
-      currentTrack = null;
-    }
+    _stopAudio();
     _revokeBlobUrl();
   }
 
