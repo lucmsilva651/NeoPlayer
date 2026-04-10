@@ -1,5 +1,6 @@
 import https from 'https';
 import fs from 'fs';
+import path from 'path';
 import { execSync } from 'child_process';
 
 const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)));
@@ -28,13 +29,31 @@ function download(url, dest, cb) {
     }
     res.pipe(file);
     file.on('finish', () => file.close(cb));
+  }).on('error', (err) => {
+    fs.unlink(dest, () => {});
+    console.error('Download failed:', err.message);
+    process.exit(1);
   });
 }
 
+function extractZip(zipPath, destDir) {
+  const isWindows = process.platform === 'win32';
+  const zipNorm = path.resolve(zipPath);
+  const destNorm = path.resolve(destDir);
+  if (isWindows) {
+    execSync(
+      `powershell -NoProfile -Command "Expand-Archive -LiteralPath '${zipNorm}' -DestinationPath '${destNorm}' -Force"`,
+    );
+  } else {
+    execSync(`unzip -q "${zipNorm}" -d "${destNorm}"`);
+  }
+}
+
 download(ZIP_URL, TMP_ZIP, () => {
-  execSync(`unzip -q ${TMP_ZIP} -d ${VENDOR_BASE}/tmp`);
-  fs.renameSync(`${VENDOR_BASE}/tmp/cowbell`, VENDOR_DIR);
-  fs.rmSync(`${VENDOR_BASE}/tmp`, { recursive: true });
+  const tmpDir = path.join(VENDOR_BASE, 'tmp');
+  extractZip(TMP_ZIP, tmpDir);
+  fs.renameSync(path.join(tmpDir, 'cowbell'), VENDOR_DIR);
+  fs.rmSync(tmpDir, { recursive: true });
   fs.unlinkSync(TMP_ZIP);
   console.log(`cowbell v${VERSION} installed in src/lib/cowbell`);
 });

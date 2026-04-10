@@ -13,11 +13,13 @@
     "name": "Lucas Gabriel (lucmsilva)",
     "email": "lucmsilva651@gmail.com"
   },
+  "cowbellVersion": "0.7.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "postinstall": "node scripts/install-cowbell.js"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
