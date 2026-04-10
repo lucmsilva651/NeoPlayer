@@ -19,7 +19,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "postinstall": "node scripts/install-cowbell.js"
+    "postinstall": "bun scripts/install-cowbell.js"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",

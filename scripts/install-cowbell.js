@@ -2,13 +2,14 @@ import https from 'https';
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
 
 const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)));
 
 const VERSION = process.env.COWBELL_VERSION || pkg.cowbellVersion;
-const VENDOR_DIR = new URL('../src/lib/cowbell', import.meta.url).pathname;
-const TMP_ZIP = new URL('../src/lib/cowbell.zip', import.meta.url).pathname;
-const VENDOR_BASE = new URL('../src/lib/', import.meta.url).pathname;
+const VENDOR_DIR = fileURLToPath(new URL('../src/lib/cowbell', import.meta.url));
+const TMP_ZIP    = fileURLToPath(new URL('../src/lib/cowbell.zip', import.meta.url));
+const VENDOR_BASE = fileURLToPath(new URL('../src/lib/', import.meta.url));
 
 if (fs.existsSync(VENDOR_DIR)) {
   console.log(`cowbell v${VERSION} already installed.`);
