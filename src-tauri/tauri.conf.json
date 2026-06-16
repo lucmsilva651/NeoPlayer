@@ -1,23 +1,21 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "NeoPlayer",
+  "productName": "neoplayer",
   "version": "2.0.0",
-  "identifier": "com.lucmsilva.NeoPlayer",
+  "identifier": "com.lucmsilva.neoplayer",
   "build": {
-    "beforeDevCommand": "bun run dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "bun run build",
-    "removeUnusedCommands": true,
-    "frontendDist": "../dist"
+    "frontendDist": "../src"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "NeoPlayer",
-        "minHeight": 425,
-        "minWidth": 550,
-        "height": 425,
-        "width": 550
+        "decorations": false,
+        "maximizable": false,
+        "resizable": false,
+        "width": 925,
+        "height": 650
       }
     ],
     "security": {

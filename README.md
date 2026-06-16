@@ -15,7 +15,7 @@ You will need to have Rust and NodeJS installed to build NeoPlayer from source.
 To install dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 To install submodules:

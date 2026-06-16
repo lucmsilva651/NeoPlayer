@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/main.js" defer></script>
+    <meta name="color-scheme" content="dark" />
+  </head>
+  <body>
+    <input
+      type="file"
+      id="fileInput"
+      hidden
+      accept=".mptm, .mod, .s3m, .xm, .it, .667, .669, .amf, .ams, .c67, .cba, .dbm, .digi, .dmf, .dsm, .dsym, .dtm, .etx, .far, .fc, .fc13, .fc14, .fmt, .fst, .ftm, .gdm, .gmc, .gtk, .gt2, .ice, .imf, .ims, .j2b, .m15, .mdl, .med, .mms, .mt2, .mtm, .mus, .nst, .okt, .plm, .psm, .pt36, .ptm, .puma, .rtm, .sfx, .sfx2, .smod, .st26, .stk, .stm, .stx, .stp, .symmod, .tcb, .ult, .unic, .wow, .xmf, .mo3, .oxm, .umx, .xpk, .ppm, .mmcmp"
+    />
+    <div class="titlebar" data-tauri-drag-region>
+      <div class="titlebar-brand">
+        <span>NeoPlayer</span>
+      </div>
+      <div class="controls">
+        <button id="about-app">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="currentColor"
+              d="M11 9h2V7h-2m1 13c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m-1 15h2v-6h-2z"
+            />
+          </svg>
+        </button>
+        <button id="titlebar-minimize" title="minimize">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d="M19 13H5v-2h14z" />
+          </svg>
+        </button>
+        <button id="titlebar-close" title="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M13.46 12L19 17.54V19h-1.46L12 13.46L6.46 19H5v-1.46L10.54 12L5 6.46V5h1.46L12 10.54L17.54 5H19v1.46z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <main>
+      <div class="module-info card">
+        <div class="card-header">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <g fill="currentColor">
+              <path
+                d="M6 4H4v16h2zm10-2H6v2h10zm4 4h-2v14h2zm-2 14H6v2h12zM16 4h2v2h-2zm-4 0h2v6h-2z"
+              />
+              <path d="M12 8h6v2h-6zm-4 8h8v2H8zm0-4h8v2H8zm0-4h2v2H8z" />
+            </g>
+          </svg>
+          <p>Module info</p>
+        </div>
+        <div class="card-details">
+          <div>
+            <p class="section-name">File Name:</p>
+            <p class="section-desc" id="fileName">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Format:</p>
+            <p class="section-desc" id="fileFormat">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Module Name:</p>
+            <p class="section-desc" id="modTitle">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Tracker:</p>
+            <p class="section-desc" id="modTracker">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Composer:</p>
+            <p class="section-desc" id="modArtist">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Channels:</p>
+            <p class="section-desc" id="modChannels">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Patterns:</p>
+            <p class="section-desc" id="modPatterns">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Global Volume:</p>
+            <p class="section-desc" id="classHere">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">File Size:</p>
+            <p class="section-desc" id="fileSize">Unknown</p>
+          </div>
+        </div>
+        <div class="card-separator horizontal"></div>
+        <div class="card-header">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="currentColor"
+              d="M3 7h2v5H3zm4 0h2v13H7zm4-3h2v16h-2zm4 0h2v13h-2zM5 5h2v2H5zm4 15h2v2H9zm4-18h2v2h-2zm4 15h2v2h-2zm2-5h2v5h-2zm2-2h2v2h-2zM1 12h2v2H1z"
+            />
+          </svg>
+          <p>Sampling info</p>
+        </div>
+        <div class="card-details">
+          <div>
+            <p class="section-name">Instruments:</p>
+            <p class="section-desc" id="modInstruments">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Samples:</p>
+            <p class="section-desc" id="modSamples">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Sample Rate:</p>
+            <p class="section-desc" id="sampleRate">Unknown</p>
+          </div>
+          <div>
+            <p class="section-name">Stereo Separation:</p>
+            <p class="section-desc" id="stereoSep">Unknown</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-2nd card">
+        <div class="card-header">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="currentColor"
+              d="M4 2h16v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 0h2v16h-2zM6 7h12v2H6zm0 4h12v2H6zm0 4h12v2H6z"
+            />
+          </svg>
+          <p>Instruments / module text</p>
+        </div>
+        <div id="modText">None</div>
+      </div>
+      <div class="visualizer card">
+        <div id="visualizerFullscreen">
+          <div class="card-header">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                fill="currentColor"
+                d="M4 2h16v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 0h2v16h-2zm-9 5h2V7h-2zm0 8h2v-6h-2z"
+              />
+            </svg>
+            <p>Visualizer</p>
+          </div>
+          <canvas id="moduleVisualizer"></canvas>
+          <div id="fullscreenOverlay" class="hidden">
+            <div class="osd-box-left">
+              <div id="fsTitle">Untitled</div>
+              <div id="fsTracker">Unknown</div>
+              <div id="fsInfo"></div>
+            </div>
+            <div class="osd-box-right">
+              <div class="fsTip">
+                Press F11 or click anywhere to exit fullscreen
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toolbar card">
+        <div class="transport">
+          <button id="playBtn" title="Play/Pause">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path fill="currentColor" d="M8 5.14v14l11-7z" />
+            </svg>
+          </button>
+          <button id="stopBtn" title="Stop">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path fill="currentColor" d="M18 18H6V6h12z" />
+            </svg>
+          </button>
+          <button id="openFileBtn" title="Open file">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                fill="currentColor"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h7c-.41-.25-.8-.56-1.14-.9a6.48 6.48 0 0 1-.36-9.18C13.69 9.5 17.33 9.13 20 11V8zm-1 7V3.5L18.5 9zm7.31 9.9c1.33-2.11.69-4.9-1.4-6.22c-2.11-1.33-4.91-.68-6.22 1.4c-1.34 2.11-.69 4.89 1.4 6.22c1.46.93 3.32.93 4.79.02L22 23.39L23.39 22zm-3.81.1a2.5 2.5 0 0 1-2.5-2.5a2.5 2.5 0 0 1 2.5-2.5a2.5 2.5 0 0 1 2.5 2.5a2.5 2.5 0 0 1-2.5 2.5"
+              />
+            </svg>
+          </button>
+          <button id="settingsBtn" title="Settings">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                fill="currentColor"
+                d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="card-separator vertical"></div>
+        <div class="time">
+          <div class="left">
+            <p id="modElapsed">00:00</p>
+            <p>Elapsed</p>
+          </div>
+          <p class="separator">/</p>
+          <div class="right">
+            <p id="modDurTot">00:00</p>
+            <p>Total</p>
+          </div>
+        </div>
+        <div class="card-separator vertical"></div>
+        <div class="setting">
+          <div class="row">
+            <label for="cfgVolume">Volume</label>
+            <span id="cfgVolumeValue">100%</span>
+          </div>
+          <input
+            id="cfgVolume"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+          />
+        </div>
+      </div>
+    </main>
+    <div id="settingsOverlay" class="settings-overlay hidden">
+      <div class="settings-panel card">
+        <div class="card-header">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <g fill="currentColor">
+              <g clip-path="url(#SVGHcSWxdhd)">
+                <path
+                  d="M9 0h6v2H9zm6 24H9v-2h6zM0 15V9h2v6zm24-6v6h-2V9zM9 2h2v4H9zm6 20h-2v-4h2zM2 15v-2h4v2zm20-6v2h-4V9zm-9-7h2v4h-2zm-2 20H9v-4h2zM2 11V9h4v2zm20 2v2h-4v-2zM7 4h2v2H7zm10 0h-2v2h2zm0 16h-2v-2h2zM7 20h2v-2H7zM2 2h5v2H2zm20 0h-5v2h5zm0 20h-5v-2h5zM2 22h5v-2H2z"
+                />
+                <path
+                  d="M2 2h2v5H2zm20 0h-2v5h2zm0 20h-2v-5h2zM2 22h2v-5H2zM4 7h2v2H4zm16 0h-2v2h2zm0 10h-2v-2h2zM4 17h2v-2H4zm6-9h4v2h-4zm0 6h4v2h-4zm-2-4h2v4H8zm6 0h2v4h-2z"
+                />
+              </g>
+              <defs>
+                <clipPath id="SVGHcSWxdhd">
+                  <path fill="#fff" d="M0 0h24v24H0z" />
+                </clipPath>
+              </defs>
+            </g>
+          </svg>
+          <p>Settings</p>
+        </div>
+        <div class="settings-group">
+          <div class="setting">
+            <label for="cfgStereo">Stereo Separation</label>
+            <input
+              id="cfgStereo"
+              type="range"
+              min="0"
+              max="200"
+              step="10"
+              value="100"
+            />
+            <span id="cfgStereoValue">100%</span>
+          </div>
+          <div class="setting">
+            <label for="cfgTempo">Tempo</label>
+            <input
+              id="cfgTempo"
+              type="range"
+              min="0.25"
+              max="4"
+              step="0.01"
+              value="1"
+            />
+            <span id="cfgTempoValue">1.00x</span>
+          </div>
+          <div class="setting">
+            <label for="cfgPitch">Pitch</label>
+            <input
+              id="cfgPitch"
+              type="range"
+              min="0.25"
+              max="4"
+              step="0.01"
+              value="1"
+            />
+            <span id="cfgPitchValue">1.00x</span>
+          </div>
+          <div class="setting">
+            <label for="cfgRepeat">Loop Mode</label>
+            <select id="cfgRepeat">
+              <option value="0">Disabled</option>
+              <option value="-1">Infinite</option>
+            </select>
+          </div>
+        </div>
+        <div class="settings-actions">
+          <button id="closeSettings">Close</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
