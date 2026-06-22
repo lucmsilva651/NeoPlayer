@@ -357,23 +357,20 @@ main {
   color: var(--cyan);
 }
 
-#modText::-webkit-scrollbar,
-.settings-panel::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 8px;
 }
 
-#modText::-webkit-scrollbar-track,
-.settings-panel::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: var(--panel);
 }
 
-#modText::-webkit-scrollbar-thumb,
-.settings-panel::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
   background: #29364d;
 }
 
-#modText::-webkit-scrollbar-thumb:hover,
-.settings-panel::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: var(--cyan);
 }
 
