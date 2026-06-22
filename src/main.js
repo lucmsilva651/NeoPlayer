@@ -221,12 +221,8 @@ $("fileInput").addEventListener("change", (e) => {
 ctx.onProgress((pos) => {
   currentPos = Math.round(pos.pos);
   const now = Date.now();
-
-  if (!ctx._lastUpdate || now - ctx._lastUpdate > 1000) {
-    $("modElapsed").textContent = pad(fmtMSS(currentPos));
-    updateFSInfo();
-    ctx._lastUpdate = now;
-  }
+  $("modElapsed").textContent = pad(fmtMSS(currentPos));
+  updateFSInfo();
 });
 
 ctx.onMetadata((meta) => {
