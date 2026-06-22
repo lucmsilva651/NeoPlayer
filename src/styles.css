@@ -281,18 +281,7 @@ main {
 .toolbar {
   display: flex;
   flex-direction: row;
-}
-
-.toolbar .setting {
-  justify-content: center;
-  padding: 0 5px 0 20px;
-}
-
-.toolbar .setting .row {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .transport {
@@ -300,7 +289,6 @@ main {
   align-items: center;
   flex-direction: row;
   gap: 10px;
-  flex: 1;
 }
 
 .transport button {
@@ -334,7 +322,6 @@ main {
   justify-content: center;
   flex-direction: row;
   gap: 20px;
-  flex: 1;
 }
 
 .time * {

@@ -273,21 +273,6 @@
             <p>Total</p>
           </div>
         </div>
-        <div class="card-separator vertical"></div>
-        <div class="setting">
-          <div class="row">
-            <label for="cfgVolume">Volume</label>
-            <span id="cfgVolumeValue">100%</span>
-          </div>
-          <input
-            id="cfgVolume"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value="1"
-          />
-        </div>
       </div>
     </main>
     <div id="settingsOverlay" class="settings-overlay hidden">
@@ -355,6 +340,18 @@
             />
             <span id="cfgPitchValue">1.00x</span>
           </div>
+          <div class="setting">
+            <label for="cfgVolume">Volume</label>
+            <input
+              id="cfgVolume"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="1"
+            />
+          </div>
+          <span id="cfgVolumeValue">100%</span>
           <div class="setting">
             <label for="cfgRepeat">Loop Mode</label>
             <select id="cfgRepeat">
