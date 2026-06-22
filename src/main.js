@@ -282,6 +282,14 @@ $("stopBtn").addEventListener("click", () => {
   ctx.stop();
 });
 
+$("rewindBtn").addEventListener("click", () => {
+  ctx.seek(currentPos - 10);
+})
+
+$("forwardBtn").addEventListener("click", () => {
+  ctx.seek(currentPos + 10);
+})
+
 settings.volume.addEventListener("input", () => {
   const value = Number(settings.volume.value);
 
