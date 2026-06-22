@@ -55,14 +55,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: --bundles deb,rpm,appimage
+          args: --bundles deb,rpm
       - uses: actions/upload-artifact@v4
         with:
           name: neoplayer-linux-nightly
           path: |
             src-tauri/target/release/bundle/deb/*.deb
             src-tauri/target/release/bundle/rpm/*.rpm
-            src-tauri/target/release/bundle/appimage/*.AppImage
           retention-days: 7
   build-macos:
     runs-on: macos-latest
