@@ -89,30 +89,6 @@ const updateTitles = () => {
   });
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  $("titlebar-minimize").addEventListener("click", () =>
-    appWindow.minimize()
-  );
-
-  $("titlebar-close").addEventListener("click", () =>
-    appWindow.close()
-  );
-
-  $("settingsBtn")?.addEventListener("click", () =>
-    $("settingsOverlay").classList.remove("hidden")
-  );
-
-  $("closeSettings")?.addEventListener("click", () =>
-    $("settingsOverlay").classList.add("hidden")
-  );
-
-  $("settingsOverlay")?.addEventListener("click", (e) => {
-    if (e.target === $("settingsOverlay")) {
-      $("settingsOverlay").classList.add("hidden");
-    }
-  });
-});
-
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     $("fullscreenOverlay").classList.add("hidden");
@@ -274,6 +250,28 @@ $("rewindBtn").addEventListener("click", () => {
 
 $("forwardBtn").addEventListener("click", () => {
   ctx.seek(currentPos + 10);
+})
+
+$("titlebar-minimize").addEventListener("click", () =>
+  appWindow.minimize()
+)
+
+$("titlebar-close").addEventListener("click", () =>
+  appWindow.close()
+)
+
+$("settingsBtn")?.addEventListener("click", () =>
+  $("settingsOverlay").classList.remove("hidden")
+)
+
+$("closeSettings")?.addEventListener("click", () =>
+  $("settingsOverlay").classList.add("hidden")
+)
+
+$("settingsOverlay")?.addEventListener("click", (e) => {
+  if (e.target === $("settingsOverlay")) {
+    $("settingsOverlay").classList.add("hidden");
+  }
 })
 
 settings.volume.addEventListener("input", () => {
