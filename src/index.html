@@ -16,6 +16,7 @@
     />
     <div class="titlebar" data-tauri-drag-region>
       <div class="titlebar-brand">
+        <img src="icons/icon.ico" alt="Icon" />
         <span>NeoPlayer</span>
       </div>
       <div class="controls">
@@ -45,6 +46,24 @@
       </div>
     </div>
     <main>
+      <div class="module-instruments card">
+        <div class="card-header">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="currentColor"
+              d="M4 2h16v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 0h2v16h-2zM6 7h12v2H6zm0 4h12v2H6zm0 4h12v2H6z"
+            />
+          </svg>
+          <p>Instruments</p>
+        </div>
+        <div id="modText">None</div>
+      </div>
       <div class="module-info card">
         <div class="card-header">
           <svg
@@ -64,95 +83,54 @@
           <p>Module info</p>
         </div>
         <div class="card-details">
-          <div>
-            <p class="section-name">File Name:</p>
-            <p class="section-desc" id="fileName">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Format:</p>
-            <p class="section-desc" id="fileFormat">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Module Name:</p>
-            <p class="section-desc" id="modTitle">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Tracker:</p>
-            <p class="section-desc" id="modTracker">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Composer:</p>
-            <p class="section-desc" id="modArtist">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Channels:</p>
-            <p class="section-desc" id="modChannels">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Patterns:</p>
-            <p class="section-desc" id="modPatterns">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Global Volume:</p>
-            <p class="section-desc" id="classHere">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">File Size:</p>
-            <p class="section-desc" id="fileSize">Unknown</p>
-          </div>
-        </div>
-        <div class="card-separator horizontal"></div>
-        <div class="card-header">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-          >
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path
-              fill="currentColor"
-              d="M3 7h2v5H3zm4 0h2v13H7zm4-3h2v16h-2zm4 0h2v13h-2zM5 5h2v2H5zm4 15h2v2H9zm4-18h2v2h-2zm4 15h2v2h-2zm2-5h2v5h-2zm2-2h2v2h-2zM1 12h2v2H1z"
-            />
-          </svg>
-          <p>Sampling info</p>
-        </div>
-        <div class="card-details">
-          <div>
-            <p class="section-name">Instruments:</p>
-            <p class="section-desc" id="modInstruments">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Samples:</p>
-            <p class="section-desc" id="modSamples">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Sample Rate:</p>
-            <p class="section-desc" id="sampleRate">Unknown</p>
-          </div>
-          <div>
-            <p class="section-name">Stereo Separation:</p>
-            <p class="section-desc" id="stereoSep">Unknown</p>
+          <div class="row">
+            <div class="main-info">
+              <div>
+                <p class="section-name">File Name:</p>
+                <p class="section-desc" id="fileName">Unknown</p>
+              </div>
+              <div>
+                <p class="section-name">Format:</p>
+                <p class="section-desc" id="fileFormat">Unknown</p>
+              </div>
+              <div>
+                <p class="section-name">Module Name:</p>
+                <p class="section-desc" id="modTitle">Unknown</p>
+              </div>
+              <div>
+                <p class="section-name">Tracker:</p>
+                <p class="section-desc" id="modTracker">Unknown</p>
+              </div>
+              <div>
+                <p class="section-name">Composer:</p>
+                <p class="section-desc" id="modArtist">Unknown</p>
+              </div>
+              <div>
+                <p class="section-name">Channels:</p>
+                <p class="section-desc" id="modChannels">Unknown</p>
+              </div>
+              <div>
+                <p class="section-name">Patterns:</p>
+                <p class="section-desc" id="modPatterns">Unknown</p>
+              </div>
+              <div>
+                <p class="section-name">File Size:</p>
+                <p class="section-desc" id="fileSize">Unknown</p>
+              </div>
+            </div>
+            <div class="misc-info">
+              <div>
+                <p class="section-name">Instruments</p>
+                <p class="section-desc" id="modInstruments">Unknown</p>
+              </div>
+              <div class="card-separator horizontal"></div>
+              <div>
+                <p class="section-name">Samples</p>
+                <p class="section-desc" id="modSamples">Unknown</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="module-2nd card">
-        <div class="card-header">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-          >
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path
-              fill="currentColor"
-              d="M4 2h16v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 0h2v16h-2zM6 7h12v2H6zm0 4h12v2H6zm0 4h12v2H6z"
-            />
-          </svg>
-          <p>Instruments / module text</p>
-        </div>
-        <div id="modText">None</div>
       </div>
       <div class="visualizer card">
         <div id="visualizerFullscreen">

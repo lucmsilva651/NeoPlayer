@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "Web437_IBM_Model3x_Alt2";
-  src: url(font/Web437_IBM_Model3x_Alt2.woff);
+  font-family: "JetBrainsMono-VariableFont_wght";
+  src: url(fonts/JetBrainsMono-VariableFont_wght.ttf);
 }
 
 :root {
-  font-family: "Web437_IBM_Model3x_Alt2", monospace;
+  font-family: "JetBrainsMono-VariableFont_wght", monospace;
   -webkit-font-smoothing: none;
   font-smooth: none;
   text-rendering: optimizeSpeed;
@@ -34,7 +34,6 @@ body {
 
 html {
   margin-top: var(--titlebar-height);
-  line-height: 1.53;
 }
 
 .titlebar {
@@ -51,10 +50,16 @@ html {
 }
 
 .titlebar-brand {
-  padding-left: 12px;
-  font-size: 22px;
-  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
   pointer-events: none;
+  gap: 10px;
+}
+
+.titlebar-brand img {
+  width: 16px;
+  height: 16px;
 }
 
 .titlebar>.controls {
@@ -73,7 +78,7 @@ html {
   width: 50px;
   height: 100%;
   background-color: transparent;
-  color: white;
+  color: var(--text);
   pointer-events: auto;
 }
 
@@ -86,18 +91,22 @@ html {
 }
 
 main {
-  padding: 0 10px;
+  height: calc(100vh - var(--titlebar-height));
+  padding: 0 8px 10px 10px;
+
   display: grid;
-  grid-template-columns: 400px 1fr;
-  grid-template-rows: 205px 280px 100px;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 190px 1fr 75px;
   gap: 8px;
+
+  box-sizing: border-box;
 }
 
-.module-info {
+.module-instruments {
   grid-area: 1 / 1 / 3 / 2;
 }
 
-.module-2nd {
+.module-info {
   grid-area: 1 / 2 / 2 / 4;
 }
 
@@ -111,6 +120,7 @@ main {
 
 .card {
   background-color: var(--panel);
+  border-radius: 10px;
   border: 1px solid #252932;
   padding: 12px 16px;
 }
@@ -136,12 +146,17 @@ main {
 
 .card-header {
   color: var(--purple);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  font-size: 16px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
   text-transform: uppercase;
+}
+
+.card-header p {
+  margin-top: 2px;
 }
 
 .card-header~.card-header {
@@ -152,36 +167,13 @@ main {
   margin: 0;
 }
 
-.card-header svg {
-  font-size: 18px;
-}
-
-.card-header p {
-  margin-top: 2px;
-  font-size: 22px;
-}
-
-.card-details {
-  margin-bottom: 12px;
-}
-
-.card-details>div {
-  display: grid;
-  grid-template-columns: 145px 1fr;
-  gap: 20px;
-}
-
-.card-details * {
-  margin: 0;
-}
-
 .section-name {
   color: #6ed9fb;
 }
 
 .section-name,
 .section-desc {
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .section-desc {
@@ -190,13 +182,48 @@ main {
   text-overflow: ellipsis;
 }
 
-.module-2nd {
+.module-info .card-details p {
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 80% 1fr;
+  gap: 10px;
+}
+
+.main-info>div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+}
+
+.misc-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.misc-info {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px 8px;
+}
+
+.misc-info .section-desc {
+  font-size: 18px;
+}
+
+.module-instruments {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 #modText {
+  font-size: 12px;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -225,10 +252,6 @@ main {
   top: 12px;
   left: 16px;
   z-index: 100;
-}
-
-#visualizerFullscreen .card-header p {
-  font-size: 16px;
 }
 
 #visualizerFullscreen:fullscreen .card-header {
@@ -288,23 +311,21 @@ main {
   display: flex;
   align-items: center;
   flex-direction: row;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 4px;
 }
 
 .transport button {
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 42px;
+  height: 42px;
   border: 1px solid #29364d;
   background-color: transparent;
   font-size: 34px;
   cursor: pointer;
-}
-
-.transport button:nth-child(-n + 2) {
-  font-size: 40px;
 }
 
 .transport button:hover {
@@ -328,9 +349,13 @@ main {
   margin: 0;
 }
 
+.time div {
+  font-size: 12px;
+}
+
 .time div p:first-child,
 .time .separator {
-  font-size: 34px;
+  font-size: 24px;
 }
 
 .time .left,
@@ -342,20 +367,7 @@ main {
   flex-direction: column;
 }
 
-.stats {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
 
-  min-width: 140px;
-
-  text-align: right;
-}
-
-.stats span {
-  color: var(--cyan);
-}
 
 ::-webkit-scrollbar {
   width: 8px;

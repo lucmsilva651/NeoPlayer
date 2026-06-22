@@ -226,14 +226,6 @@ ctx.onProgress((pos) => {
 });
 
 ctx.onMetadata((meta) => {
-  const separationValue = ctx.config.stereoSeparation;
-
-  let separationText = `${separationValue}%`;
-
-  if (separationValue === 100) separationText += " (Normal)";
-  if (separationValue === 200) separationText += " (Max Stereo)";
-  if (separationValue === 0) separationText += " (Mono)";
-
   modMeta = meta.message
     .split("\n")
     .map(
@@ -252,8 +244,6 @@ ctx.onMetadata((meta) => {
   $("modSamples").textContent = meta.song.samples.length;
   $("modChannels").textContent = meta.song.channels.length;
   $("modPatterns").textContent = meta.song.patterns.length;
-  $("sampleRate").textContent = `${ctx.context.sampleRate} Hz` || "0 Hz";
-  $("stereoSep").textContent = separationText;
   $("modText").textContent = modMeta;
   $("fsTitle").textContent = meta.title || fileName || "Untitled";
   $("fsTracker").textContent = `${fileName} • ${meta.tracker}` || "Unknown";
