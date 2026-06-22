@@ -57,6 +57,9 @@
       "nsis": {
         "displayLanguageSelector": false,
         "installMode": "currentUser"
+      },
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
       }
     }
   }
