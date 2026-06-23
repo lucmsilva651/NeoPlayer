@@ -178,6 +178,7 @@ main {
 
 .section-desc {
   white-space: nowrap;
+  user-select: text;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -224,6 +225,7 @@ main {
 
 #modText {
   font-size: 12px;
+  user-select: text;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
