@@ -2,7 +2,7 @@
 
 Module player built with Tauri. Plays local files and from [TheModArchive](https://themodarchive.org).
 
-![Screenshot](misc/screenshot.png)
+![Screenshot](misc/image.png)
 
 ## Recommended IDE Setup
 
