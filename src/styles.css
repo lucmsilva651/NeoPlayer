@@ -443,6 +443,7 @@ main {
 }
 
 .setting {
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -464,54 +465,44 @@ main {
 }
 
 .setting input[type="range"] {
+  border-radius: 5px;
   width: 100%;
-
   appearance: none;
-
-  height: 6px;
-
+  height: 12px;
   background: #0f1319;
-
   border: 1px solid #29364d;
 }
 
 .setting input[type="range"]::-webkit-slider-thumb {
+  border-radius: 5px;
   appearance: none;
-
   width: 14px;
   height: 14px;
-
   background: var(--cyan);
-
   border: 2px solid #ffffff20;
-
   cursor: pointer;
 }
 
 .setting input[type="range"]::-moz-range-thumb {
   width: 14px;
   height: 14px;
-
   background: var(--cyan);
-
   border: none;
-
   cursor: pointer;
 }
 
 .setting select {
+  border-radius: 10px;
   font-family: inherit;
-  font-size: 16px;
-
   padding: 8px;
-
   background: var(--bg);
-
   color: var(--text);
-
   border: 1px solid #29364d;
-
   outline: none;
+}
+
+.setting select option {
+  font-size: 12px;
 }
 
 .setting select:hover,
@@ -521,25 +512,23 @@ main {
 
 .settings-actions {
   margin-top: 32px;
-
   display: flex;
   justify-content: flex-end;
 }
 
 .settings-actions button {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   font-family: inherit;
-  font-size: 16px;
-
   min-width: 100px;
-
   padding: 8px 14px;
-
   background: transparent;
-
   color: var(--text);
-
   border: 1px solid #29364d;
-
   cursor: pointer;
 }
 
