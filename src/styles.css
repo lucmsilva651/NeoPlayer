@@ -228,7 +228,7 @@ main {
   overflow: hidden;
 }
 
-#modText {
+#modInst {
   font-size: 12px;
   user-select: text;
   flex: 1;
