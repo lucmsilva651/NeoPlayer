@@ -202,12 +202,14 @@ ctx.onProgress((pos) => {
 });
 
 ctx.onMetadata((meta) => {
-  modMeta = meta.message
-    .split("\n")
-    .map(
-      (line, i) =>
-        `${String(i + 1).padStart(2, "0")}: ${line}`
-    )
+  const modMeta = (
+    meta.song.instruments?.length
+      ? meta.song.instruments
+      : meta.song.samples?.length
+        ? meta.song.samples
+        : meta.message.split("\n")
+  )
+    .map((line, i) => `${String(i + 1).padStart(2, "0")}: ${line}`)
     .join("\n");
 
   $("fileName").textContent = fileName;
