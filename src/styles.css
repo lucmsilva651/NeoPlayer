@@ -95,8 +95,8 @@ main {
   padding: 0 8px 10px 10px;
 
   display: grid;
-  grid-template-columns: 260px 1fr;
-  grid-template-rows: 190px 1fr 75px;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 200px 1fr 75px;
   gap: 8px;
 
   box-sizing: border-box;
