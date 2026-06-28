@@ -183,6 +183,10 @@ main {
   text-overflow: ellipsis;
 }
 
+.module-info {
+  line-height: 1.46;
+}
+
 .module-info .card-details p {
   margin: 0;
 }
@@ -200,6 +204,7 @@ main {
 }
 
 .misc-info {
+  line-height: 1.2;
   display: flex;
   flex-direction: column;
   gap: 8px;
